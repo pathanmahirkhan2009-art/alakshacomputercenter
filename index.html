@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>અલ-અકશા કમ્પ્યુટર સેન્ટર | AL-AKSHA COMPUTER CENTER</title>
+     <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VVDNCXMNNX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VVDNCXMNNX');
+</script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* CSS Variables for Dark Mode & Color Picker */
+        :root {
+            --bg-color: #f4f7fa;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --primary: #1a73e8;
+            --secondary: #0056b3;
+            --border-color: #e8eaed;
+            --hover-shadow: rgba(0,0,0,0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #e8eaed;
+            --card-bg: #1e1e1e;
+            --border-color: #3c4043;
+            --hover-shadow: rgba(255,255,255,0.05);
+        }
+
+        body { font-family: 'Baloo Bhai 2', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; scroll-behavior: smooth; transition: background 0.3s, color 0.3s;}
+        
+        /* Loading Screen with Logo and WAIT only */
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--primary); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: 0.5s; }
+        
+        .loader-logo { width: 120px; height: 120px; border-radius: 50%; border: 4px solid white; margin-bottom: 25px; animation: pulseLogo 1.5s infinite; background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        @keyframes pulseLogo {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+        
+        .wait-text { font-size: 32px; font-weight: 800; letter-spacing: 4px; animation: blinkText 1.5s infinite; }
+        @keyframes blinkText { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* Scroll Progress Bar */
+        #progressBar { position: fixed; top: 0; left: 0; height: 5px; background: #34a853; width: 0%; z-index: 10000; transition: width 0.1s; }
+
+        /* Popup */
+        #welcomePopup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 2000; }
+        .popup-box { background: var(--card-bg); padding: 30px; border-radius: 15px; text-align: center; max-width: 80%; border-top: 5px solid var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: scaleUp 0.3s; }
+        .popup-box h2 { margin-top: 0; color: var(--primary); font-size: 38px; }
+        .popup-btn { background: var(--primary); color: white; border: none; padding: 10px 25px; border-radius: 50px; font-size: 18px; font-family: inherit; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        @keyframes scaleUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* Settings Floating Menu */
+        .settings-float { position: fixed; bottom: 25px; left: 25px; background: var(--card-bg); color: var(--text-color); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 1000; cursor: pointer; font-size: 24px; border: 2px solid var(--border-color); transition: 0.3s; }
+        .settings-menu { position: fixed; bottom: 85px; left: 25px; background: var(--card-bg); border: 2px solid var(--border-color); padding: 15px; border-radius: 10px; display: none; flex-direction: column; gap: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1000; max-height: 400px; overflow-y: auto; }
+        .settings-menu.show { display: flex; }
+        .settings-menu button { background: var(--bg-color); color: var(--text-color); border: 1px solid var(--border-color); padding: 8px; border-radius: 5px; cursor: pointer; font-family: inherit; font-weight: bold;}
+        .color-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+        /* Scrolling News */
+        .news-bar { background: #d32f2f; color: white; padding: 10px 0; font-weight: 800; font-size: 20px; overflow: hidden; position: sticky; top: 0; z-index: 1001; white-space: nowrap; box-sizing: border-box; }
+        .scrolling-text { display: inline-block; padding-left: 100%; animation: scrollNews 20s linear infinite; }
+        @keyframes scrollNews { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+        /* Header */
+        header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-align: center; padding: 40px 15px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; overflow: hidden; transition: 0.3s;}
+        .shop-logo { max-width: 130px; border-radius: 50%; border: 4px solid white; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); background: white;}
+        h1 { margin: 0; font-size: 36px; font-weight: 800; text-shadow: 1px 1px 3px rgba(0,0,0,0.2); line-height: 1.2;}
+        h1 span { font-size: 22px; font-weight: 500; opacity: 0.9;}
+        
+        .auto-type { font-size: 22px; font-weight: 700; color: #ffeb3b; min-height: 75px; margin-top: 15px; margin-bottom: 10px;}
+        .shop-status { display: inline-block; padding: 5px 15px; border-radius: 50px; font-weight: bold; margin-top: 10px; background: rgba(0,0,0,0.3); font-size: 16px;}
+
+        /* Search & Categories */
+        .search-container { max-width: 900px; margin: -25px auto 20px auto; padding: 0 15px; position: relative; z-index: 10; display: flex; gap: 10px;}
+        #searchInput { flex-grow: 1; padding: 15px 20px; border-radius: 50px; border: 2px solid var(--border-color); background: var(--card-bg); color: var(--text-color); box-shadow: 0 8px 20px rgba(0,0,0,0.08); font-size: 18px; font-family: inherit; font-weight: 500; outline: none; transition: 0.3s; }
+        .mic-btn { background: var(--primary); color: white; border: none; width: 55px; border-radius: 50px; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);}
+
+        .category-tabs { max-width: 900px; margin: 0 auto 20px auto; display: flex; gap: 10px; padding: 0 15px; overflow-x: auto; white-space: nowrap; scrollbar-width: none;}
+        .category-tabs::-webkit-scrollbar { display: none; }
+        .cat-btn { background: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); padding: 8px 20px; border-radius: 50px; font-size: 16px; font-family: inherit; font-weight: 700; cursor: pointer; transition: 0.3s;}
+        .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
+
+        .section-title { background: var(--card-bg); color: var(--primary); padding: 12px 20px; border-radius: 8px; margin: 35px 0 15px 0; font-size: 24px; font-weight: 800; text-align: center; border: 2px solid var(--border-color); border-left: 6px solid var(--primary); border-right: 6px solid var(--primary);}
+        
+        .service-card { background: var(--card-bg); margin-bottom: 12px; border-radius: 10px; box-shadow: 0 2px 6px var(--hover-shadow); border-left: 5px solid var(--primary); overflow: hidden; transition: 0.3s; }
+        .service-card.simple { border-left: 5px solid #34a853; }
+
+        details { padding: 15px; position: relative;}
+        .service-title { padding: 15px; font-weight: 700; font-size: 20px; display: flex; align-items: center; color: var(--text-color);}
+        summary { font-weight: 700; font-size: 20px; cursor: pointer; outline: none; list-style: none; display: flex; align-items: center; justify-content: space-between; color: var(--text-color);}
+        summary::-webkit-details-marker { display: none; }
+        
+        .tts-btn { background: var(--bg-color); padding: 5px 10px; border-radius: 50px; font-size: 16px; border: 1px solid var(--border-color); cursor: pointer; margin-left: 10px;}
+
+        .docs-list { margin-top: 12px; padding: 15px; background: var(--bg-color); border-radius: 8px; font-size: 18px; font-weight: 500; border-top: 1px solid var(--border-color); line-height: 1.6;}
+        .docs-list ol { padding-left: 30px; margin: 10px 0; color: var(--primary); font-weight: 700;}
+        .docs-list li span { color: var(--text-color); font-weight: 600;}
+        
+        .important-note { color: #b31412; background: #fce8e6; padding: 12px; border-radius: 6px; font-weight: 700; font-size: 16px; margin-top: 12px; border-left: 4px solid #b31412; }
+
+        /* QR and Form */
+        .inquiry-box { background: var(--card-bg); padding: 25px; border-radius: 12px; margin-top: 40px; box-shadow: 0 4px 15px var(--hover-shadow); border-top: 5px solid #34a853; }
+        .form-control { width: 100%; padding: 12px 15px; margin: 8px 0 15px 0; background: var(--bg-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 6px; font-size: 17px; font-family: inherit; box-sizing: border-box;}
+        .submit-btn { background: #34a853; color: white; width: 100%; padding: 15px; border: none; border-radius: 50px; font-size: 20px; font-family: inherit; font-weight: 800; cursor: pointer; box-shadow: 0 4px 10px rgba(52, 168, 83, 0.3);}
+
+        .payment-qr { text-align: center; margin-top: 25px; padding: 15px; background: var(--bg-color); border-radius: 10px; border: 1px dashed var(--border-color);}
+
+        .info-card { background: var(--card-bg); padding: 20px; margin-top: 25px; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px var(--hover-shadow); font-size: 18px; border: 1px solid var(--border-color);}
+        .map-section { margin-top: 25px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px var(--hover-shadow); border: 2px solid var(--card-bg);}
+
+        /* Customer Review Marquee */
+        .review-box { background: var(--card-bg); color: var(--text-color); padding: 15px; margin-top: 25px; border-radius: 10px; border: 1px solid var(--primary); font-weight: 600; font-size: 18px; display: flex; overflow: hidden; white-space: nowrap;}
+        .review-marquee { animation: scrollReview 20s linear infinite; }
+        @keyframes scrollReview { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* Floating Buttons */
+        .wa-float { position: fixed; bottom: 25px; right: 25px; background: #25d366; color: white; border-radius: 50px; display: flex; align-items: center; padding: 10px 20px; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); z-index: 1000; text-decoration: none; gap: 10px; font-size: 17px; font-weight: 700;}
+        .wa-float svg { width: 28px; height: 28px; }
+        
+        /* MOBILE VIEW UPDATES */
+        @media (max-width: 450px) {
+            .wa-float { padding: 6px 12px; font-size: 11px; bottom: 15px; right: 10px; gap: 6px;}
+            .wa-float svg { width: 18px; height: 18px; }
+            
+            .settings-float { bottom: 15px; left: 10px; width: 42px; height: 42px; font-size: 20px; }
+            .settings-menu { bottom: 65px; left: 10px; padding: 12px; width: 250px;}
+            .settings-menu button { font-size: 14px; padding: 6px; }
+        }
+
+        footer { text-align: center; padding: 25px 15px; background: #202124; color: white; margin-top: 50px; font-size: 20px; font-weight: 500;}
+    </style>
+</head>
+<body>
+
+    <div id="progressBar"></div>
+
+    <div id="loader">
+        <img src="logo.jpg" alt="Loading Logo" class="loader-logo" onerror="this.style.display='none'">
+        <div class="wait-text">WAIT...</div>
+    </div>
+
+    <div id="welcomePopup">
+        <div class="popup-box">
+            <h2 style="font-size: 38px;"> WELCOM !💐</h2>
+            <p>અલ-અકશા કોમ્પ્યુટર સેન્ટરમાં તમારું હાર્દિક સ્વાગત છે.</p>
+            <p style="color: #d32f2f; font-weight: 800;">નવી અપડેટ: 1 - એપ્રિલ 2026 થી પાનકાર્ડ માં નવા નિયમો લાગુ થઈ ગયા છે ...</p>
+            <button class="popup-btn" onclick="document.getElementById('welcomePopup').style.display='none'">ઓકે (OK)</button>
+        </div>
+    </div>
+
+    <div class="settings-float" onclick="toggleSettings()">⚙️</div>
+    <div class="settings-menu" id="settingsMenu">
+        <button onclick="toggleTheme()" style="width: 100%; margin-bottom: 5px;">🌓 લાઈટ / ડાર્ક મોડ</button>
+        <div class="color-grid">
+            <button onclick="changeColor('#1a73e8')">🔵 બ્લુ</button>
+            <button onclick="changeColor('#d32f2f')">🔴 લાલ</button>
+            <button onclick="changeColor('#2e7d32')">🟢 લીલો</button>
+            <button onclick="changeColor('#8e24aa')">🟣 જાંબલી</button>
+            <button onclick="changeColor('#e65100')">🟠 કેસરી</button>
+            <button onclick="changeColor('#964B00')">🟤 બ્રાઉન</button>
+            <button onclick="changeColor('#00838f')">🦚 ટીલ</button>
+            <button onclick="changeColor('#d81b60')">🩷 પિંક</button>
+            <button onclick="changeColor('#3949ab')">🌌 ઇન્ડિગો</button>
+            <button onclick="changeColor('#37474f')">🖤 ડાર્ક ગ્રે</button>
+        </div>
+        <button onclick="shareWebsite()" style="width: 100%; margin-top: 5px;">🔗 સાઈટ શેર કરો</button>
+    </div>
+
+    <div class="news-bar">
+        <div class="scrolling-text">
+            📢 ન્યૂઝ: RTE ધોરણ-૧ માં એડમિશનના ફોર્મ DATE(તારીખ) 04/04/2026 થી શરૂ થશે.. | 💻 તમામ સરકારી યોજનાઓની માહિતી માટે મુલાકાત લો.. ✨
+        </div>
+    </div>
+
+    <header>
+        <img src="logo.jpg" alt="Al-Aksha Logo" class="shop-logo" onerror="this.style.display='none'">
+        <h1>
+            અલ - અકશા કમ્પ્યુટર સેન્ટર<br>
+            <span>AL-AKSHA COMPUTER CENTER</span>
+        </h1>
+        
+        <div class="auto-type" id="typingText"></div>
+        
+        <div style="font-size: 22px; color: #ffffff; margin: 10px 0; font-weight: normal; letter-spacing: 1px; opacity: 0.9;">━━━━༺❀༻━━━━</div>
+        
+        <div class="shop-status" id="shopStatus">🟢 લોડ થાય છે...</div>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" onkeyup="searchService()" placeholder="🔎 યોજના અથવા સેવાનું નામ શોધો...">
+        <button class="mic-btn" onclick="startVoiceSearch()" title="બોલીને શોધો">🎤</button>
+    </div>
+
+    <div class="category-tabs">
+        <button class="cat-btn active" onclick="filterCategory('all', this)">બધા કામ</button>
+        <button class="cat-btn" onclick="filterCategory('yojna', this)">સરકારી યોજનાઓ</button>
+        <button class="cat-btn" onclick="filterCategory('other', this)">અન્ય સુવિધાઓ</button>
+    </div>
+
+    <div class="container" id="serviceList">
+        
+        <div class="section-title">📑 સરકારી યોજનાઓ અને જરૂરી ડોક્યુમેન્ટ્સ</div>
+
+        <div class="service-card" data-title="ઈ-નિર્માણ કાર્ડ" data-category="yojna">
+            <details><summary>🏗️ ઈ - નિર્માણ કાર્ડ <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                <ol><li><span>આધાર કાર્ડ</span></li><li><span>રેશન કાર્ડ</span></li><li><span>બેંક પાસબુક</span></li><li><span>પાસપોર્ટ સાઇઝ ફોટો</span></li><li><span>90 દિવસ કામ કર્યાનું પ્રમાણપત્ર</span></li></ol>
+            </div></details>
+        </div>
+
+        <div class="service-card" data-title="ABC કાર્ડ" data-category="yojna">
+            <details><summary>🔤 ABC કાર્ડ <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                <ol><li><span>આધાર કાર્ડ (મોબાઈલ નંબર લિંક હોવો જરૂરી)</span></li><li><span>કોલેજ/યુનિવર્સિટીનું આઈડી કાર્ડ અથવા એનરોલમેન્ટ નંબર</span></li></ol>
+            </div></details>
+        </div>
+
+        <div class="service-card" data-title="પાનકાર્ડ પાન કાર્ડ pan card" data-category="yojna">
+            <details><summary>🪪 પાનકાર્ડ (નવું / સુધારો) <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                <ol><li><span>આધાર કાર્ડ</span></li><li><span>2 પાસપોર્ટ સાઇઝ ફોટા</span></li><li><span>જૂના પાનકાર્ડની નકલ (સુધારા માટે)</span></li><li><span>ચુંટણીકાર્ડ અથવા જન્મનો દાખલો</span></li></ol>
+                <div class="important-note">⚠️ નોંધ: ઇન્સ્ટન્ટ e-PAN કાર્ડ બનતા 24 કલાકનો સમય લાગે છે. આ ઇન્સ્ટન્ટ e-PAN કાર્ડ બેંક, લોન કે પાસપોર્ટના કામમાં ચાલતું નથી.</div>
+            </div></details>
+        </div>
+
+        <div class="service-card" data-title="ઈ-શ્રમ કાર્ડ ઇ શ્રમ" data-category="yojna">
+            <details><summary>👷‍♂️ ઈ-શ્રમ કાર્ડ (નવું / સુધારો) <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>આધાર કાર્ડ (મોબાઈલ નંબર લિંક હોવો જરૂરી)</span></li><li><span>બેંક પાસબુક</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="ચુંટણી કાર્ડ ચૂંટણી" data-category="yojna">
+            <details><summary>🗳️ ચુંટણી કાર્ડ (નવું / સુધારો) <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>આધાર કાર્ડ</span></li><li><span>પાસપોર્ટ સાઇઝ ફોટો</span></li><li><span>જન્મનો પુરાવો (LC)</span></li><li><span>રહેઠાણનો પુરાવો</span></li><li><span>જૂનું ચુંટણી કાર્ડ</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="આધારકાર્ડ આધાર કાર્ડ" data-category="yojna">
+            <details><summary>👆 આધારકાર્ડ પ્રિન્ટ/અપડેટ <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી વિગત:</strong><ol><li><span>આધારકાર્ડ નંબર</span></li><li><span>લિંક થયેલ મોબઇલ નંબર</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="આયુષ્યમાન કાર્ડ" data-category="yojna">
+            <details><summary>🏥 આયુષ્યમાન કાર્ડ <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>રેશન કાર્ડ</span></li><li><span>આધાર કાર્ડ</span></li><li><span>લિંક મોબાઈલ નંબર</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="રેશન કાર્ડ e-KYC" data-category="yojna">
+            <details><summary>🌾 રેશન કાર્ડ e-KYC <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>આધારકાર્ડ (લિંક મોબાઈલ સાથે)</span></li><li><span>રેશન કાર્ડ</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="ABHA કાર્ડ આભા" data-category="yojna">
+            <details><summary>🩺 ABHA કાર્ડ <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>આધાર કાર્ડ (મોબાઈલ નંબર લિંક હોવો જરૂરી)</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="ડ્રાઇવિંગ લાઇસેન્સ લાયસન્સ" data-category="yojna">
+            <details><summary>🚗 ડ્રાઇવિંગ લાઇસેન્સ <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>આધાર કાર્ડ</span></li><li><span>પાસપોર્ટ સાઇઝ ફોટો</span></li><li><span>LC અથવા જન્મનો દાખલો</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="પાસપોર્ટ" data-category="yojna">
+            <details><summary>✈️ પાસપોર્ટ <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>આધાર કાર્ડ</span></li><li><span>પાન કાર્ડ અથવા ચુંટણી કાર્ડ</span></li><li><span>માર્કશીટ અથવા LC</span></li><li><span>બેંક પાસબુક</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="PF કામ પીએફ" data-category="yojna">
+            <details><summary>💼 PF ને લગતું કામ <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>UAN નંબર</span></li><li><span>આધાર કાર્ડ</span></li><li><span>પાન કાર્ડ</span></li><li><span>બેંકની પાસબુક</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="7/12 8-અ નકલ ઉતારા" data-category="yojna">
+            <details><summary>📜 7/12 અને 8-અ ની નકલ <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી માહિતી:</strong><ol><li><span>ગામ, તાલુકો, જિલ્લો અને ખાતા નંબર અથવા સર્વે નંબર.</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="પ્રોપર્ટી કાર્ડ" data-category="yojna">
+            <details><summary>🏘️ પ્રોપર્ટી કાર્ડ <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી માહિતી:</strong><ol><li><span>સિટી સર્વે નંબર અને વોર્ડ નંબર.</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="RTE ઍડ્મિશન ફોર્મ આરટીઈ" data-category="yojna">
+            <details><summary>🎒 RTE ઍડ્મિશન ફોર્મ <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>બાળકના જન્મનો દાખલો</span></li><li><span>માતા-પિતાના આધાર કાર્ડ</span></li><li><span>આવકનો દાખલો</span></li><li><span>જાતિનો દાખલો (જો લાગુ પડે)</span></li><li><span>લાઈટ બિલ અથવા ભાડા કરાર</span></li><li><span>બાળકના ફોટા</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="પી એમ કિસાન યોજના" data-category="yojna">
+            <details><summary>🌱 પી. એમ. કિસાન યોજના <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>આધાર કાર્ડ</span></li><li><span>7/12 અને 8-અ ના ઉતારા</span></li><li><span>બેંક પાસબુક (લિંક મોબાઈલ)</span></li><li><span>મરણ નો દાખલો (જો લાગુ પડે)</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="ખેડૂત નોંધણી farmer registration" data-category="yojna">
+            <details><summary>🚜 ખેડૂત નોંધણી <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>આધાર કાર્ડ (લિંક મોબાઈલ નંબર સાથે)</span></li><li><span>7/12 અને 8-અ ના ઉતારા</span></li><li><span>બેંક પાસબુક</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="પંડીત દિન દયાળ ઉપાધ્યાય આવાસ યોજના મકાન સહાય" data-category="yojna">
+            <details><summary>🏠 પંડીત દિન દયાળ આવાસ યોજના <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>આધાર કાર્ડ, રેશન કાર્ડ, ચુંટણી કાર્ડ</span></li><li><span>આવકનો દાખલો</span></li><li><span>પ્લોટ / જમીનનો દસ્તાવેજ</span></li><li><span>બેંક પાસબુક</span></li><li><span>બાંધકામ રજા ચિઠ્ઠી</span></li><li><span>પાસપોર્ટ સાઇઝ ફોટો</span></li><li><span>તલાટી ના સહી સિક્કા વાળું ફોર્મ</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="કુંવરબાઈનું મામેરું યોજના" data-category="yojna">
+            <details><summary>🎁 કુંવરબાઈનું મામેરું યોજના <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>દીકરી અને પિતાનું / પતિનું આધાર કાર્ડ</span></li><li><span>આવક અને જાતિનો દાખલો</span></li><li><span>મેરેજ સર્ટિફિકેટ અને બેંક પાસબુક</span></li><li><span>પાસપોર્ટ સાઇઝ ફોટો</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="માનવ ગરિમા યોજના" data-category="yojna">
+            <details><summary>🤝 માનવ ગરિમા યોજના <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>આધાર કાર્ડ અને રેશન કાર્ડ</span></li><li><span>આવકનો દાખલો અને જાતિનો દાખલો</span></li><li><span>બેંક પાસબુક અને પાસપોર્ટ ફોટો</span></li><li><span>વ્યવસાય લક્ષી તાલીમ નું પ્રમાણપત્ર</span></li><li><span>શાળા છોડ્યાનું પ્રમાણપત્ર (LC)</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="પી એમ વિશ્વકર્મા યોજના" data-category="yojna">
+            <details><summary>🛠️ પી. એમ. વિશ્વકર્મા યોજના <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>આધાર કાર્ડ (મોબાઈલ નંબર લિંક)</span></li><li><span>રેશન કાર્ડ અને બેંક પાસબુક</span></li><li><span>પાસપોર્ટ સાઇઝ ફોટો</span></li><li><span>વ્યવસાય નો પુરાવો</span></li><li><span>જાતિનું પ્રમાણપત્ર</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="આઇ ખેડૂત પોર્ટલની તમામ યોજનાઓ" data-category="yojna">
+            <details><summary>💻 આઇ - ખેડૂત પોર્ટલની યોજનાઓ <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>આધાર કાર્ડ (લિંક મોબાઈલ)</span></li><li><span>રેશન કાર્ડ</span></li><li><span>7/12 અને 8-અ ના ઉતારા</span></li><li><span>બેંક પાસબુક</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="શિષ્યવૃત્તિના ફોર્મ સ્કોલરશીપ" data-category="yojna">
+            <details><summary>🎓 શિષ્યવૃત્તિના ફોર્મ <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>આધાર કાર્ડ અને છેલ્લી માર્કશીટ</span></li><li><span>આવકનો દાખલો અને જાતિનો દાખલો</span></li><li><span>બેંક પાસબુક અને ફી ની પહોંચ</span></li><li><span>LC અથવા BONAFIED પ્રમાણપત્ર</span></li><li><span>પાસપોર્ટ સાઇઝ ફોટો</span></li></ol></div></details>
+        </div>
+
+        <div class="service-card" data-title="વૃદ્ધ પેન્શન યોજના" data-category="yojna">
+            <details><summary>👵👴 વૃદ્ધ પેન્શન યોજના <span class="tts-btn" onclick="speakText(this)">🔊 સાંભળો</span></summary>
+            <div class="docs-list"><strong>📌 જરૂરી ડોક્યુમેન્ટ્સ:</strong><ol><li><span>આધાર કાર્ડ અને રેશન કાર્ડ</span></li><li><span>ઉંમરનો પુરાવો (60 વર્ષથી વધુ)</span></li><li><span>આવકનો દાખલો અને બેંક પાસબુક</span></li><li><span>જન્મનું પ્રમાણપત્ર અથવા LC</span></li></ol></div></details>
+        </div>
+
+        <div class="section-title">💻 અમારી અન્ય ઓનલાઈન સુવિધાઓ</div>
+
+        <div class="service-card simple" data-title="ડોકયુમેંટ સ્કૅનનીંગ સ્કેનિંગ" data-category="other"><div class="service-title">📠 ડોકયુમેંટ સ્કૅનનીંગ</div></div>
+        <div class="service-card simple" data-title="ઝેરોક્ષ કલર ઝેરોક્ષ" data-category="other"><div class="service-title">🖨️ ઝેરોક્ષ / કલર ઝેરોક્ષ</div></div>
+        <div class="service-card simple" data-title="પ્રિન્ટ મોબાઈલમાંથી પ્રિન્ટ" data-category="other"><div class="service-title">📄 પ્રિન્ટ / મોબાઈલમાંથી પ્રિન્ટ</div></div>
+        <div class="service-card simple" data-title="લેમિનેશન" data-category="other"><div class="service-title">🛡️ લેમિનેશન</div></div>
+        <div class="service-card simple" data-title="સ્પર્ધાત્મક પરીક્ષાના ફોર્મ" data-category="other"><div class="service-title">📝 સ્પર્ધાત્મક પરીક્ષાના ફોર્મ</div></div>
+        <div class="service-card simple" data-title="દરેક પ્રકારની ભરતીઓના ફોર્મ" data-category="other"><div class="service-title">🏢 દરેક પ્રકારની ભરતીઓના ફોર્મ</div></div>
+        <div class="service-card simple" data-title="PVC કાર્ડ પ્રિન્ટ પીવીસી" data-category="other"><div class="service-title">💳 PVC કાર્ડ પ્રિન્ટ</div></div>
+        <div class="service-card simple" data-title="કૉલ લેટર હૉલ ટિકીટ" data-category="other"><div class="service-title">✉️ કૉલ લેટર / હૉલ - ટિકીટ</div></div>
+        <div class="service-card simple" data-title="પૈસા ઉપાડવા ATM એટીએમ" data-category="other"><div class="service-title">💵 પૈસા ઉપાડવા / ATM</div></div>
+        <div class="service-card simple" data-title="મોબાઈલ રીચાર્જ DTH ડીટીએચ લાઇટ બિલ" data-category="other"><div class="service-title">📱 રિચાર્જ / 💡 લાઇટ બિલ ભરવા</div></div>
+        <div class="service-card simple" data-title="મેરેજ સર્ટિફિકેટ ઇંગ્લિશમાં ટાઈપિંગ" data-category="other"><div class="service-title">💍 મેરેજ સર્ટિફિકેટ (ઇંગ્લિશમાં ટાઈપિંગ)</div></div>
+        <div class="service-card simple" data-title="રિઝ્યુમ BIO ડેટા બાયોડેટા" data-category="other"><div class="service-title">📋 રિઝ્યુમ / BIO ડેટા</div></div>
+        <div class="service-card simple" data-title="બેનર પોસ્ટર બનાવવા" data-category="other"><div class="service-title">🖼️ બેનર / પોસ્ટર બનાવવા</div></div>
+
+        <div class="inquiry-box" id="contact">
+            <h2 style="text-align: center; color: var(--primary); margin-top: 0; font-size: 28px; font-weight: 800;">💬 ડોક્યુમેન્ટ્સ અને પૂછપરછ</h2>
+            <p style="text-align: center; margin-bottom: 25px;">અહીં માહિતી ભરીને મોકલો. (ફોર્મ ભરવા માટે અહીંથી જ ડોક્યુમેન્ટ સેન્ડ કરી શકો છો).</p>
+            <label style="font-weight: 700;">👤 તમારું પૂરું નામ:</label>
+            <input type="text" id="cName" class="form-control" placeholder="તમારું નામ લખો">
+            <label style="font-weight: 700; margin-top: 5px; display: block;">❓ તમારે શું કામ છે?:</label>
+            <textarea id="cMsg" class="form-control" rows="3" placeholder="મારે પાનકાર્ડ બનાવવું છે..."></textarea>
+            <button class="submit-btn" onclick="sendInquiry()">🚀 ડોક્યુમેન્ટ / મેસેજ મોકલો</button>
+            
+            <div class="payment-qr">
+                <p style="font-weight: bold; margin: 0 0 10px 0; font-size: 18px;">💳 ઓનલાઈન પેમેન્ટ (Scan & Pay)</p>
+                <img src="qr.png" alt="UPI QR Code" style="width: 200px; height: auto; border-radius: 10px; border: 2px solid var(--primary); padding: 5px; background: white;" onerror="this.style.display='none'">
+                <p style="margin: 10px 0 0 0; color: var(--primary); font-weight: bold;">UPI ID: pathanmustufakhan539@okaxis</p>
+            </div>
+
+        <div class="info-card">
+            <p style="margin: 10px 0; font-size: 22px; font-weight: 600;">👨‍💼 <strong>સંચાલક:</strong> પઠાણ માહિરખાન</p>
+            <p style="margin: 10px 0; font-size: 22px; font-weight: 600;">📱 <strong>મોબાઇલ:</strong> <a href="tel:9638730186" style="color: var(--primary); font-weight: 800; text-decoration: none;">9638730186</a></p>
+            <div style="width: 60px; height: 4px; background: var(--primary); margin: 15px auto; border-radius: 5px;"></div>
+            <p style="margin: 10px 0; font-size: 18px; font-weight: 600;">📍 <strong>સરનામું:</strong> અલ - અકશા કમ્પ્યુટર સેન્ટર, મસ્જિદ પાસે, ઢુણાદરા, ગુજરાત 388230</p>
+        </div>
+
+        <div class="map-section">
+            <iframe src="https://maps.google.com/maps?q=Al%20Aksha%20Computer%20Centre,%20Dhunadara&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+
+        <div class="review-box">
+            <div class="review-marquee">
+                ⭐⭐⭐⭐⭐ "મારું કામ બહુ ઝડપથી અને સારી રીતે થઈ ગયું!" - સાહિલ    |   
+                ⭐⭐⭐⭐⭐ "અલ-અકશા સેન્ટર એટલે વિશ્વાસપાત્ર કામ અને પૂરી માહિતી!" - મુકેશ     |   
+                ⭐⭐⭐⭐⭐ "તમામ ઓનલાઈન ફોર્મ ભરવા માટે ગામની બેસ્ટ જગ્યા." - રાહુલ
+            </div>
+        </div>
+
+    </div>
+
+    <a href="https://chat.whatsapp.com/L1FLyUAJR9CIFHEvzq0i2z" class="wa-float" target="_blank">
+        <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M16 2a13 13 0 0 0-10.93 20L3 29l7.25-1.92A13 13 0 1 0 16 2zm0 24a10.88 10.88 0 0 1-5.56-1.52l-.4-.24-4.14 1.1 1.11-4.04-.26-.42A10.9 10.9 0 1 1 16 26zm6.18-8.12c-.34-.17-2-.1-2.31-.05s-.62.08-.88.46-1 1.25-1.22 1.5-.47.27-.8.1a9 9 0 0 1-4.52-4c-.33-.57.1-.55.43-.88l.33-.4a1.8 1.8 0 0 0-.17-1.74c-.16-.34-.73-1.76-1-2.4s-.54-.54-.74-.55h-.63a1.2 1.2 0 0 0-.87.4A3.6 3.6 0 0 0 8.5 13.3c0 2.1 1.44 4.14 1.64 4.4s3 4.6 7.25 6.43c1 .43 1.8.69 2.42.88a5.9 5.9 0 0 0 2.7.17c.84-.13 2.58-1.05 2.94-2.07s.36-1.9.25-2.08-.4-.28-.74-.45z"/></svg>
+        <span>WhatsApp ગ્રુપ માં Join થવા અહી ક્લિક કરો</span>
+    </a>
+
+    <footer>
+        <div style="margin-bottom: 15px;">
+            <img src="logo.jpg" alt="Logo" style="width: 70px; border-radius: 50%; border: 3px solid white;" onerror="this.style.display='none'">
+        </div>
+        આપનો દિવસ શુભ રહે! 🌻✨ હસતા રહો! 😊<br>
+        <div style="opacity: 0.8; display:block; margin-top:15px; font-size: 15px;">© ૨૦૨૬ AL-AKSHA COMPUTER CENTER. All Rights Reserved.</div>
+    </footer>
+
+    <script>
+        // 1. Loading Screen Hide
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
+            }, 1500);
+        };
+
+        // 2. Scroll Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+
+        // 3. Shop Status (Open/Close Logic)
+        let hr = new Date().getHours();
+        let statusEl = document.getElementById('shopStatus');
+        // Open: 8 AM to 12 PM OR 3 PM (15:00) to 8 PM (20:00)
+        if((hr >= 8 && hr < 12) || (hr >= 15 && hr < 20)) {
+            statusEl.innerHTML = "🟢 અત્યારે Office( ઓફિસ ) ચાલુ છે";
+            statusEl.style.background = "rgba(46, 204, 113, 0.2)";
+        } else {
+            statusEl.innerHTML = "🔴 અત્યારે Office( ઓફિસ ) બંધ છે";
+            statusEl.style.background = "rgba(231, 76, 60, 0.2)";
+        }
+
+        // 4. Auto Typing
+        const words = ["📍 ઢુણાદરા | 💻 ઓનલાઇન સેવાઓનું વિશ્વાસપાત્ર કેન્દ્ર"];
+        let i = 0, j = 0, isDeleting = false;
+        function typeText() {
+            let text = words[i];
+            document.getElementById('typingText').innerText = text.substring(0, j) + "|";
+            if(!isDeleting && j === text.length) { isDeleting = true; setTimeout(typeText, 3000); return; }
+            if(isDeleting && j === 0) { isDeleting = false; i = (i + 1) % words.length; }
+            j += isDeleting ? -1 : 1;
+            setTimeout(typeText, isDeleting ? 30 : 100);
+        }
+        typeText();
+
+        // 5. Category Tabs Filter
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            let cards = document.getElementsByClassName('service-card');
+            for (let i = 0; i < cards.length; i++) {
+                let c = cards[i].getAttribute('data-category');
+                cards[i].style.display = (cat === 'all' || c === cat) ? "" : "none";
+            }
+        }
+
+        // 6. Voice Search
+        function startVoiceSearch() {
+            if ('webkitSpeechRecognition' in window) {
+                let recognition = new webkitSpeechRecognition();
+                recognition.lang = "gu-IN";
+                recognition.start();
+                document.getElementById('searchInput').placeholder = "સાંભળી રહ્યા છીએ...";
+                recognition.onresult = function(e) {
+                    document.getElementById('searchInput').value = e.results[0][0].transcript;
+                    searchService();
+                    document.getElementById('searchInput').placeholder = "🔎 યોજના અથવા સેવાનું નામ શોધો...";
+                };
+            } else { alert("તમારો ફોન વોઇસ સર્ચ સપોર્ટ કરતો નથી."); }
+        }
+
+        // 7. Text To Speech (Read Aloud)
+        function speakText(element) {
+            let text = element.parentElement.parentElement.innerText.replace('🔊 સાંભળો', '');
+            let utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'gu-IN';
+            speechSynthesis.speak(utterance);
+            event.stopPropagation(); // Prevent closing details tag
+        }
+
+        // 8. Confetti & Inquiry Submit
+        function sendInquiry() {
+            let name = document.getElementById('cName').value.trim();
+            let msg = document.getElementById('cMsg').value.trim();
+            if(!name || !msg) { alert("કૃપા કરીને વિગતો ભરો!"); return; }
+            
+            // Confetti Magic!
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+
+            setTimeout(() => {
+                let waText = "નમસ્કાર,%0A👤 નામ: " + encodeURIComponent(name) + "%0A📝 કામ: " + encodeURIComponent(msg) + "%0A📎 (મારા ડોક્યુમેન્ટ્સ હું આની સાથે મોકલી રહ્યો/રહી છું)";
+                window.open("https://wa.me/919638730186?text=" + waText, '_blank');
+            }, 1000); 
+        }
+
+        // 9. Settings: Theme, Color, Share
+        function toggleSettings() {
+            document.getElementById('settingsMenu').classList.toggle('show');
+        }
+        function toggleTheme() {
+            let current = document.documentElement.getAttribute('data-theme');
+            document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+            toggleSettings();
+        }
+        function changeColor(color) {
+            document.documentElement.style.setProperty('--primary', color);
+            toggleSettings();
+        }
+        function shareWebsite() {
+            if (navigator.share) {
+                navigator.share({ title: 'અલ-અકશા કમ્પ્યુટર સેન્ટર', text: 'તમામ સરકારી યોજનાઓ અને ઓનલાઈન કામ માટે મુલાકાત લો:', url: window.location.href });
+            } else { alert("તમારા બ્રાઉઝરમાં શેર સપોર્ટ નથી, લિંક કોપી કરો."); }
+            toggleSettings();
+        }
+
+        // 10. Normal Search
+        function searchService() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('service-card');
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getAttribute('data-title').toLowerCase();
+                cards[i].style.display = title.includes(input) ? "" : "none";
+            }
+        }
+    </script>
+</body>
+</html>
