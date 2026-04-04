@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>અલ-અકશા કમ્પ્યુટર સેન્ટર | AL-AKSHA COMPUTER CENTER</title>
-     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VVDNCXMNNX"></script>
+     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VVDNCXMNNX"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -72,8 +71,10 @@
         .settings-menu button { background: var(--bg-color); color: var(--text-color); border: 1px solid var(--border-color); padding: 8px; border-radius: 5px; cursor: pointer; font-family: inherit; font-weight: bold;}
         .color-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
-        /* Scrolling News */
-        .news-bar { background: #d32f2f; color: white; padding: 10px 0; font-weight: 800; font-size: 20px; overflow: hidden; position: sticky; top: 0; z-index: 1001; white-space: nowrap; box-sizing: border-box; }
+        /* NEW Fixed News Bar Styling */
+        .news-bar { background: #d32f2f; color: white; display: flex; align-items: center; font-weight: 800; font-size: 20px; position: sticky; top: 0; z-index: 1001; }
+        .news-label { background: #b71c1c; padding: 10px 15px; white-space: nowrap; z-index: 10; box-shadow: 2px 0 5px rgba(0,0,0,0.2); }
+        .news-scroll-container { overflow: hidden; white-space: nowrap; flex-grow: 1; padding: 10px 0;}
         .scrolling-text { display: inline-block; padding-left: 100%; animation: scrollNews 20s linear infinite; }
         @keyframes scrollNews { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
@@ -143,6 +144,10 @@
             .settings-float { bottom: 15px; left: 10px; width: 42px; height: 42px; font-size: 20px; }
             .settings-menu { bottom: 65px; left: 10px; padding: 12px; width: 250px;}
             .settings-menu button { font-size: 14px; padding: 6px; }
+            
+            /* News Bar adjust on small screens */
+            .news-bar { font-size: 16px; }
+            .news-label { padding: 8px 10px; }
         }
 
         footer { text-align: center; padding: 25px 15px; background: #202124; color: white; margin-top: 50px; font-size: 20px; font-weight: 500;}
@@ -185,8 +190,11 @@
     </div>
 
     <div class="news-bar">
-        <div class="scrolling-text">
-            📢 ન્યૂઝ: RTE ધોરણ-૧ માં એડમિશનના ફોર્મ DATE(તારીખ) 04/04/2026 થી શરૂ થશે.. | 💻 તમામ સરકારી યોજનાઓની માહિતી માટે મુલાકાત લો.. ✨
+        <div class="news-label">📢 ન્યૂઝ:</div>
+        <div class="news-scroll-container">
+            <div class="scrolling-text">
+                RTE ધોરણ-૧ માં એડમિશનના ફોર્મ DATE(તારીખ) 04/04/2026 થી શરૂ થશે.. | 💻 તમામ સરકારી યોજનાઓની માહિતી માટે મુલાકાત લો.. ✨
+            </div>
         </div>
     </div>
 
@@ -198,7 +206,7 @@
         </h1>
         
         <div class="auto-type" id="typingText"></div>
-        <div style="font-size: 24px; color: #FFFFFF; font-weight: 600; letter-spacing: 1px; margin-top: -5px; margin-bottom: 10px;">
+        <div style="font-size: 28px; color: #FFFFFF; font-weight: 600; letter-spacing: 1px; margin-top: -5px; margin-bottom: 10px;">
      🔥 DEVELOPED BY :- PATHAN MAHIRKHAN 😎
 </div>
         
