@@ -44,12 +44,25 @@
 
         body { font-family: 'Baloo Bhai 2', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; scroll-behavior: smooth; transition: background 0.4s, color 0.4s;}
         
-        /* Loading Screen */
-        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: 0.5s; }
-        .loader-logo { width: 140px; height: 140px; border-radius: 50%; border: 6px solid rgba(255,255,255,0.8); margin-bottom: 25px; animation: pulseLogo 1.5s infinite; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.4); padding: 5px;}
-        @keyframes pulseLogo { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); } 70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } }
-        .wait-text { font-size: 36px; font-weight: 800; letter-spacing: 6px; text-shadow: 2px 2px 8px rgba(0,0,0,0.4); animation: blinkText 1.5s infinite; }
-        @keyframes blinkText { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        /* =========================================
+           NEW NEXT-LEVEL PROFESSIONAL LOADING SCREEN
+           ========================================= */
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-color); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.6s ease-out, visibility 0.6s ease-out; }
+        
+        .spinner-container { position: relative; width: 140px; height: 140px; display: flex; justify-content: center; align-items: center; margin-bottom: 25px; }
+        
+        .spinning-ring { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 5px solid transparent; border-top-color: var(--primary); border-right-color: var(--secondary); border-bottom-color: #10b981; animation: spinRing 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; box-shadow: 0 0 20px rgba(26, 115, 232, 0.2); }
+        
+        .spinning-ring::before { content: ''; position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px; border-radius: 50%; border: 4px solid transparent; border-left-color: #f59e0b; border-bottom-color: #ec4899; animation: spinRing 2.5s linear infinite reverse; }
+        
+        .loader-center-logo { width: 95px; height: 95px; border-radius: 50%; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.2); border: 3px solid white; animation: popInOut 2s ease-in-out infinite; z-index: 2; background: white;}
+        
+        .loading-text { font-size: 24px; font-weight: 800; color: var(--primary); letter-spacing: 2px; animation: breatheText 1.5s infinite; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        
+        @keyframes spinRing { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes popInOut { 0%, 100% { transform: scale(0.9); } 50% { transform: scale(1.05); } }
+        @keyframes breatheText { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+        /* ========================================= */
 
         /* Scroll Progress Bar */
         #progressBar { position: fixed; top: 0; left: 0; height: 6px; background: #00e676; width: 0%; z-index: 10000; transition: width 0.1s; border-radius: 0 5px 5px 0;}
@@ -79,9 +92,9 @@
         .scrolling-text { display: inline-block; padding-left: 100%; animation: scrollNews 40s linear infinite; text-shadow: 1px 1px 2px rgba(0,0,0,0.4);}
         @keyframes scrollNews { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
-        /* NEW PRO HEADER WITH ANIMATED FLOATING SHAPES */
+        /* PRO HEADER WITH ANIMATED FLOATING SHAPES */
         header.area { 
-            background: linear-gradient(135deg, var(--primary), var(--secondary)); /* Theme Color Integration */
+            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
             width: 100%;
             color: white; 
             text-align: center; 
@@ -205,7 +218,7 @@
         
         /* MOBILE VIEW UPDATES */
         @media (max-width: 480px) {
-            h1 { font-size: 36px; } /* Mobile માં હેડિંગની સાઈઝ */
+            h1 { font-size: 36px; } 
             h1 span { font-size: 20px; }
             .wa-float { padding: 12px 18px; font-size: 0; bottom: 18px; right: 18px; width: 60px; height: 60px; justify-content: center; gap: 0;}
             .wa-float i { font-size: 36px; }
@@ -227,10 +240,11 @@
     <div id="progressBar"></div>
 
     <div id="loader">
-        <div class="loader-logo">
-            <img src="logo.jpg" alt="Logo" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+        <div class="spinner-container">
+            <div class="spinning-ring"></div>
+            <img src="logo.jpg" alt="Logo" class="loader-center-logo" onerror="this.style.display='none'">
         </div>
-        <div class="wait-text">WAIT...</div>
+        <div class="loading-text">થોડી રાહ જુઓ...</div>
     </div>
 
     <div id="welcomePopup">
@@ -819,13 +833,25 @@
     </footer>
 
     <script>
-        // 1. Loading Screen Hide
-        window.onload = function() {
+        // 1. GUARANTEED Loading Screen Hide (Failsafe Timer - Solves the stuck issue)
+        document.addEventListener("DOMContentLoaded", function() {
             setTimeout(() => {
-                document.getElementById('loader').style.opacity = '0';
-                setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
-            }, 1500);
-        };
+                let loader = document.getElementById('loader');
+                if(loader) {
+                    loader.style.opacity = '0';
+                    setTimeout(() => loader.style.display = 'none', 600);
+                }
+            }, 1200); // ૧.૨ સેકન્ડમાં એનિમેશન ગાયબ થઈ જશે
+        });
+
+        // કદાચ કોઈ વાર નેટ સાવ ધીમું હોય, તો આ ટાઈમર બળજબરીથી ૨ સેકન્ડમાં વેબસાઈટ ખોલી દેશે!
+        setTimeout(() => {
+            let loader = document.getElementById('loader');
+            if(loader && loader.style.display !== 'none') {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 600);
+            }
+        }, 2000);
 
         // 2. Scroll Progress Bar
         window.onscroll = function() {
@@ -835,7 +861,7 @@
             document.getElementById("progressBar").style.width = scrolled + "%";
         };
 
-        // 3. Shop Status (Open/Close Logic) - STRICTLY SOLID COLORS, NO OPACITY, NO BLUR
+        // 3. Shop Status (Open/Close Logic) - STRICTLY SOLID COLORS
         let hr = new Date().getHours();
         let statusEl = document.getElementById('shopStatus');
         if((hr >= 8 && hr < 12) || (hr >= 15 && hr < 20)) {
@@ -845,4 +871,100 @@
         } else {
             statusEl.innerHTML = "<i class='fa-solid fa-door-closed'></i> અત્યારે Office ( ઓફિસ ) બંધ છે";
             statusEl.style.background = "#e3342f"; // SOLID RED
-            statusEl.
+            statusEl.style.border = "2px solid #ffffff";
+        }
+
+        // 4. Auto Typing
+        const words = ["📍 ઢુણાદરા | 💻 ઓનલાઇન સેવાઓનું વિશ્વાસપાત્ર કેન્દ્ર"];
+        let i = 0, j = 0, isDeleting = false;
+        function typeText() {
+            let text = words[i];
+            document.getElementById('typingText').innerText = text.substring(0, j) + "|";
+            if(!isDeleting && j === text.length) { isDeleting = true; setTimeout(typeText, 3000); return; }
+            if(isDeleting && j === 0) { isDeleting = false; i = (i + 1) % words.length; }
+            j += isDeleting ? -1 : 1;
+            setTimeout(typeText, isDeleting ? 30 : 100);
+        }
+        typeText();
+
+        // 5. Category Tabs Filter
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            let cards = document.getElementsByClassName('service-card');
+            for (let i = 0; i < cards.length; i++) {
+                let c = cards[i].getAttribute('data-category');
+                cards[i].style.display = (cat === 'all' || c === cat) ? "" : "none";
+            }
+        }
+
+        // 6. Voice Search
+        function startVoiceSearch() {
+            if ('webkitSpeechRecognition' in window) {
+                let recognition = new webkitSpeechRecognition();
+                recognition.lang = "gu-IN";
+                recognition.start();
+                document.getElementById('searchInput').placeholder = "સાંભળી રહ્યા છીએ...";
+                recognition.onresult = function(e) {
+                    document.getElementById('searchInput').value = e.results[0][0].transcript;
+                    searchService();
+                    document.getElementById('searchInput').placeholder = "યોજના અથવા સેવાનું નામ શોધો...";
+                };
+            } else { alert("તમારો ફોન વોઇસ સર્ચ સપોર્ટ કરતો નથી."); }
+        }
+
+        // 7. Text To Speech (Read Aloud)
+        function speakText(element) {
+            let text = element.parentElement.parentElement.innerText.replace('🔊 સાંભળો', '').replace('સાંભળો', '');
+            let utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'gu-IN';
+            speechSynthesis.speak(utterance);
+            event.stopPropagation();
+        }
+
+        // 8. Confetti & Inquiry Submit
+        function sendInquiry() {
+            let name = document.getElementById('cName').value.trim();
+            let msg = document.getElementById('cMsg').value.trim();
+            if(!name || !msg) { alert("કૃપા કરીને વિગતો ભરો!"); return; }
+            
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+
+            setTimeout(() => {
+                let waText = "નમસ્કાર,%0A👤 નામ: " + encodeURIComponent(name) + "%0A📝 કામ: " + encodeURIComponent(msg) + "%0A📎 (મારા ડોક્યુમેન્ટ્સ હું આની સાથે મોકલી રહ્યો/રહી છું)";
+                window.open("https://wa.me/919638730186?text=" + waText, '_blank');
+            }, 1000); 
+        }
+
+        // 9. Settings: Theme, Color, Share
+        function toggleSettings() {
+            document.getElementById('settingsMenu').classList.toggle('show');
+        }
+        function toggleTheme() {
+            let current = document.documentElement.getAttribute('data-theme');
+            document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+            toggleSettings();
+        }
+        function changeColor(color) {
+            document.documentElement.style.setProperty('--primary', color);
+            toggleSettings();
+        }
+        function shareWebsite() {
+            if (navigator.share) {
+                navigator.share({ title: 'અલ-અકશા કમ્પ્યુટર સેન્ટર', text: 'તમામ સરકારી યોજનાઓ અને ઓનલાઈન કામ માટે મુલાકાત લો:', url: window.location.href });
+            } else { alert("તમારા બ્રાઉઝરમાં શેર સપોર્ટ નથી, લિંક કોપી કરો."); }
+            toggleSettings();
+        }
+
+        // 10. Normal Search
+        function searchService() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('service-card');
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getAttribute('data-title').toLowerCase();
+                cards[i].style.display = title.includes(input) ? "" : "none";
+            }
+        }
+    </script>
+</body>
+</html>
