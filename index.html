@@ -30,7 +30,7 @@
             --secondary: #0056b3;
             --border-color: #e2e8f0;
             --hover-shadow: rgba(26, 115, 232, 0.15);
-            --card-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            --card-shadow: 0 4px 15px rgba(0,0,0,0.06);
         }
 
         [data-theme="dark"] {
@@ -39,165 +39,187 @@
             --card-bg: #1e293b;
             --border-color: #334155;
             --hover-shadow: rgba(255,255,255,0.08);
-            --card-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            --card-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
         body { font-family: 'Baloo Bhai 2', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; scroll-behavior: smooth; transition: background 0.4s, color 0.4s;}
         
         /* Loading Screen */
         #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: 0.5s; }
-        .loader-logo { width: 130px; height: 130px; border-radius: 50%; border: 5px solid rgba(255,255,255,0.5); margin-bottom: 25px; animation: pulseLogo 1.5s infinite; background: white; box-shadow: 0 10px 25px rgba(0,0,0,0.3); padding: 5px;}
-        @keyframes pulseLogo { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); } 70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } }
-        .wait-text { font-size: 34px; font-weight: 800; letter-spacing: 5px; text-shadow: 2px 2px 5px rgba(0,0,0,0.3); animation: blinkText 1.5s infinite; }
+        .loader-logo { width: 140px; height: 140px; border-radius: 50%; border: 6px solid rgba(255,255,255,0.8); margin-bottom: 25px; animation: pulseLogo 1.5s infinite; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.4); padding: 5px;}
+        @keyframes pulseLogo { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); } 70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } }
+        .wait-text { font-size: 36px; font-weight: 800; letter-spacing: 6px; text-shadow: 2px 2px 8px rgba(0,0,0,0.4); animation: blinkText 1.5s infinite; }
         @keyframes blinkText { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
         /* Scroll Progress Bar */
         #progressBar { position: fixed; top: 0; left: 0; height: 6px; background: #00e676; width: 0%; z-index: 10000; transition: width 0.1s; border-radius: 0 5px 5px 0;}
 
         /* Popup Box */
-        #welcomePopup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 2000; }
-        .popup-box { background: var(--card-bg); padding: 35px 25px; border-radius: 20px; text-align: center; max-width: 85%; border-top: 6px solid var(--primary); box-shadow: 0 15px 40px rgba(0,0,0,0.4); animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .popup-box h2 { margin-top: 0; color: var(--primary); font-size: 38px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
-        .popup-btn { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; padding: 12px 30px; border-radius: 50px; font-size: 20px; font-family: inherit; font-weight: 800; cursor: pointer; margin-top: 20px; box-shadow: 0 5px 15px var(--hover-shadow); transition: 0.3s; }
-        .popup-btn:hover { transform: scale(1.05); }
-        @keyframes scaleUp { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        #welcomePopup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 2000; }
+        .popup-box { background: var(--card-bg); padding: 40px 30px; border-radius: 24px; text-align: center; max-width: 85%; border-top: 8px solid var(--primary); box-shadow: 0 20px 50px rgba(0,0,0,0.5); animation: scaleUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .popup-box h2 { margin-top: 0; color: var(--primary); font-size: 42px; text-shadow: 1px 1px 3px rgba(0,0,0,0.1); }
+        .popup-btn { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; padding: 14px 35px; border-radius: 50px; font-size: 22px; font-family: inherit; font-weight: 800; cursor: pointer; margin-top: 25px; box-shadow: 0 8px 20px var(--hover-shadow); transition: 0.3s; }
+        .popup-btn:hover { transform: scale(1.08) translateY(-3px); box-shadow: 0 12px 25px var(--hover-shadow); }
+        @keyframes scaleUp { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
         /* Settings Floating Menu */
-        .settings-float { position: fixed; bottom: 25px; left: 25px; background: var(--card-bg); color: var(--primary); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 1000; cursor: pointer; font-size: 26px; border: 2px solid var(--border-color); transition: 0.3s; }
-        .settings-float:hover { transform: rotate(45deg); background: var(--primary); color: white;}
-        .settings-menu { position: fixed; bottom: 90px; left: 25px; background: var(--card-bg); border: 2px solid var(--border-color); padding: 15px; border-radius: 15px; display: none; flex-direction: column; gap: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 1000; max-height: 400px; overflow-y: auto; animation: fadeUp 0.3s; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .settings-float { position: fixed; bottom: 25px; left: 25px; background: var(--card-bg); color: var(--primary); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(0,0,0,0.2); z-index: 1000; cursor: pointer; font-size: 28px; border: 2px solid var(--border-color); transition: 0.3s; }
+        .settings-float:hover { transform: rotate(90deg); background: var(--primary); color: white;}
+        .settings-menu { position: fixed; bottom: 95px; left: 25px; background: var(--card-bg); border: 2px solid var(--border-color); padding: 18px; border-radius: 18px; display: none; flex-direction: column; gap: 12px; box-shadow: 0 12px 30px rgba(0,0,0,0.25); z-index: 1000; max-height: 400px; overflow-y: auto; animation: fadeUp 0.3s; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .settings-menu.show { display: flex; }
-        .settings-menu button { background: var(--bg-color); color: var(--text-color); border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; cursor: pointer; font-family: inherit; font-weight: 700; transition: 0.2s;}
-        .settings-menu button:hover { background: var(--primary); color: white; border-color: var(--primary);}
-        .color-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .settings-menu button { background: var(--bg-color); color: var(--text-color); border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; cursor: pointer; font-family: inherit; font-weight: 700; transition: 0.2s; font-size: 16px;}
+        .settings-menu button:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-2px);}
+        .color-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
         /* Modern News Bar */
-        .news-bar { background: linear-gradient(90deg, #d32f2f, #b71c1c); color: white; display: flex; align-items: center; font-weight: 800; font-size: 20px; position: sticky; top: 0; z-index: 1001; box-shadow: 0 2px 10px rgba(0,0,0,0.2);}
-        .news-label { background: #900b0b; padding: 12px 18px; white-space: nowrap; z-index: 10; box-shadow: 3px 0 8px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 8px;}
-        .news-scroll-container { overflow: hidden; white-space: nowrap; flex-grow: 1; padding: 12px 0;}
-        .scrolling-text { display: inline-block; padding-left: 100%; animation: scrollNews 40s linear infinite; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);}
+        .news-bar { background: linear-gradient(90deg, #d32f2f, #b71c1c); color: white; display: flex; align-items: center; font-weight: 800; font-size: 20px; position: sticky; top: 0; z-index: 1001; box-shadow: 0 4px 15px rgba(0,0,0,0.3);}
+        .news-label { background: #900b0b; padding: 14px 20px; white-space: nowrap; z-index: 10; box-shadow: 5px 0 10px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 8px;}
+        .news-scroll-container { overflow: hidden; white-space: nowrap; flex-grow: 1; padding: 14px 0;}
+        .scrolling-text { display: inline-block; padding-left: 100%; animation: scrollNews 40s linear infinite; text-shadow: 1px 1px 2px rgba(0,0,0,0.4);}
         @keyframes scrollNews { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
-        /* NEW Header UI Upgrade with 8-Color LIVE Gradient (Slowed down to 45s) */
-        header { 
-            background: linear-gradient(-45deg, #1a73e8, #8e24aa, #d81b60, #e65100, #f59e0b, #10b981, #0ea5e9, #4f46e5);
-            background-size: 400% 400%;
-            animation: liveGradient 45s ease infinite; /* અહી સ્પીડ ધીમી કરી છે (45s) */
-            color: white; text-align: center; padding: 45px 15px 35px 15px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; box-shadow: 0 10px 25px var(--hover-shadow); position: relative; overflow: hidden;
+        /* NEW PRO HEADER WITH ANIMATED FLOATING SHAPES */
+        header.area { 
+            background: linear-gradient(135deg, var(--primary), var(--secondary)); /* Theme Color Integration */
+            width: 100%;
+            color: white; 
+            text-align: center; 
+            padding: 50px 15px 40px 15px; 
+            border-bottom-left-radius: 40px; 
+            border-bottom-right-radius: 40px; 
+            box-shadow: 0 15px 35px var(--hover-shadow); 
+            position: relative; 
+            overflow: hidden;
+            transition: background 0.5s;
         }
-        @keyframes liveGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+
+        /* Floating Transparent Shapes (Next Level UI) */
+        .circles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; z-index: 1; }
+        .circles li { position: absolute; display: block; list-style: none; width: 20px; height: 20px; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px); animation: floatUp 25s linear infinite; bottom: -150px; border-radius: 12px; }
+        .circles li:nth-child(1){ left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+        .circles li:nth-child(2){ left: 10%; width: 30px; height: 30px; animation-delay: 2s; animation-duration: 12s; border-radius: 50%;}
+        .circles li:nth-child(3){ left: 70%; width: 25px; height: 25px; animation-delay: 4s; }
+        .circles li:nth-child(4){ left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; border-radius: 50%;}
+        .circles li:nth-child(5){ left: 65%; width: 25px; height: 25px; animation-delay: 0s; }
+        .circles li:nth-child(6){ left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
+        .circles li:nth-child(7){ left: 35%; width: 150px; height: 150px; animation-delay: 7s; border-radius: 50%;}
+        .circles li:nth-child(8){ left: 50%; width: 35px; height: 35px; animation-delay: 15s; animation-duration: 45s; }
+        .circles li:nth-child(9){ left: 20%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 35s; }
+        .circles li:nth-child(10){ left: 85%; width: 140px; height: 140px; animation-delay: 0s; animation-duration: 11s; }
+        
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 15%; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
         }
+
+        .header-content { position: relative; z-index: 10; }
+        .shop-logo { max-width: 150px; border-radius: 50%; border: 6px solid rgba(255,255,255,0.9); margin-bottom: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); background: white; transition: 0.4s ease-in-out;}
+        .shop-logo:hover { transform: scale(1.08) rotate(5deg); box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
         
-        /* Pattern Overlay for Header */
-        header::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 20px 20px; opacity: 0.5; z-index: 0;}
-        .header-content { position: relative; z-index: 1; }
-        .shop-logo { max-width: 140px; border-radius: 50%; border: 5px solid white; margin-bottom: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); background: white; transition: 0.3s;}
-        .shop-logo:hover { transform: scale(1.05) rotate(5deg); }
-        h1 { margin: 0; font-size: 42px; font-weight: 800; text-shadow: 2px 2px 5px rgba(0,0,0,0.3); line-height: 1.2; letter-spacing: 1px;}
-        h1 span { font-size: 25px; font-weight: 600; opacity: 0.9; letter-spacing: 2px;}
+        /* Enlarged Heading */
+        h1 { margin: 0; font-size: 50px; font-weight: 800; text-shadow: 3px 3px 6px rgba(0,0,0,0.4); line-height: 1.2; letter-spacing: 1px;}
+        h1 span { font-size: 28px; font-weight: 600; opacity: 0.95; letter-spacing: 3px; display: block; margin-top: 5px;}
         
-        .auto-type { font-size: 24px; font-weight: 700; color: #ffeb3b; min-height: 75px; margin-top: 15px; margin-bottom: 10px; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);}
-        .dev-badge { font-size: 16px; background: rgba(255,255,255,0.15); display: inline-block; padding: 6px 15px; border-radius: 50px; color: #ffffff; font-weight: 700; letter-spacing: 1px; margin-top: -5px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(5px);}
+        .auto-type { font-size: 26px; font-weight: 700; color: #ffeb3b; min-height: 80px; margin-top: 20px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);}
+        .dev-badge { font-size: 17px; background: rgba(255,255,255,0.15); display: inline-block; padding: 8px 20px; border-radius: 50px; color: #ffffff; font-weight: 800; letter-spacing: 1px; margin-top: 0px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.4); backdrop-filter: blur(6px); box-shadow: 0 4px 10px rgba(0,0,0,0.2);}
         
-        /* Shop Status Box Fixed - Solid colors and larger text */
-        .shop-status { display: inline-flex; align-items: center; gap: 10px; padding: 10px 25px; border-radius: 50px; font-weight: 800; margin-top: 5px; font-size: 22px; color: white; box-shadow: 0 5px 15px rgba(0,0,0,0.4); text-shadow: 1px 1px 2px rgba(0,0,0,0.5); z-index: 2; position: relative;}
+        /* Shop Status Box Fixed - Solid colors and large text (NO OPACITY, NO BLUR) */
+        .shop-status { display: inline-flex; align-items: center; gap: 12px; padding: 12px 30px; border-radius: 50px; font-weight: 800; margin-top: 10px; font-size: 22px; color: #ffffff !important; box-shadow: 0 8px 20px rgba(0,0,0,0.4); text-shadow: 1px 1px 2px rgba(0,0,0,0.5); z-index: 20; position: relative;}
 
         /* Professional Search & Categories */
-        .search-container { max-width: 900px; margin: -30px auto 25px auto; padding: 0 15px; position: relative; z-index: 10; display: flex; gap: 12px;}
+        .search-container { max-width: 900px; margin: -35px auto 25px auto; padding: 0 15px; position: relative; z-index: 20; display: flex; gap: 15px;}
         .search-wrapper { flex-grow: 1; position: relative; }
-        .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--primary); font-size: 20px; }
-        #searchInput { width: 100%; padding: 18px 20px 18px 55px; border-radius: 50px; border: 2px solid var(--primary); background: var(--card-bg); color: var(--text-color); box-shadow: 0 10px 25px rgba(0,0,0,0.1); font-size: 18px; font-family: inherit; font-weight: 600; outline: none; transition: 0.3s; box-sizing: border-box;}
-        #searchInput:focus { box-shadow: 0 10px 30px var(--hover-shadow); transform: translateY(-2px);}
-        .mic-btn { background: var(--primary); color: white; border: none; width: 60px; height: 60px; border-radius: 50%; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px var(--hover-shadow); transition: 0.3s;}
-        .mic-btn:hover { transform: scale(1.1); background: var(--secondary);}
+        .search-icon { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); color: var(--primary); font-size: 22px; }
+        #searchInput { width: 100%; padding: 20px 20px 20px 60px; border-radius: 50px; border: 3px solid var(--primary); background: var(--card-bg); color: var(--text-color); box-shadow: 0 15px 35px rgba(0,0,0,0.12); font-size: 20px; font-family: inherit; font-weight: 700; outline: none; transition: 0.3s; box-sizing: border-box;}
+        #searchInput:focus { box-shadow: 0 15px 40px var(--hover-shadow); transform: translateY(-3px);}
+        .mic-btn { background: var(--primary); color: white; border: none; width: 68px; height: 68px; border-radius: 50%; font-size: 26px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px var(--hover-shadow); transition: 0.3s;}
+        .mic-btn:hover { transform: scale(1.12); background: var(--secondary);}
 
-        .category-tabs { max-width: 900px; margin: 0 auto 25px auto; display: flex; gap: 12px; padding: 5px 15px; overflow-x: auto; white-space: nowrap; scrollbar-width: none;}
+        .category-tabs { max-width: 900px; margin: 0 auto 30px auto; display: flex; gap: 15px; padding: 10px 15px; overflow-x: auto; white-space: nowrap; scrollbar-width: none;}
         .category-tabs::-webkit-scrollbar { display: none; }
-        .cat-btn { background: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); padding: 10px 25px; border-radius: 50px; font-size: 17px; font-family: inherit; font-weight: 800; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px; box-shadow: var(--card-shadow);}
-        .cat-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px);}
-        .cat-btn.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-color: transparent; box-shadow: 0 5px 15px var(--hover-shadow);}
+        .cat-btn { background: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); padding: 12px 28px; border-radius: 50px; font-size: 18px; font-family: inherit; font-weight: 800; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 10px; box-shadow: var(--card-shadow);}
+        .cat-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1);}
+        .cat-btn.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-color: transparent; box-shadow: 0 8px 25px var(--hover-shadow);}
 
         .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
 
-        .section-title { background: var(--card-bg); color: var(--primary); padding: 15px 20px; border-radius: 12px; margin: 40px 0 20px 0; font-size: 24px; font-weight: 800; text-align: center; border: 2px solid var(--border-color); display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: var(--card-shadow);}
+        .section-title { background: var(--card-bg); color: var(--primary); padding: 18px 25px; border-radius: 15px; margin: 40px 0 25px 0; font-size: 26px; font-weight: 800; text-align: center; border: 2px solid var(--border-color); display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: var(--card-shadow);}
         
         /* Modern Service Cards */
-        .service-card { background: var(--card-bg); margin-bottom: 15px; border-radius: 12px; box-shadow: var(--card-shadow); border-left: 6px solid var(--primary); overflow: hidden; transition: all 0.3s ease; border-right: 1px solid var(--border-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);}
-        .service-card:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.12); border-left-width: 10px;}
-        .service-card.simple { border-left: 6px solid #10b981; }
+        .service-card { background: var(--card-bg); margin-bottom: 18px; border-radius: 16px; box-shadow: var(--card-shadow); border-left: 8px solid var(--primary); overflow: hidden; transition: all 0.3s ease; border-right: 1px solid var(--border-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);}
+        .service-card:hover { transform: translateY(-6px); box-shadow: 0 15px 30px rgba(0,0,0,0.12); border-left-width: 12px;}
+        .service-card.simple { border-left: 8px solid #10b981; }
 
-        details { padding: 18px; position: relative;}
-        .service-title { padding: 15px 18px; font-weight: 800; font-size: 21px; display: flex; align-items: center; color: var(--text-color); gap: 15px;}
-        .service-title-icon { font-size: 26px; width: 35px; text-align: center; }
-        summary { font-weight: 800; font-size: 21px; cursor: pointer; outline: none; list-style: none; display: flex; align-items: center; justify-content: space-between; color: var(--text-color); user-select: none;}
+        details { padding: 20px; position: relative;}
+        .service-title { padding: 18px 20px; font-weight: 800; font-size: 22px; display: flex; align-items: center; color: var(--text-color); gap: 18px;}
+        .service-title-icon { font-size: 28px; width: 40px; text-align: center; }
+        summary { font-weight: 800; font-size: 22px; cursor: pointer; outline: none; list-style: none; display: flex; align-items: center; justify-content: space-between; color: var(--text-color); user-select: none;}
         summary::-webkit-details-marker { display: none; }
-        .summary-left { display: flex; align-items: center; gap: 12px; }
+        .summary-left { display: flex; align-items: center; gap: 15px; }
         
-        .tts-btn { background: var(--bg-color); color: var(--primary); padding: 8px 15px; border-radius: 50px; font-size: 16px; font-weight: 700; border: 1px solid var(--primary); cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.3s;}
-        .tts-btn:hover { background: var(--primary); color: white; }
+        .tts-btn { background: var(--bg-color); color: var(--primary); padding: 10px 18px; border-radius: 50px; font-size: 17px; font-weight: 800; border: 2px solid var(--primary); cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.3s;}
+        .tts-btn:hover { background: var(--primary); color: white; transform: scale(1.05);}
 
         /* Professional List Styling */
-        .docs-list { margin-top: 15px; padding: 20px; background: var(--bg-color); border-radius: 10px; font-size: 18px; font-weight: 600; border: 1px solid var(--border-color); line-height: 1.6; animation: slideDown 0.3s ease-out;}
+        .docs-list { margin-top: 20px; padding: 25px; background: var(--bg-color); border-radius: 12px; font-size: 19px; font-weight: 700; border: 1px solid var(--border-color); line-height: 1.7; animation: slideDown 0.3s ease-out;}
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .docs-list strong { color: var(--primary); display: flex; align-items: center; gap: 8px; font-size: 20px; margin-bottom: 12px; border-bottom: 2px dashed var(--border-color); padding-bottom: 8px;}
+        .docs-list strong { color: var(--primary); display: flex; align-items: center; gap: 10px; font-size: 22px; margin-bottom: 15px; border-bottom: 3px dashed var(--border-color); padding-bottom: 10px;}
         .docs-list ul { padding-left: 5px; margin: 0; list-style: none;}
-        .docs-list li { position: relative; padding-left: 35px; margin-bottom: 10px; color: var(--text-color); font-weight: 600; display: flex; align-items: center;}
-        .docs-list li i { position: absolute; left: 0; color: #10b981; font-size: 20px; }
+        .docs-list li { position: relative; padding-left: 40px; margin-bottom: 12px; color: var(--text-color); display: flex; align-items: center;}
+        .docs-list li i { position: absolute; left: 0; color: #10b981; font-size: 22px; }
         
-        .important-note { color: #d32f2f; background: #ffebee; padding: 15px; border-radius: 8px; font-weight: 800; font-size: 16px; margin-top: 15px; border-left: 5px solid #d32f2f; display: flex; align-items: flex-start; gap: 10px;}
-        .important-note i { font-size: 20px; margin-top: 2px;}
+        .important-note { color: #d32f2f; background: #ffebee; padding: 18px; border-radius: 10px; font-weight: 800; font-size: 18px; margin-top: 20px; border-left: 6px solid #d32f2f; display: flex; align-items: flex-start; gap: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);}
+        .important-note i { font-size: 24px; margin-top: 2px;}
 
         /* Modern Form & Inquiry */
-        .inquiry-box { background: var(--card-bg); padding: 30px; border-radius: 15px; margin-top: 45px; box-shadow: 0 10px 30px var(--hover-shadow); border-top: 6px solid #10b981; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);}
-        .form-group { position: relative; margin: 10px 0 20px 0; }
-        .form-group i { position: absolute; left: 15px; top: 15px; color: var(--primary); font-size: 20px;}
-        .form-control { width: 100%; padding: 15px 15px 15px 45px; background: var(--bg-color); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 8px; font-size: 18px; font-family: inherit; font-weight: 600; box-sizing: border-box; transition: 0.3s;}
-        .form-control:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(26,115,232,0.2);}
-        textarea.form-control { padding: 15px; } /* Remove left padding for textarea as we won't put icon inside it */
-        .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; width: 100%; padding: 16px; border: none; border-radius: 50px; font-size: 22px; font-family: inherit; font-weight: 800; cursor: pointer; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3); transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px;}
-        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(16, 185, 129, 0.4);}
+        .inquiry-box { background: var(--card-bg); padding: 35px; border-radius: 20px; margin-top: 50px; box-shadow: 0 15px 40px var(--hover-shadow); border-top: 8px solid #10b981; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);}
+        .form-group { position: relative; margin: 15px 0 25px 0; }
+        .form-group i { position: absolute; left: 18px; top: 18px; color: var(--primary); font-size: 22px;}
+        .form-control { width: 100%; padding: 18px 18px 18px 55px; background: var(--bg-color); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 12px; font-size: 19px; font-family: inherit; font-weight: 700; box-sizing: border-box; transition: 0.3s;}
+        .form-control:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 4px rgba(26,115,232,0.2);}
+        textarea.form-control { padding: 18px; } 
+        .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; width: 100%; padding: 18px; border: none; border-radius: 50px; font-size: 24px; font-family: inherit; font-weight: 800; cursor: pointer; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 12px;}
+        .submit-btn:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(16, 185, 129, 0.5);}
 
-        .payment-qr { text-align: center; margin-top: 30px; padding: 20px; background: var(--bg-color); border-radius: 12px; border: 2px dashed #1a73e8;}
+        .payment-qr { text-align: center; margin-top: 35px; padding: 25px; background: var(--bg-color); border-radius: 15px; border: 3px dashed var(--primary);}
 
-        .info-card { background: var(--card-bg); padding: 25px; margin-top: 30px; border-radius: 15px; box-shadow: var(--card-shadow); font-size: 19px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 12px;}
-        .info-line { display: flex; align-items: center; gap: 15px; font-weight: 700;}
-        .info-icon { background: var(--bg-color); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 22px;}
+        .info-card { background: var(--card-bg); padding: 30px; margin-top: 35px; border-radius: 18px; box-shadow: var(--card-shadow); font-size: 20px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 18px;}
+        .info-line { display: flex; align-items: center; gap: 18px; font-weight: 800;}
+        .info-icon { background: var(--bg-color); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 26px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);}
 
-        .map-section { margin-top: 30px; border-radius: 15px; overflow: hidden; box-shadow: var(--card-shadow); border: 2px solid var(--border-color);}
+        .map-section { margin-top: 35px; border-radius: 18px; overflow: hidden; box-shadow: var(--card-shadow); border: 2px solid var(--border-color);}
 
         /* Customer Review Marquee */
-        .review-box { background: var(--card-bg); color: var(--text-color); padding: 18px; margin-top: 30px; border-radius: 12px; border-left: 5px solid #ffb300; font-weight: 700; font-size: 19px; display: flex; overflow: hidden; white-space: nowrap; box-shadow: var(--card-shadow);}
+        .review-box { background: var(--card-bg); color: var(--text-color); padding: 22px; margin-top: 35px; border-radius: 15px; border-left: 6px solid #ffb300; font-weight: 800; font-size: 20px; display: flex; overflow: hidden; white-space: nowrap; box-shadow: var(--card-shadow);}
         .review-marquee { animation: scrollReview 25s linear infinite; }
-        .review-marquee span { margin-right: 40px; }
+        .review-marquee span { margin-right: 50px; }
         .review-marquee i { color: #ffb300; }
         @keyframes scrollReview { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
         /* Floating WhatsApp Button */
-        .wa-float { position: fixed; bottom: 25px; right: 25px; background: linear-gradient(135deg, #25D366, #128C7E); color: white; border-radius: 50px; display: flex; align-items: center; padding: 12px 25px; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4); z-index: 1000; text-decoration: none; gap: 12px; font-size: 18px; font-weight: 800; transition: 0.3s;}
-        .wa-float:hover { transform: scale(1.05) translateY(-3px); }
-        .wa-float i { font-size: 28px; }
+        .wa-float { position: fixed; bottom: 25px; right: 25px; background: linear-gradient(135deg, #25D366, #128C7E); color: white; border-radius: 50px; display: flex; align-items: center; padding: 14px 28px; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); z-index: 1000; text-decoration: none; gap: 12px; font-size: 20px; font-weight: 800; transition: 0.3s;}
+        .wa-float:hover { transform: scale(1.08) translateY(-4px); box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);}
+        .wa-float i { font-size: 32px; }
         
         /* MOBILE VIEW UPDATES */
         @media (max-width: 480px) {
-            h1 { font-size: 32px; }
-            h1 span { font-size: 18px; }
-            .wa-float { padding: 10px 15px; font-size: 0; bottom: 15px; right: 15px; width: 55px; height: 55px; justify-content: center; gap: 0;}
-            .wa-float i { font-size: 32px; }
+            h1 { font-size: 36px; } /* Mobile માં હેડિંગની સાઈઝ */
+            h1 span { font-size: 20px; }
+            .wa-float { padding: 12px 18px; font-size: 0; bottom: 18px; right: 18px; width: 60px; height: 60px; justify-content: center; gap: 0;}
+            .wa-float i { font-size: 36px; }
             .wa-float span { display: none; }
-            .settings-float { bottom: 15px; left: 15px; width: 50px; height: 50px; font-size: 24px; }
-            .settings-menu { bottom: 75px; left: 15px; padding: 12px; width: 260px;}
-            .news-bar { font-size: 17px; }
-            .news-label { padding: 10px 12px; }
-            .summary-left { font-size: 18px; }
-            .service-title { font-size: 18px; }
+            .settings-float { bottom: 18px; left: 18px; width: 55px; height: 55px; font-size: 26px; }
+            .settings-menu { bottom: 85px; left: 18px; padding: 15px; width: 280px;}
+            .news-bar { font-size: 18px; }
+            .news-label { padding: 12px 15px; }
+            .summary-left { font-size: 19px; }
+            .service-title { font-size: 19px; }
+            .shop-status { font-size: 18px; padding: 10px 20px;}
         }
 
-        footer { text-align: center; padding: 35px 15px; background: #1e293b; color: white; margin-top: 50px; font-size: 20px; font-weight: 600; border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -5px 20px rgba(0,0,0,0.2);}
+        footer { text-align: center; padding: 40px 15px; background: #1e293b; color: white; margin-top: 60px; font-size: 22px; font-weight: 700; border-top-left-radius: 40px; border-top-right-radius: 40px; box-shadow: 0 -10px 30px rgba(0,0,0,0.3);}
     </style>
 </head>
 <body>
@@ -213,15 +235,15 @@
 
     <div id="welcomePopup">
         <div class="popup-box">
-            <h2 style="font-size: 42px;"><i class="fa-solid fa-handshake-angle"></i> WELCOME !</h2>
-            <p style="font-size: 26px; font-weight: 800; color: var(--primary);">અલ-અકશા કમ્પ્યુટર સેન્ટરમાં તમારું હાર્દિક સ્વાગત છે.</p>
+            <h2 style="font-size: 46px;"><i class="fa-solid fa-handshake-angle"></i> WELCOME !</h2>
+            <p style="font-size: 28px; font-weight: 800; color: var(--primary);">અલ-અકશા કમ્પ્યુટર સેન્ટરમાં તમારું હાર્દિક સ્વાગત છે.</p>
             <button class="popup-btn" onclick="document.getElementById('welcomePopup').style.display='none'"><i class="fa-solid fa-circle-check"></i> ઓકે (OK)</button>
         </div>
     </div>
 
     <div class="settings-float" onclick="toggleSettings()"><i class="fa-solid fa-gear fa-spin-hover"></i></div>
     <div class="settings-menu" id="settingsMenu">
-        <button onclick="toggleTheme()" style="width: 100%; margin-bottom: 5px;"><i class="fa-solid fa-circle-half-stroke"></i> લાઈટ / ડાર્ક મોડ</button>
+        <button onclick="toggleTheme()" style="width: 100%; margin-bottom: 8px;"><i class="fa-solid fa-circle-half-stroke"></i> લાઈટ / ડાર્ક મોડ</button>
         <div class="color-grid">
             <button onclick="changeColor('#1a73e8')">🔵 બ્લુ</button>
             <button onclick="changeColor('#d32f2f')">🔴 લાલ</button>
@@ -234,7 +256,7 @@
             <button onclick="changeColor('#4f46e5')">🌌 ઇન્ડિગો</button>
             <button onclick="changeColor('#334155')">🖤 ગ્રે</button>
         </div>
-        <button onclick="shareWebsite()" style="width: 100%; margin-top: 5px;"><i class="fa-solid fa-share-nodes"></i> સાઈટ શેર કરો</button>
+        <button onclick="shareWebsite()" style="width: 100%; margin-top: 8px;"><i class="fa-solid fa-share-nodes"></i> સાઈટ શેર કરો</button>
     </div>
 
     <div class="news-bar">
@@ -246,7 +268,11 @@
         </div>
     </div>
 
-    <header>
+    <header class="area">
+        <ul class="circles">
+            <li></li><li></li><li></li><li></li><li></li>
+            <li></li><li></li><li></li><li></li><li></li>
+        </ul>
         <div class="header-content">
             <img src="logo.jpg" alt="Al-Aksha Logo" class="shop-logo" onerror="this.style.display='none'">
             <h1>
@@ -260,7 +286,7 @@
                 <i class="fa-solid fa-laptop-code" style="color: #fbbf24;"></i> DEVELOPED BY | PATHAN MAHIRKHAN 😎
             </div>
             
-            <div style="font-size: 22px; color: #ffffff; margin: 5px 0 15px 0; font-weight: normal; letter-spacing: 2px; opacity: 0.8;">━━━━ <i class="fa-brands fa-envira"></i> ━━━━</div>
+            <div style="font-size: 24px; color: #ffffff; margin: 5px 0 15px 0; font-weight: normal; letter-spacing: 2px; opacity: 0.9;">━━━━ <i class="fa-brands fa-envira"></i> ━━━━</div>
             
             <div class="shop-status" id="shopStatus"><i class="fa-solid fa-circle-notch fa-spin"></i> લોડ થાય છે...</div>
         </div>
@@ -727,8 +753,8 @@
         <div class="service-card simple" data-title="બેનર પોસ્ટર બનાવવા" data-category="other"><div class="service-title"><i class="fa-regular fa-image" style="color: #10b981;"></i> બેનર / પોસ્ટર બનાવવા</div></div>
 
         <div class="inquiry-box" id="contact">
-            <h2 style="text-align: center; color: var(--primary); margin-top: 0; font-size: 30px; font-weight: 800;"><i class="fa-brands fa-whatsapp"></i> ડોક્યુમેન્ટ્સ અને પૂછપરછ</h2>
-            <p style="text-align: center; margin-bottom: 25px; font-size: 18px;">અહીં માહિતી ભરીને મોકલો. (ફોર્મ ભરવા માટે અહીંથી જ ડોક્યુમેન્ટ સેન્ડ કરી શકો છો).</p>
+            <h2 style="text-align: center; color: var(--primary); margin-top: 0; font-size: 32px; font-weight: 800;"><i class="fa-brands fa-whatsapp"></i> ડોક્યુમેન્ટ્સ અને પૂછપરછ</h2>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 20px; font-weight: 600;">અહીં માહિતી ભરીને મોકલો. (ફોર્મ ભરવા માટે અહીંથી જ ડોક્યુમેન્ટ સેન્ડ કરી શકો છો).</p>
             
             <div class="form-group">
                 <i class="fa-solid fa-user"></i>
@@ -742,24 +768,24 @@
             <button class="submit-btn" onclick="sendInquiry()"><i class="fa-solid fa-paper-plane"></i> ડોક્યુમેન્ટ / મેસેજ મોકલો</button>
             
             <div class="payment-qr">
-                <p style="font-weight: 800; margin: 0 0 15px 0; font-size: 20px;"><i class="fa-solid fa-qrcode"></i> ઓનલાઈન પેમેન્ટ (Scan & Pay)</p>
-                <img src="qr.png" alt="UPI QR Code" style="width: 220px; height: auto; border-radius: 12px; border: 3px solid var(--primary); padding: 8px; background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
-                <p style="margin: 15px 0 0 0; color: var(--primary); font-weight: 800; font-size: 18px;">UPI ID: pathanmustufakhan539@okaxis</p>
+                <p style="font-weight: 800; margin: 0 0 15px 0; font-size: 22px;"><i class="fa-solid fa-qrcode"></i> ઓનલાઈન પેમેન્ટ (Scan & Pay)</p>
+                <img src="qr.png" alt="UPI QR Code" style="width: 240px; height: auto; border-radius: 15px; border: 4px solid var(--primary); padding: 10px; background: white; box-shadow: 0 8px 20px rgba(0,0,0,0.15);" onerror="this.style.display='none'">
+                <p style="margin: 20px 0 0 0; color: var(--primary); font-weight: 800; font-size: 20px;">UPI ID: pathanmustufakhan539@okaxis</p>
             </div>
         </div>
 
         <div class="info-card">
             <div class="info-line">
                 <div class="info-icon"><i class="fa-solid fa-user-tie"></i></div>
-                <div><span style="color: gray; font-size: 15px; display: block;">સંચાલક</span>પઠાણ માહિરખાન</div>
+                <div><span style="color: gray; font-size: 16px; display: block; margin-bottom: 2px;">સંચાલક</span>પઠાણ માહિરખાન</div>
             </div>
             <div class="info-line">
                 <div class="info-icon"><i class="fa-solid fa-phone-volume"></i></div>
-                <div><span style="color: gray; font-size: 15px; display: block;">મોબાઇલ</span><a href="tel:9638730186" style="color: var(--primary); text-decoration: none;">9638730186</a></div>
+                <div><span style="color: gray; font-size: 16px; display: block; margin-bottom: 2px;">મોબાઇલ</span><a href="tel:9638730186" style="color: var(--primary); text-decoration: none;">9638730186</a></div>
             </div>
             <div class="info-line">
                 <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
-                <div><span style="color: gray; font-size: 15px; display: block;">સરનામું</span>અલ-અકશા કમ્પ્યુટર સેન્ટર, મસ્જિદ પાસે, ઢુણાદરા 388230</div>
+                <div><span style="color: gray; font-size: 16px; display: block; margin-bottom: 2px;">સરનામું</span>અલ-અકશા કમ્પ્યુટર સેન્ટર, મસ્જિદ પાસે, ઢુણાદરા 388230</div>
             </div>
         </div>
 
@@ -783,12 +809,12 @@
     </a>
 
     <footer>
-        <div style="margin-bottom: 20px;">
-            <img src="logo.jpg" alt="Logo" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid white; object-fit: cover;" onerror="this.style.display='none'">
+        <div style="margin-bottom: 25px;">
+            <img src="logo.jpg" alt="Logo" style="width: 90px; height: 90px; border-radius: 50%; border: 4px solid white; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.5);" onerror="this.style.display='none'">
         </div>
         આપનો દિવસ શુભ રહે! 🌻✨ હસતા રહો! 😊<br>
-        <div style="opacity: 0.6; display:block; margin-top:20px; font-size: 15px; letter-spacing: 1px;">
-            <i class="fa-regular fa-copyright"></i> ૨૦૨૬ AL-AKSHA COMPUTER CENTER. All Rights Reserved.
+        <div style="opacity: 0.6; display:block; margin-top:20px; font-size: 16px; letter-spacing: 2px;">
+            <i class="fa-regular fa-copyright"></i> ૨૦૨૬ AL-AKSHA COMPUTER CENTER.<br>All Rights Reserved.
         </div>
     </footer>
 
@@ -809,110 +835,14 @@
             document.getElementById("progressBar").style.width = scrolled + "%";
         };
 
-        // 3. Shop Status (Open/Close Logic) - Fixed Background Colors
+        // 3. Shop Status (Open/Close Logic) - STRICTLY SOLID COLORS, NO OPACITY, NO BLUR
         let hr = new Date().getHours();
         let statusEl = document.getElementById('shopStatus');
         if((hr >= 8 && hr < 12) || (hr >= 15 && hr < 20)) {
             statusEl.innerHTML = "<i class='fa-solid fa-door-open'></i> અત્યારે Office ( ઓફિસ ) ચાલુ છે";
-            statusEl.style.background = "#10b981"; // પાક્કો લીલો કલર
+            statusEl.style.background = "#10b981"; // SOLID GREEN
             statusEl.style.border = "2px solid #ffffff";
         } else {
             statusEl.innerHTML = "<i class='fa-solid fa-door-closed'></i> અત્યારે Office ( ઓફિસ ) બંધ છે";
-            statusEl.style.background = "#e3342f"; // પાક્કો લાલ કલર
-            statusEl.style.border = "2px solid #ffffff";
-        }
-
-        // 4. Auto Typing
-        const words = ["📍 ઢુણાદરા | 💻 ઓનલાઇન સેવાઓનું વિશ્વાસપાત્ર કેન્દ્ર"];
-        let i = 0, j = 0, isDeleting = false;
-        function typeText() {
-            let text = words[i];
-            document.getElementById('typingText').innerText = text.substring(0, j) + "|";
-            if(!isDeleting && j === text.length) { isDeleting = true; setTimeout(typeText, 3000); return; }
-            if(isDeleting && j === 0) { isDeleting = false; i = (i + 1) % words.length; }
-            j += isDeleting ? -1 : 1;
-            setTimeout(typeText, isDeleting ? 30 : 100);
-        }
-        typeText();
-
-        // 5. Category Tabs Filter
-        function filterCategory(cat, btn) {
-            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            let cards = document.getElementsByClassName('service-card');
-            for (let i = 0; i < cards.length; i++) {
-                let c = cards[i].getAttribute('data-category');
-                cards[i].style.display = (cat === 'all' || c === cat) ? "" : "none";
-            }
-        }
-
-        // 6. Voice Search
-        function startVoiceSearch() {
-            if ('webkitSpeechRecognition' in window) {
-                let recognition = new webkitSpeechRecognition();
-                recognition.lang = "gu-IN";
-                recognition.start();
-                document.getElementById('searchInput').placeholder = "સાંભળી રહ્યા છીએ...";
-                recognition.onresult = function(e) {
-                    document.getElementById('searchInput').value = e.results[0][0].transcript;
-                    searchService();
-                    document.getElementById('searchInput').placeholder = "યોજના અથવા સેવાનું નામ શોધો...";
-                };
-            } else { alert("તમારો ફોન વોઇસ સર્ચ સપોર્ટ કરતો નથી."); }
-        }
-
-        // 7. Text To Speech (Read Aloud)
-        function speakText(element) {
-            let text = element.parentElement.parentElement.innerText.replace('🔊 સાંભળો', '').replace('સાંભળો', '');
-            let utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'gu-IN';
-            speechSynthesis.speak(utterance);
-            event.stopPropagation();
-        }
-
-        // 8. Confetti & Inquiry Submit
-        function sendInquiry() {
-            let name = document.getElementById('cName').value.trim();
-            let msg = document.getElementById('cMsg').value.trim();
-            if(!name || !msg) { alert("કૃપા કરીને વિગતો ભરો!"); return; }
-            
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-
-            setTimeout(() => {
-                let waText = "નમસ્કાર,%0A👤 નામ: " + encodeURIComponent(name) + "%0A📝 કામ: " + encodeURIComponent(msg) + "%0A📎 (મારા ડોક્યુમેન્ટ્સ હું આની સાથે મોકલી રહ્યો/રહી છું)";
-                window.open("https://wa.me/919638730186?text=" + waText, '_blank');
-            }, 1000); 
-        }
-
-        // 9. Settings: Theme, Color, Share
-        function toggleSettings() {
-            document.getElementById('settingsMenu').classList.toggle('show');
-        }
-        function toggleTheme() {
-            let current = document.documentElement.getAttribute('data-theme');
-            document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
-            toggleSettings();
-        }
-        function changeColor(color) {
-            document.documentElement.style.setProperty('--primary', color);
-            toggleSettings();
-        }
-        function shareWebsite() {
-            if (navigator.share) {
-                navigator.share({ title: 'અલ-અકશા કમ્પ્યુટર સેન્ટર', text: 'તમામ સરકારી યોજનાઓ અને ઓનલાઈન કામ માટે મુલાકાત લો:', url: window.location.href });
-            } else { alert("તમારા બ્રાઉઝરમાં શેર સપોર્ટ નથી, લિંક કોપી કરો."); }
-            toggleSettings();
-        }
-
-        // 10. Normal Search
-        function searchService() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('service-card');
-            for (let i = 0; i < cards.length; i++) {
-                let title = cards[i].getAttribute('data-title').toLowerCase();
-                cards[i].style.display = title.includes(input) ? "" : "none";
-            }
-        }
-    </script>
-</body>
-</html>
+            statusEl.style.background = "#e3342f"; // SOLID RED
+            statusEl.
