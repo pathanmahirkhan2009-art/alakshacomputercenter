@@ -18,9 +18,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
     <style>
-        /* PROFESSIONAL UI VARIABLES & CLEAR BACKGROUND */
+        /* PROFESSIONAL UI VARIABLES */
         :root { 
-            --bg-base: #eef2f6; 
+            --bg-grad-1: #eef2f6; --bg-grad-2: #e2e8f0; --bg-grad-3: #f8fafc; 
             --text-color: #0f172a; 
             --card-bg: rgba(255, 255, 255, 0.85); 
             --glass-border: rgba(255, 255, 255, 0.6);
@@ -30,29 +30,35 @@
             --shadow-hover: 0 15px 40px 0 rgba(37, 99, 235, 0.2); 
         }
         [data-theme="dark"] { 
-            --bg-base: #0b1120; 
+            --bg-grad-1: #0f172a; --bg-grad-2: #1e293b; --bg-grad-3: #020617; 
             --text-color: #f8fafc; 
             --card-bg: rgba(30, 41, 59, 0.75); 
             --glass-border: rgba(255, 255, 255, 0.1);
             --shadow-soft: 0 10px 30px 0 rgba(0, 0, 0, 0.4); 
-            --shadow-hover: 0 15px 40px 0 rgba(96, 165, 250, 0.25); 
+            --shadow-hover: 0 15px 40px 0 rgba(96, 165, 250, 0.3); 
         }
         
         [data-lang="en"] .lang-gu { display: none !important; } [data-lang="gu"] .lang-en { display: none !important; }
         ::-webkit-scrollbar { width: 8px; height: 8px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
-        /* CLEAN & PROFESSIONAL BACKGROUND */
+        /* LIVE PROFESSIONAL BACKGROUND */
         body { 
             font-family: 'Baloo Bhai 2', sans-serif; 
             color: var(--text-color); margin: 0; padding: 0; scroll-behavior: smooth; 
-            background-color: var(--bg-base);
-            background-image: radial-gradient(circle at top right, rgba(37, 99, 235, 0.05), transparent 50%), radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.05), transparent 50%);
-            transition: all 0.4s ease; 
+            background: linear-gradient(-45deg, var(--bg-grad-1), var(--bg-grad-2), var(--bg-grad-3), var(--bg-grad-1));
+            background-size: 400% 400%;
+            animation: gradientLive 15s ease infinite;
+            transition: color 0.4s ease; 
             overflow-x: hidden; 
+        }
+        @keyframes gradientLive {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* FAST LOADER */
-        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-base); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.4s ease-out; }
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-grad-2); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.4s ease-out; }
         .spinner-container { position: relative; width: 130px; height: 130px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
         .spinning-ring { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 4px solid transparent; border-top-color: var(--primary); border-bottom-color: #10b981; animation: spinRing 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; box-shadow: 0 0 25px rgba(37,99,235,0.3); }
         .spinning-ring::before { content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px; border-radius: 50%; border: 3px solid transparent; border-left-color: #f59e0b; border-right-color: #ec4899; animation: spinRing 2s linear infinite reverse; }
@@ -64,11 +70,12 @@
 
         #progressBar { position: fixed; top: 0; left: 0; height: 5px; background: linear-gradient(90deg, #10b981, #3b82f6); width: 0%; z-index: 10000; border-radius: 0 5px 5px 0;}
 
-        /* FIXED POPUP BOX (CENTERED) */
-        #welcomePopup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 2000; }
+        /* FIXED POPUP BOX WITH FADE EFFECT */
+        #welcomePopup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.85); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 2000; transition: opacity 0.4s ease; opacity: 1;}
         .popup-box { background: var(--card-bg); padding: 45px 35px; border-radius: 30px; text-align: center; max-width: 85%; border-top: 8px solid var(--primary); box-shadow: 0 30px 60px rgba(0,0,0,0.4); animation: scaleUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid var(--glass-border);}
-        .popup-box h2 { margin-top: 0; color: var(--primary); font-size: 42px; }
+        .popup-box h2 { margin-top: 0; font-size: 46px; background: linear-gradient(135deg, var(--primary), #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);}
         .popup-btn { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 20px; font-weight: 800; cursor: pointer; margin-top: 25px; box-shadow: 0 10px 25px var(--hover-shadow); transition: 0.3s; }
+        .popup-btn:hover { transform: scale(1.08) translateY(-3px); box-shadow: 0 15px 35px var(--hover-shadow); }
         @keyframes scaleUp { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
         /* Settings Menu */
@@ -177,7 +184,7 @@
         .docs-list li i { position: absolute; left: 0; color: #10b981; font-size: 24px; }
         .important-note { color: #b91c1c; background: #fee2e2; padding: 20px; border-radius: 12px; font-weight: 800; font-size: 18px; margin-top: 20px; border-left: 8px solid #ef4444;}
 
-        /* RESTORED OLD INQUIRY FORM (ONE STEP) */
+        /* INQUIRY FORM (ONE STEP) */
         .inquiry-box { background: var(--card-bg); padding: 40px; border-radius: 30px; margin-top: 60px; box-shadow: var(--shadow-soft); border: 1px solid var(--glass-border); }
         .form-group { position: relative; margin: 15px 0 25px 0; }
         .form-group i { position: absolute; left: 18px; top: 18px; color: var(--primary); font-size: 22px;}
@@ -191,7 +198,7 @@
         .liquid-btn-wrap:hover::before { opacity: 1; filter: blur(12px); }
         @keyframes liquidGlow { 0% { background-position: 0% 0; } 100% { background-position: 400% 0; } }
         
-        .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 18px; border: none; border-radius: 50px; font-size: 22px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 20px rgba(16,185,129,0.3); transition: transform 0.2s;}
+        .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 18px; border: none; border-radius: 50px; font-size: 22px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 20px rgba(16,185,129,0.3); transition: transform 0.2s; width: 100%;}
         .submit-btn:hover { transform: scale(1.02); }
 
         .payment-qr { text-align: center; margin-top: 40px; padding: 25px; background: rgba(0,0,0,0.03); border-radius: 20px; border: 2px dashed var(--primary);}
@@ -202,7 +209,6 @@
         .info-icon { background: rgba(0,0,0,0.05); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 26px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);}
         [data-theme="dark"] .info-icon { background: rgba(255,255,255,0.05); }
 
-        /* RESTORED MAP SECTION */
         .map-section { margin-top: 35px; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-soft); border: 1px solid var(--glass-border); }
 
         /* CAROUSEL & CHATBOT */
@@ -250,7 +256,7 @@
         <div class="popup-box">
             <h2 style="font-size: 46px;"><i class="fa-solid fa-handshake-angle"></i> WELCOME !</h2>
             <p style="font-size: 28px; font-weight: 800; color: var(--primary);">અલ-અકશા કમ્પ્યુટર સેન્ટરમાં તમારું હાર્દિક સ્વાગત છે.</p>
-            <button class="popup-btn" onclick="document.getElementById('welcomePopup').style.display='none'"><i class="fa-solid fa-circle-check"></i> ઓકે (OK)</button>
+            <button class="popup-btn" onclick="closePopup()"><i class="fa-solid fa-circle-check"></i> ઓકે (OK)</button>
         </div>
     </div>
 
@@ -273,7 +279,7 @@
         <div class="news-label"><i class="fa-solid fa-bullhorn fa-shake"></i> <span class="lang-gu">ન્યૂઝ:</span></div>
         <div class="news-scroll-container">
             <div class="scrolling-text">
-                <span class="lang-gu">( 1 ) NEET ના એડ્મિટ કાર્ડ કાઢી આપવામાં  | ( 1 ) પાનકાર્ડ બનાવવા અથવા સુધારા માટે નવા નિયમો લાગુ થઈ ગયા છે .. | 💻 તમામ સરકારી યોજનાઓની માહિતી માટે મુલાકાત લો.. ✨</span>
+                <span class="lang-gu">( 1 ) RTE ધોરણ-૧ માં એડમિશનના ફોર્મ DATE(તારીખ) 04/04/2026 થી શરૂ થઈ ગયા છે .. છેલ્લી તારીખ 17/04/2026 | ( 2 ) પાનકાર્ડ બનાવવા અથવા સુધારા માટે નવા નિયમો લાગુ થઈ ગયા છે .. | 💻 તમામ સરકારી યોજનાઓની માહિતી માટે મુલાકાત લો.. ✨</span>
             </div>
         </div>
     </div>
@@ -370,7 +376,7 @@
             </div>
             
             <div class="liquid-btn-wrap">
-                <button class="submit-btn" style="width:100%;" onclick="sendInquiry()"><i class="fa-solid fa-paper-plane"></i> ડોક્યુમેન્ટ / મેસેજ મોકલો</button>
+                <button class="submit-btn" onclick="sendInquiry()"><i class="fa-solid fa-paper-plane"></i> ડોક્યુમેન્ટ / મેસેજ મોકલો</button>
             </div>
             
             <div class="payment-qr">
@@ -430,29 +436,64 @@
     </footer>
 
     <script>
-        // WELCOME POPUP ON LOAD (Centers perfectly now due to fixed CSS)
         document.addEventListener("DOMContentLoaded", () => {
             if(localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
             if(localStorage.getItem('lang') === 'en') document.documentElement.setAttribute('data-lang', 'en');
         });
 
-        // 1. FAST & BULLETPROOF LOADER REMOVAL
+        // --- FIREWORKS CONFETTI LOGIC ---
+        let fireworksInterval;
+        function startFireworks() {
+            var duration = 15 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 2500 }; // High zIndex
+
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+            fireworksInterval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) { return clearInterval(fireworksInterval); }
+                var particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        function stopFireworks() {
+            clearInterval(fireworksInterval);
+            confetti.reset(); // Immediately clears all fireworks
+        }
+
+        // CLOSE POPUP & STOP FIREWORKS
+        function closePopup() {
+            let popup = document.getElementById('welcomePopup');
+            if(popup) {
+                popup.style.opacity = '0';
+                setTimeout(() => popup.style.display = 'none', 400); // Wait for fade out
+            }
+            stopFireworks();
+        }
+
+        // --- BULLETPROOF LOADER REMOVAL ---
         function forceRemoveLoader() {
             let loader = document.getElementById('loader');
             if(loader && loader.style.display !== 'none') {
                 loader.style.opacity = '0';
                 setTimeout(() => loader.style.display = 'none', 400);
                 
-                // Show Welcome Popup after loader disappears
+                // Show Welcome Popup & Start Fireworks
                 let popup = document.getElementById('welcomePopup');
-                if(popup) popup.style.display = 'flex';
+                if(popup) {
+                    popup.style.display = 'flex';
+                    startFireworks(); 
+                }
                 
                 try { initDynamicFeatures(); } catch(e) { console.log(e); }
             }
         }
         
         window.addEventListener('load', () => { setTimeout(forceRemoveLoader, 600); });
-        setTimeout(forceRemoveLoader, 1500); // બ્રહ્માસ્ત્ર: 1.5 સેકન્ડમાં ફરજિયાત લોડર ગાયબ!
+        setTimeout(forceRemoveLoader, 1500); 
 
         // Particles
         if(typeof particlesJS !== 'undefined') {
@@ -514,7 +555,6 @@
             });
         }
 
-        // Voice Wave Visualizer
         function startVoiceSearch() {
             if ('webkitSpeechRecognition' in window) {
                 let rec = new webkitSpeechRecognition();
@@ -536,7 +576,6 @@
             document.getElementById('voiceWave').style.display = 'none';
         }
 
-        // Scroll Progress
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -554,7 +593,6 @@
             st.style.background = "#ef4444";
         }
 
-        // Old Form Submission (Restored)
         function sendInquiry() {
             let n = document.getElementById('cName').value.trim();
             let m = document.getElementById('cMsg').value.trim();
