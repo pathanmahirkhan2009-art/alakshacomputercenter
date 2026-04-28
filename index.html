@@ -20,7 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
-        /* CSS Variables for Dark Mode & Color Picker - Upgraded for Next Level UI */
+        /* CSS Variables for Dark Mode & Color Picker */
         :root {
             --bg-color: #f4f7fb;
             --text-color: #1e293b;
@@ -69,12 +69,12 @@
         /* Settings Floating Menu */
         .settings-float { position: fixed; bottom: 30px; left: 30px; background: var(--card-bg); color: var(--primary); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(0,0,0,0.15); z-index: 1000; cursor: pointer; font-size: 26px; border: 2px solid var(--border-color); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .settings-float:hover { transform: rotate(90deg) scale(1.1); background: var(--primary); color: white; border-color: transparent;}
-        .settings-menu { position: fixed; bottom: 100px; left: 30px; background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 20px; display: none; flex-direction: column; gap: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); z-index: 1000; max-height: 400px; overflow-y: auto; animation: fadeUp 0.3s ease-out; backdrop-filter: blur(10px); }
+        .settings-menu { position: fixed; bottom: 100px; left: 30px; background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 20px; display: none; flex-direction: column; gap: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); z-index: 1000; width: 320px; max-height: 450px; overflow-y: auto; animation: fadeUp 0.3s ease-out; backdrop-filter: blur(10px); }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .settings-menu.show { display: flex; }
-        .settings-menu button { background: var(--bg-color); color: var(--text-color); border: 1px solid var(--border-color); padding: 12px; border-radius: 12px; cursor: pointer; font-family: inherit; font-weight: 700; transition: all 0.2s ease;}
+        .settings-menu button { background: var(--bg-color); color: var(--text-color); border: 1px solid var(--border-color); padding: 10px; border-radius: 12px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 14px; transition: all 0.2s ease;}
         .settings-menu button:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-2px);}
-        .color-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .color-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 
         /* Modern News Bar */
         .news-bar { background: linear-gradient(90deg, #dc2626, #991b1b); color: white; display: flex; align-items: center; font-weight: 800; font-size: 20px; position: sticky; top: 0; z-index: 1001; box-shadow: 0 4px 15px rgba(0,0,0,0.2);}
@@ -84,14 +84,14 @@
         @keyframes scrollNews { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
         /* =========================================================
-           NEW HEADER UI UPGRADE: AURORA GLASSMORPHISM
+           ADVANCED AURORA GLASSMORPHISM HEADER (Fast & Colorful)
         ========================================================= */
         header { 
             position: relative;
-            background: #0b1120; /* Deep modern dark base */
+            background: #0b1120; 
             color: white; 
             text-align: center; 
-            padding: 70px 20px 60px 20px; 
+            padding: 70px 20px 80px 20px;
             border-bottom-left-radius: 40px; 
             border-bottom-right-radius: 40px; 
             box-shadow: 0 20px 40px rgba(0,0,0,0.2); 
@@ -99,26 +99,30 @@
             z-index: 1;
         }
 
-        /* Animated Aurora Blobs */
         .aurora-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
         .blob {
             position: absolute;
-            filter: blur(80px);
-            opacity: 0.6;
+            filter: blur(65px);
+            opacity: 0.75;
             border-radius: 50%;
-            animation: moveBlob 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+            animation: moveBlob 10s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .blob-1 { top: -20%; left: -10%; width: 400px; height: 400px; background: var(--primary); }
-        .blob-2 { bottom: -20%; right: -10%; width: 350px; height: 350px; background: var(--accent); animation-delay: -5s; animation-duration: 25s;}
-        .blob-3 { top: 40%; left: 40%; width: 300px; height: 300px; background: var(--secondary); animation-delay: -10s; animation-duration: 18s;}
+        
+        /* 6 Colorful Fast Moving Blobs */
+        .blob-1 { top: -10%; left: -10%; width: 350px; height: 350px; background: var(--primary); animation-duration: 7s;}
+        .blob-2 { bottom: -20%; right: -10%; width: 400px; height: 400px; background: var(--accent); animation-delay: -2s; animation-duration: 9s;}
+        .blob-3 { top: 40%; left: 35%; width: 300px; height: 300px; background: var(--secondary); animation-delay: -4s; animation-duration: 8s;}
+        .blob-4 { top: -20%; right: 15%; width: 280px; height: 280px; background: #ec4899; animation-delay: -1s; animation-duration: 6s;} /* Pink */
+        .blob-5 { bottom: 10%; left: 15%; width: 320px; height: 320px; background: #10b981; animation-delay: -3s; animation-duration: 10s;} /* Emerald */
+        .blob-6 { top: 60%; right: 30%; width: 250px; height: 250px; background: #f59e0b; animation-delay: -5s; animation-duration: 7s;} /* Amber */
 
         @keyframes moveBlob {
             0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(100px, -50px) scale(1.2); }
-            100% { transform: translate(-50px, 80px) scale(0.9); }
+            33% { transform: translate(60px, -50px) scale(1.15); }
+            66% { transform: translate(-50px, 60px) scale(0.9); }
+            100% { transform: translate(30px, 30px) scale(1.1); }
         }
 
-        /* Glassmorphism Header Content */
         .header-content { 
             position: relative; 
             z-index: 2; 
@@ -141,12 +145,80 @@
         .auto-type { font-size: 26px; font-weight: 800; color: #fde047; min-height: 35px; margin-top: 25px; margin-bottom: 20px; text-shadow: 1px 1px 4px rgba(0,0,0,0.5);}
         .dev-badge { font-size: 16px; background: rgba(0,0,0,0.25); display: inline-block; padding: 10px 25px; border-radius: 50px; color: #ffffff; font-weight: 700; letter-spacing: 1.5px; margin-top: 5px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.4); backdrop-filter: blur(8px);}
         
-        /* Shop Status Box */
         .shop-status { display: inline-flex; align-items: center; gap: 10px; padding: 14px 35px; border-radius: 50px; font-weight: 800; font-size: 22px; color: white; box-shadow: 0 8px 20px rgba(0,0,0,0.3); text-shadow: 1px 1px 2px rgba(0,0,0,0.4); position: relative; border: 2px solid rgba(255,255,255,0.9); transition: transform 0.3s;}
         .shop-status:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0,0,0,0.4);}
 
+        /* =========================================================
+           ANIMATED STATS COUNTER BOXES
+        ========================================================= */
+        .stats-container {
+            max-width: 950px;
+            margin: -45px auto 35px auto;
+            padding: 0 15px;
+            position: relative;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        .stat-box {
+            background: var(--card-bg);
+            padding: 25px 15px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+            border-bottom: 6px solid var(--primary);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .stat-box:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px var(--hover-shadow);
+        }
+        .stat-box:nth-child(2) { border-bottom-color: #10b981; }
+        .stat-box:nth-child(3) { border-bottom-color: #f59e0b; }
+        .stat-box:nth-child(4) { border-bottom-color: #8b5cf6; }
+
+        .stat-icon {
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-color);
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .stat-box:hover .stat-icon { transform: rotate(10deg) scale(1.1); }
+        .stat-box:nth-child(2) .stat-icon { color: #10b981; }
+        .stat-box:nth-child(3) .stat-icon { color: #f59e0b; }
+        .stat-box:nth-child(4) .stat-icon { color: #8b5cf6; }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+        .stat-text {
+            font-size: 17px;
+            font-weight: 700;
+            color: gray;
+        }
+
         /* Professional Search & Categories */
-        .search-container { max-width: 900px; margin: -35px auto 35px auto; padding: 0 15px; position: relative; z-index: 10; display: flex; gap: 15px;}
+        .search-container { max-width: 900px; margin: 0 auto 35px auto; padding: 0 15px; position: relative; z-index: 10; display: flex; gap: 15px;}
         .search-wrapper { flex-grow: 1; position: relative; }
         .search-icon { position: absolute; left: 25px; top: 50%; transform: translateY(-50%); color: var(--primary); font-size: 22px; }
         #searchInput { width: 100%; padding: 22px 25px 22px 65px; border-radius: 50px; border: 2px solid transparent; background: var(--card-bg); color: var(--text-color); box-shadow: 0 15px 35px rgba(0,0,0,0.08); font-size: 19px; font-family: inherit; font-weight: 700; outline: none; transition: all 0.3s ease; box-sizing: border-box;}
@@ -165,7 +237,6 @@
         .section-title { background: var(--card-bg); color: var(--primary); padding: 18px 25px; border-radius: 16px; margin: 45px 0 25px 0; font-size: 26px; font-weight: 800; text-align: center; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: var(--card-shadow); position: relative; overflow: hidden;}
         .section-title::before { content: ""; position: absolute; left: 0; top: 0; height: 100%; width: 8px; background: var(--primary); }
         
-        /* Modern Service Cards */
         .service-card { background: var(--card-bg); margin-bottom: 20px; border-radius: 18px; box-shadow: var(--card-shadow); border-left: 8px solid var(--primary); overflow: hidden; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); border-right: 1px solid var(--border-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);}
         .service-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-left-width: 12px;}
         .service-card.simple { border-left: 8px solid #10b981; }
@@ -180,7 +251,6 @@
         .tts-btn { background: var(--bg-color); color: var(--primary); padding: 10px 18px; border-radius: 50px; font-size: 17px; font-weight: 800; border: 1px solid rgba(26, 115, 232, 0.3); cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;}
         .tts-btn:hover { background: var(--primary); color: white; border-color: transparent; box-shadow: 0 5px 15px var(--hover-shadow); transform: scale(1.05);}
 
-        /* Professional List Styling */
         .docs-list { margin-top: 20px; padding: 25px; background: var(--bg-color); border-radius: 14px; font-size: 19px; font-weight: 600; border: 1px solid var(--border-color); line-height: 1.7; animation: slideDown 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);}
         @keyframes slideDown { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
         
@@ -193,7 +263,6 @@
         .important-note.blue-note { color: #0284c7; background: #f0f9ff; border-left-color: #0ea5e9; }
         .important-note i { font-size: 22px; margin-top: 2px;}
 
-        /* Modern Form & Inquiry */
         .inquiry-box { background: var(--card-bg); padding: 40px; border-radius: 20px; margin-top: 50px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); border-top: 8px solid #10b981; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; overflow: hidden;}
         .inquiry-box::before { content: ""; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%); border-radius: 50%; }
         
@@ -214,21 +283,26 @@
 
         .map-section { margin-top: 35px; border-radius: 20px; overflow: hidden; box-shadow: var(--card-shadow); border: 2px solid var(--border-color);}
 
-        /* Customer Review Marquee */
         .review-box { background: var(--card-bg); color: var(--text-color); padding: 22px; margin-top: 35px; border-radius: 16px; border-left: 6px solid #f59e0b; font-weight: 700; font-size: 20px; display: flex; overflow: hidden; white-space: nowrap; box-shadow: var(--card-shadow);}
         .review-marquee { animation: scrollReview 30s linear infinite; }
         .review-marquee span { margin-right: 50px; }
         .review-marquee i { color: #f59e0b; }
         @keyframes scrollReview { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* Floating WhatsApp Button */
         .wa-float { position: fixed; bottom: 30px; right: 30px; background: linear-gradient(135deg, #25D366, #128C7E); color: white; border-radius: 50px; display: flex; align-items: center; padding: 15px 30px; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); z-index: 1000; text-decoration: none; gap: 15px; font-size: 20px; font-weight: 800; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);}
         .wa-float:hover { transform: scale(1.08) translateY(-5px); box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5); }
         .wa-float i { font-size: 30px; }
         
         /* MOBILE VIEW UPDATES */
+        @media (max-width: 768px) {
+            .stats-container { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: -30px; }
+            .stat-box { padding: 15px 10px; }
+            .stat-number { font-size: 26px; }
+            .stat-text { font-size: 15px; }
+        }
+
         @media (max-width: 480px) {
-            header { padding: 55px 15px 45px 15px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;}
+            header { padding: 55px 15px 60px 15px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;}
             .header-content { padding: 25px 15px; border-radius: 20px; }
             h1 { font-size: 36px; }
             h1 span { font-size: 18px; }
@@ -236,12 +310,12 @@
             .wa-float i { font-size: 34px; }
             .wa-float span { display: none; }
             .settings-float { bottom: 20px; left: 20px; width: 55px; height: 55px; font-size: 26px; }
-            .settings-menu { bottom: 85px; left: 20px; padding: 15px; width: 280px;}
+            .settings-menu { bottom: 85px; left: 20px; padding: 15px; width: 300px;}
             .news-bar { font-size: 18px; }
             .news-label { padding: 10px 15px; }
             .summary-left { font-size: 19px; }
             .service-title { font-size: 19px; }
-            .search-container { margin-top: -25px; }
+            .search-container { margin-top: 20px; }
             .mic-btn { width: 60px; height: 60px; font-size: 22px; }
             .popup-box h2 { font-size: 36px; }
             .popup-box p { font-size: 22px; }
@@ -272,7 +346,7 @@
 
     <div class="settings-float" onclick="toggleSettings()"><i class="fa-solid fa-gear fa-spin-hover"></i></div>
     <div class="settings-menu" id="settingsMenu">
-        <button onclick="toggleTheme()" style="width: 100%; margin-bottom: 8px; font-size: 18px;"><i class="fa-solid fa-circle-half-stroke"></i> લાઈટ / ડાર્ક મોડ</button>
+        <button onclick="toggleTheme()" style="width: 100%; margin-bottom: 12px; font-size: 16px;"><i class="fa-solid fa-circle-half-stroke"></i> લાઈટ / ડાર્ક મોડ</button>
         <div class="color-grid">
             <button onclick="changeColor('#1a73e8')">🔵 બ્લુ</button>
             <button onclick="changeColor('#dc2626')">🔴 લાલ</button>
@@ -284,8 +358,14 @@
             <button onclick="changeColor('#ec4899')">🩷 પિંક</button>
             <button onclick="changeColor('#4f46e5')">🌌 ઇન્ડિગો</button>
             <button onclick="changeColor('#334155')">🖤 ગ્રે</button>
+            
+            <button onclick="changeColor('#d4af37')">🪙 ગોલ્ડન</button>
+            <button onclick="changeColor('#0d9488')">🩵 ટીલ (Teal)</button>
+            <button onclick="changeColor('#e11d48')">🍒 રૂબી રેડ</button>
+            <button onclick="changeColor('#c026d3')">🍇 મેજેન્ટા</button>
+            <button onclick="changeColor('#0f766e')">🌲 ડીપ ગ્રીન</button>
         </div>
-        <button onclick="shareWebsite()" style="width: 100%; margin-top: 8px; font-size: 18px;"><i class="fa-solid fa-share-nodes"></i> સાઈટ શેર કરો</button>
+        <button onclick="shareWebsite()" style="width: 100%; margin-top: 12px; font-size: 16px;"><i class="fa-solid fa-share-nodes"></i> સાઈટ શેર કરો</button>
     </div>
 
     <div class="news-bar">
@@ -302,6 +382,9 @@
             <div class="blob blob-1"></div>
             <div class="blob blob-2"></div>
             <div class="blob blob-3"></div>
+            <div class="blob blob-4"></div>
+            <div class="blob blob-5"></div>
+            <div class="blob blob-6"></div>
         </div>
 
         <div class="header-content">
@@ -317,11 +400,34 @@
                 <i class="fa-solid fa-laptop-code" style="color: #fde047;"></i> DEVELOPED BY | PATHAN MAHIRKHAN 😎
             </div>
             
-            <div style="font-size: 24px; color: #ffffff; margin: 5px 0 20px 0; font-weight: normal; letter-spacing: 2px; opacity: 0.8;">━━━━ <i class="fa-brands fa-envira"></i> ━━━━</div>
+            <div style="font-size: 30px; color: #ffffff; margin: 5px 0 20px 0; font-weight: normal; letter-spacing: 2px; opacity: 0.8;">━━━━ <i class="fa-brands fa-envira"></i> ━━━━</div>
             
             <div class="shop-status" id="shopStatus"><i class="fa-solid fa-circle-notch fa-spin"></i> લોડ થાય છે...</div>
         </div>
     </header>
+
+    <div class="stats-container">
+        <div class="stat-box">
+            <div class="stat-icon"><i class="fa-solid fa-laptop-file"></i></div>
+            <div class="stat-number"><span class="counter-value" data-target="100">0</span>+</div>
+            <div class="stat-text">ઓનલાઈન સેવાઓ</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-number"><span class="counter-value" data-target="1500">0</span>+</div>
+            <div class="stat-text">સંતુષ્ટ ગ્રાહકો</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div class="stat-number"><span class="counter-value" data-target="24">0</span></div>
+            <div class="stat-text">કલાક સપોર્ટ</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
+            <div class="stat-number"><span class="counter-value" data-target="100">0</span>%</div>
+            <div class="stat-text">વિશ્વાસપાત્ર કામ</div>
+        </div>
+    </div>
 
     <div class="search-container">
         <div class="search-wrapper">
@@ -644,7 +750,7 @@
                 <div class="docs-list">
                     <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
                     <ul>
-                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ, રેશન કાર્ડ, ચુંટણી કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ, رેશન કાર્ડ, ચુંટણી કાર્ડ</li>
                         <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો</li>
                         <li><i class="fa-solid fa-circle-check"></i> પ્લોટ / જમીનનો દસ્તાવેજ</li>
                         <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
@@ -728,7 +834,7 @@
                     </ul>
                     <div class="important-note blue-note">
                         <i class="fa-solid fa-circle-info"></i>
-                        <span>નોંધ: ૨૦૨૬ ની પ્રોસેસ મુજબ, ફોર્મ 'Submitted' સ્ટેટસમાં હશે તો પ્રિન્ટ બટન નહિ દેખાય. અરજી 'Confirmed' થયા પછી જ પ્રિન્ટ કરી શકાશે.</span>
+                    
                     </div>
                 </div>
             </details>
@@ -862,7 +968,8 @@
                 document.getElementById('loader').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('loader').style.display = 'none';
-                    startWelcomeConfetti(); // લોડર ગયા પછી ફટાકડા ચાલુ
+                    startWelcomeConfetti(); 
+                    animateCounters(); 
                 }, 600);
             }, 1500);
         };
@@ -881,8 +988,30 @@
         // Close Popup & Stop Fireworks
         function closeWelcomePopup() {
             document.getElementById('welcomePopup').style.display = 'none';
-            confettiActive = false; // ફટાકડા ફૂટવાનું બંધ
-            confetti.reset(); // સ્ક્રીન પર દેખાતા ફટાકડા પણ હટાવી દેશે
+            confettiActive = false; 
+            confetti.reset(); 
+        }
+
+        // Animated Stats Counter Function
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter-value');
+            const speed = 150; 
+
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 15);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
         }
 
         // 2. Scroll Progress Bar
@@ -906,8 +1035,8 @@
             statusEl.style.borderColor = "#b91c1c";
         }
 
-        // 4. Auto Typing (Changed to 100+ સેવાઓ)
-        const words = ["📍 ઢુણાદરા | 💻 100+ ઓનલાઇન સેવાઓનું વિશ્વાસપાત્ર કેન્દ્ર"];
+        // 4. Auto Typing 
+        const words = ["📍 ઢુણાદરા | 💻 ઓનલાઇન સેવાઓનું વિશ્વાસપાત્ર કેન્દ્ર"];
         let i = 0, j = 0, isDeleting = false;
         function typeText() {
             let text = words[i];
