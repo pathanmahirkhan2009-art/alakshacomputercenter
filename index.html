@@ -83,9 +83,7 @@
         .scrolling-text { display: inline-block; padding-left: 100%; animation: scrollNews 45s linear infinite; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);}
         @keyframes scrollNews { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
-        /* =========================================================
-           ADVANCED AURORA GLASSMORPHISM HEADER (Fast & Colorful)
-        ========================================================= */
+        /* HEADER CSS */
         header { 
             position: relative;
             background: #0b1120; 
@@ -108,13 +106,12 @@
             animation: moveBlob 10s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* 6 Colorful Fast Moving Blobs */
         .blob-1 { top: -10%; left: -10%; width: 350px; height: 350px; background: var(--primary); animation-duration: 7s;}
         .blob-2 { bottom: -20%; right: -10%; width: 400px; height: 400px; background: var(--accent); animation-delay: -2s; animation-duration: 9s;}
         .blob-3 { top: 40%; left: 35%; width: 300px; height: 300px; background: var(--secondary); animation-delay: -4s; animation-duration: 8s;}
-        .blob-4 { top: -20%; right: 15%; width: 280px; height: 280px; background: #ec4899; animation-delay: -1s; animation-duration: 6s;} /* Pink */
-        .blob-5 { bottom: 10%; left: 15%; width: 320px; height: 320px; background: #10b981; animation-delay: -3s; animation-duration: 10s;} /* Emerald */
-        .blob-6 { top: 60%; right: 30%; width: 250px; height: 250px; background: #f59e0b; animation-delay: -5s; animation-duration: 7s;} /* Amber */
+        .blob-4 { top: -20%; right: 15%; width: 280px; height: 280px; background: #ec4899; animation-delay: -1s; animation-duration: 6s;} 
+        .blob-5 { bottom: 10%; left: 15%; width: 320px; height: 320px; background: #10b981; animation-delay: -3s; animation-duration: 10s;} 
+        .blob-6 { top: 60%; right: 30%; width: 250px; height: 250px; background: #f59e0b; animation-delay: -5s; animation-duration: 7s;} 
 
         @keyframes moveBlob {
             0% { transform: translate(0, 0) scale(1); }
@@ -148,9 +145,7 @@
         .shop-status { display: inline-flex; align-items: center; gap: 10px; padding: 14px 35px; border-radius: 50px; font-weight: 800; font-size: 22px; color: white; box-shadow: 0 8px 20px rgba(0,0,0,0.3); text-shadow: 1px 1px 2px rgba(0,0,0,0.4); position: relative; border: 2px solid rgba(255,255,255,0.9); transition: transform 0.3s;}
         .shop-status:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0,0,0,0.4);}
 
-        /* =========================================================
-           ANIMATED STATS COUNTER BOXES
-        ========================================================= */
+        /* STATS CSS */
         .stats-container {
             max-width: 950px;
             margin: -45px auto 35px auto;
@@ -183,41 +178,16 @@
         .stat-box:nth-child(3) { border-bottom-color: #f59e0b; }
         .stat-box:nth-child(4) { border-bottom-color: #8b5cf6; }
 
-        .stat-icon {
-            font-size: 28px;
-            color: var(--primary);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-color);
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
-            transition: 0.3s;
-        }
+        .stat-icon { font-size: 28px; color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; justify-content: center; background: var(--bg-color); width: 65px; height: 65px; border-radius: 50%; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05); transition: 0.3s; }
         .stat-box:hover .stat-icon { transform: rotate(10deg) scale(1.1); }
         .stat-box:nth-child(2) .stat-icon { color: #10b981; }
         .stat-box:nth-child(3) .stat-icon { color: #f59e0b; }
         .stat-box:nth-child(4) .stat-icon { color: #8b5cf6; }
 
-        .stat-number {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--text-color);
-            margin-bottom: 2px;
-            display: flex;
-            align-items: center;
-            gap: 2px;
-        }
-        .stat-text {
-            font-size: 17px;
-            font-weight: 700;
-            color: gray;
-        }
+        .stat-number { font-size: 32px; font-weight: 800; color: var(--text-color); margin-bottom: 2px; display: flex; align-items: center; gap: 2px; }
+        .stat-text { font-size: 17px; font-weight: 700; color: gray; }
 
-        /* Professional Search & Categories */
+        /* SEARCH & CATEGORY */
         .search-container { max-width: 900px; margin: 0 auto 35px auto; padding: 0 15px; position: relative; z-index: 10; display: flex; gap: 15px;}
         .search-wrapper { flex-grow: 1; position: relative; }
         .search-icon { position: absolute; left: 25px; top: 50%; transform: translateY(-50%); color: var(--primary); font-size: 22px; }
@@ -232,12 +202,14 @@
         .cat-btn:hover { color: var(--primary); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.08);}
         .cat-btn.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-color: transparent; box-shadow: 0 10px 30px var(--hover-shadow);}
 
+        /* MAIN CONTENT CSS */
         .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
 
         .section-title { background: var(--card-bg); color: var(--primary); padding: 18px 25px; border-radius: 16px; margin: 45px 0 25px 0; font-size: 26px; font-weight: 800; text-align: center; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: var(--card-shadow); position: relative; overflow: hidden;}
         .section-title::before { content: ""; position: absolute; left: 0; top: 0; height: 100%; width: 8px; background: var(--primary); }
-        .section-title-alt { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
-        .section-title-alt::before { background: #fde047; }
+        
+        .section-title-new { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+        .section-title-new::before { background: #fde047; }
         
         .service-card { background: var(--card-bg); margin-bottom: 20px; border-radius: 18px; box-shadow: var(--card-shadow); border-left: 8px solid var(--primary); overflow: hidden; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); border-right: 1px solid var(--border-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);}
         .service-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-left-width: 12px;}
@@ -265,6 +237,7 @@
         .important-note.blue-note { color: #0284c7; background: #f0f9ff; border-left-color: #0ea5e9; }
         .important-note i { font-size: 22px; margin-top: 2px;}
 
+        /* FOOTER & FORMS CSS */
         .inquiry-box { background: var(--card-bg); padding: 40px; border-radius: 20px; margin-top: 50px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); border-top: 8px solid #10b981; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; overflow: hidden;}
         .inquiry-box::before { content: ""; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%); border-radius: 50%; }
         
@@ -295,7 +268,6 @@
         .wa-float:hover { transform: scale(1.08) translateY(-5px); box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5); }
         .wa-float i { font-size: 30px; }
         
-        /* MOBILE VIEW UPDATES */
         @media (max-width: 768px) {
             .stats-container { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: -30px; }
             .stat-box { padding: 15px 10px; }
@@ -360,12 +332,6 @@
             <button onclick="changeColor('#ec4899')">🩷 પિંક</button>
             <button onclick="changeColor('#4f46e5')">🌌 ઇન્ડિગો</button>
             <button onclick="changeColor('#334155')">🖤 ગ્રે</button>
-            
-            <button onclick="changeColor('#d4af37')">🪙 ગોલ્ડન</button>
-            <button onclick="changeColor('#0d9488')">🩵 ટીલ (Teal)</button>
-            <button onclick="changeColor('#e11d48')">🍒 રૂબી રેડ</button>
-            <button onclick="changeColor('#c026d3')">🍇 મેજેન્ટા</button>
-            <button onclick="changeColor('#0f766e')">🌲 ડીપ ગ્રીન</button>
         </div>
         <button onclick="shareWebsite()" style="width: 100%; margin-top: 12px; font-size: 16px;"><i class="fa-solid fa-share-nodes"></i> સાઈટ શેર કરો</button>
     </div>
@@ -448,9 +414,440 @@
     <div class="container" id="serviceList">
 
         <!-- ==========================================
-             NEW SECTION 1: આવક, જાતિ અને અન્ય દાખલાઓ 
+             SECTION 1: જૂની તમામ સરકારી યોજનાઓ
         =========================================== -->
-        <div class="section-title section-title-alt"><i class="fa-solid fa-file-signature"></i> આવક, જાતિ અને અન્ય પ્રમાણપત્રો</div>
+        <div class="section-title"><i class="fa-solid fa-folder-open"></i> સરકારી યોજનાઓ અને જરૂરી ડોક્યુમેન્ટ્સ</div>
+
+        <div class="service-card" data-title="ઈ-નિર્માણ કાર્ડ" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-helmet-safety service-title-icon" style="color: #f59e0b;"></i> ઈ - નિર્માણ કાર્ડ</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                        <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઇઝ ફોટો</li>
+                        <li><i class="fa-solid fa-circle-check"></i> 90 દિવસ કામ કર્યાનું પ્રમાણપત્ર</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="ABC કાર્ડ" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-graduation-cap service-title-icon" style="color: #8b5cf6;"></i> ABC કાર્ડ</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ (મોબાઈલ નંબર લિંક હોવો જરૂરી)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> કોલેજ/યુનિવર્સિટીનું આઈડી કાર્ડ અથવા એનરોલમેન્ટ નંબર</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="પાનકાર્ડ પાન કાર્ડ pan card" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-regular fa-id-card service-title-icon" style="color: #3b82f6;"></i> પાનકાર્ડ (નવું / સુધારો)</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> 2 પાસપોર્ટ સાઇઝ ફોટા</li>
+                        <li><i class="fa-solid fa-circle-check"></i> જૂના પાનકાર્ડની નકલ (સુધારા માટે)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> ચુંટણીકાર્ડ અથવા જન્મનો દાખલો</li>
+                    </ul>
+                    <div class="important-note">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <span>નોંધ: ઇન્સ્ટન્ટ e-PAN કાર્ડ બનતા 24 કલાકનો સમય લાગે છે. આ ઇન્સ્ટન્ટ e-PAN કાર્ડ બેંક, લોન કે પાસપોર્ટના કામમાં ચાલતું નથી.</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="ઈ-શ્રમ કાર્ડ ઇ શ્રમ" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-users-gear service-title-icon" style="color: #64748b;"></i> ઈ-શ્રમ કાર્ડ (નવું/સુધારો)</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ (મોબાઈલ નંબર લિંક હોવો જરૂરી)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="ચુંટણી કાર્ડ ચૂંટણી" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-check-to-slot service-title-icon" style="color: #ec4899;"></i> ચુંટણી કાર્ડ (નવું/સુધારો)</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઇઝ ફોટો</li>
+                        <li><i class="fa-solid fa-circle-check"></i> જન્મનો પુરાવો (LC)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> રહેઠાણનો પુરાવો</li>
+                        <li><i class="fa-solid fa-circle-check"></i> જૂનું ચુંટણી કાર્ડ</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="આધારકાર્ડ આધાર કાર્ડ" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-fingerprint service-title-icon" style="color: #10b981;"></i> આધારકાર્ડ પ્રિન્ટ/અપડેટ</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી વિગત:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ નંબર</li>
+                        <li><i class="fa-solid fa-circle-check"></i> લિંક થયેલ મોબઇલ નંબર</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="આયુષ્યમાન કાર્ડ" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-house-medical service-title-icon" style="color: #ef4444;"></i> આયુષ્યમાન કાર્ડ</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> લિંક મોબાઈલ નંબર</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="રેશન કાર્ડ e-KYC" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-wheat-awn service-title-icon" style="color: #84cc16;"></i> રેશન કાર્ડ e-KYC</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ (લિંક મોબાઈલ સાથે)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડ</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="ABHA કાર્ડ આભા" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-heart-pulse service-title-icon" style="color: #06b6d4;"></i> ABHA કાર્ડ</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ (મોબાઈલ નંબર લિંક હોવો જરૂરી)</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="ડ્રાઇવિંગ લાઇસેન્સ લાયસન્સ" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-car-side service-title-icon" style="color: #f97316;"></i> ડ્રાઇવિંગ લાઇસેન્સ</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઇઝ ફોટો</li>
+                        <li><i class="fa-solid fa-circle-check"></i> LC અથવા જન્મનો દાખલો</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="પાસપોર્ટ" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-plane-departure service-title-icon" style="color: #4338ca;"></i> પાસપોર્ટ</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> પાન કાર્ડ અથવા ચુંટણી કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> માર્કશીટ અથવા LC</li>
+                        <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="PF કામ પીએફ" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-briefcase service-title-icon" style="color: #78716c;"></i> PF ને લગતું કામ</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> UAN નંબર</li>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> પાન કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> બેંકની પાસબુક</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="7/12 8-અ નકલ ઉતારા" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-regular fa-file-lines service-title-icon" style="color: #8b5cf6;"></i> 7/12 અને 8-અ ની નકલ</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી માહિતી:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> ગામ, તાલુકો, જિલ્લો અને ખાતા નંબર અથવા સર્વે નંબર.</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="પ્રોપર્ટી કાર્ડ" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-building service-title-icon" style="color: #0ea5e9;"></i> પ્રોપર્ટી કાર્ડ</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી માહિતી:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> સિટી સર્વે નંબર અને વોર્ડ નંબર.</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="RTE ઍડ્મિશન ફોર્મ આરટીઈ" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-school service-title-icon" style="color: #d946ef;"></i> RTE ઍડ્મિશન ફોર્મ</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> બાળકના જન્મનો દાખલો</li>
+                        <li><i class="fa-solid fa-circle-check"></i> માતા-પિતાના આધાર કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો</li>
+                        <li><i class="fa-solid fa-circle-check"></i> જાતિનો દાખલો (જો લાગુ પડે)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> લાઈટ બિલ અથવા ભાડા કરાર</li>
+                        <li><i class="fa-solid fa-circle-check"></i> બાળકના ફોટા</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="પી એમ કિસાન યોજના" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-seedling service-title-icon" style="color: #22c55e;"></i> પી. એમ. કિસાન યોજના</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> 7/12 અને 8-અ ના ઉતારા</li>
+                        <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક (લિંક મોબાઈલ)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> મરણ નો દાખલો (જો લાગુ પડે)</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="ખેડૂત નોંધણી farmer registration" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-tractor service-title-icon" style="color: #eab308;"></i> ખેડૂત નોંધણી</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ (લિંક મોબાઈલ નંબર સાથે)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> 7/12 અને 8-અ ના ઉતારા</li>
+                        <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="પંડીત દિન દયાળ ઉપાધ્યાય આવાસ યોજના મકાન સહાય" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-house-chimney service-title-icon" style="color: #14b8a6;"></i> પંડીત દિન દયાળ આવાસ યોજના</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ, રેશન કાર્ડ, ચુંટણી કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો</li>
+                        <li><i class="fa-solid fa-circle-check"></i> પ્લોટ / જમીનનો દસ્તાવેજ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                        <li><i class="fa-solid fa-circle-check"></i> બાંધકામ રજા ચિઠ્ઠી</li>
+                        <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઇઝ ફોટો</li>
+                        <li><i class="fa-solid fa-circle-check"></i> તલાટી ના સહી સિક્કા વાળું ફોર્મ</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="કુંવરબાઈનું મામેરું યોજના" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-gift service-title-icon" style="color: #f43f5e;"></i> કુંવરબાઈનું મામેરું યોજના</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> દીકરી અને પિતાનું / પતિનું આધાર કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> આવક અને જાતિનો દાખલો</li>
+                        <li><i class="fa-solid fa-circle-check"></i> મેરેજ સર્ટિફિકેટ અને બેંક પાસબુક</li>
+                        <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઇઝ ફોટો</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="માનવ ગરિમા યોજના" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-handshake-angle service-title-icon" style="color: #0284c7;"></i> માનવ ગરિમા યોજના</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ અને રેશન કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો અને જાતિનો દાખલો</li>
+                        <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક અને પાસપોર્ટ ફોટો</li>
+                        <li><i class="fa-solid fa-circle-check"></i> વ્યવસાય લક્ષી તાલીમ નું પ્રમાણપત્ર</li>
+                        <li><i class="fa-solid fa-circle-check"></i> શાળા છોડ્યાનું પ્રમાણપત્ર (LC)</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="પી એમ વિશ્વકર્મા યોજના" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-hammer service-title-icon" style="color: #d97706;"></i> પી. એમ. વિશ્વકર્મા યોજના</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ (મોબાઈલ નંબર લિંક)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડ અને બેંક પાસબુક</li>
+                        <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઇઝ ફોટો</li>
+                        <li><i class="fa-solid fa-circle-check"></i> વ્યવસાય નો પુરાવો</li>
+                        <li><i class="fa-solid fa-circle-check"></i> જાતિનું પ્રમાણપત્ર</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="આઇ ખેડૂત પોર્ટલની તમામ યોજનાઓ" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-laptop-file service-title-icon" style="color: #6366f1;"></i> આઇ - ખેડૂત પોર્ટલની યોજનાઓ</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ (લિંક મોબાઈલ)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> 7/12 અને 8-અ ના ઉતારા</li>
+                        <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="શિષ્યવૃત્તિના ફોર્મ સ્કોલરશીપ" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-user-graduate service-title-icon" style="color: #a855f7;"></i> શિષ્યવૃત્તિના ફોર્મ</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ અને છેલ્લી માર્કશીટ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો અને જાતિનો દાખલો</li>
+                        <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક અને ફી ની પહોંચ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> LC અથવા BONAFIED પ્રમાણપત્ર</li>
+                        <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઇઝ ફોટો</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="service-card" data-title="વૃદ્ધ પેન્શન યોજના" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-person-cane service-title-icon" style="color: #71717a;"></i> વૃદ્ધ પેન્શન યોજના</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ અને રેશન કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> ઉંમરનો પુરાવો (60 વર્ષથી વધુ)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો અને બેંક પાસબુક</li>
+                        <li><i class="fa-solid fa-circle-check"></i> જન્મનું પ્રમાણપત્ર અથવા LC</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <!-- ==========================================
+             SECTION 2: નવો ઉમેરેલો અલગ વિભાગ (બધી નવી માહિતી ભેગી)
+        =========================================== -->
+        <div class="section-title section-title-new"><i class="fa-solid fa-file-signature"></i> વિવિધ દાખલાઓ અને સરકારી સહાયની માહિતી</div>
 
         <div class="service-card" data-title="આવકનો દાખલો મેળવવા" data-category="yojna">
             <details>
@@ -463,7 +860,7 @@
                     <ul>
                         <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
                         <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
-                        <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવિંગ (LC)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવિંગ</li>
                         <li><i class="fa-solid fa-circle-check"></i> તલાટીની આવકનો દાખલો</li>
                         <li><i class="fa-solid fa-circle-check"></i> છેલ્લુ લાઈટબીલ</li>
                     </ul>
@@ -482,7 +879,7 @@
                     <ul>
                         <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
                         <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
-                        <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવિંગ (LC)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવિંગ</li>
                         <li><i class="fa-solid fa-circle-check"></i> પિતા/માતા/બહેનનું સ્કૂલ લિવીંગ સર્ટી</li>
                         <li><i class="fa-solid fa-circle-check"></i> છેલ્લુ લાઈટબીલ</li>
                         <li><i class="fa-solid fa-circle-check"></i> તલાટીની આવકનો દાખલો</li>
@@ -574,11 +971,6 @@
             </details>
         </div>
 
-        <!-- ==========================================
-             NEW SECTION 2: રેશન કાર્ડ સંબંધિત કામગીરી
-        =========================================== -->
-        <div class="section-title"><i class="fa-solid fa-address-card"></i> રેશન કાર્ડ સંબંધિત કામગીરી</div>
-
         <div class="service-card" data-title="અલગ રેશનકાર્ડ કરાવવા" data-category="yojna">
             <details>
                 <summary>
@@ -643,15 +1035,10 @@
             </details>
         </div>
 
-        <!-- ==========================================
-             NEW SECTION 3: અન્ય યોજનાઓ અને સહાય
-        =========================================== -->
-        <div class="section-title"><i class="fa-solid fa-hand-holding-dollar"></i> સરકારી સહાય અને પેન્શન યોજનાઓ</div>
-
         <div class="service-card" data-title="આધાર કાર્ડ મેળવવા અપડેટ" data-category="yojna">
             <details>
                 <summary>
-                    <div class="summary-left"><i class="fa-solid fa-fingerprint service-title-icon" style="color: #4338ca;"></i> આધાર કાર્ડ મેળવવા / સુધારો</div>
+                    <div class="summary-left"><i class="fa-solid fa-fingerprint service-title-icon" style="color: #4338ca;"></i> આધાર કાર્ડ મેળવવા / અપડેટ</div>
                     <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
                 </summary>
                 <div class="docs-list">
@@ -763,26 +1150,6 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ઉજ્જવલા યોજના ગેસ" data-category="yojna">
-            <details>
-                <summary>
-                    <div class="summary-left"><i class="fa-solid fa-fire-flame-simple service-title-icon" style="color: #eab308;"></i> ઉજ્જવલા યોજના (ગેસ કનેક્શન)</div>
-                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
-                </summary>
-                <div class="docs-list">
-                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
-                    <ul>
-                        <li><i class="fa-solid fa-circle-check"></i> મહિલા લાભાર્થીનું આધાર કાર્ડ</li>
-                        <li><i class="fa-solid fa-circle-check"></i> કુટુંબના સભ્યોની નકલ (આધારકાર્ડ વગેરે)</li>
-                        <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
-                        <li><i class="fa-solid fa-circle-check"></i> મહિલા લાભાર્થીની બેંક પાસબુકની નકલ</li>
-                        <li><i class="fa-solid fa-circle-check"></i> લાઈટ બીલ</li>
-                        <li><i class="fa-solid fa-circle-check"></i> મહિલા લાભાર્થીના ૨ ફોટા</li>
-                    </ul>
-                </div>
-            </details>
-        </div>
-
         <div class="service-card" data-title="પેન્ડિંગ સહાય માટે" data-category="yojna">
             <details>
                 <summary>
@@ -805,8 +1172,28 @@
             </details>
         </div>
 
+        <div class="service-card" data-title="ઉજ્જવલા યોજના ગેસ" data-category="yojna">
+            <details>
+                <summary>
+                    <div class="summary-left"><i class="fa-solid fa-fire-flame-simple service-title-icon" style="color: #eab308;"></i> ઉજ્જવલા યોજના (ગેસ કનેક્શન)</div>
+                    <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                </summary>
+                <div class="docs-list">
+                    <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                    <ul>
+                        <li><i class="fa-solid fa-circle-check"></i> મહિલા લાભાર્થીનું આધાર કાર્ડ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> કુટુંબના સભ્યોની નકલ (આધારકાર્ડ વગેરે)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> મહિલા લાભાર્થીની બેંક પાસબુકની નકલ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> લાઈટ બીલ</li>
+                        <li><i class="fa-solid fa-circle-check"></i> મહિલા લાભાર્થીના ૨ ફોટા</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
         <!-- ==========================================
-             અન્ય સુવિધાઓ (OLD SECTION REMAINS SAME)
+             SECTION 3: અન્ય ઓનલાઈન સુવિધાઓ 
         =========================================== -->
         <div class="section-title"><i class="fa-solid fa-desktop"></i> અમારી અન્ય ઓનલાઈન સુવિધાઓ</div>
 
@@ -824,6 +1211,7 @@
         <div class="service-card simple" data-title="રિઝ્યુમ BIO ડેટા બાયોડેટા" data-category="other"><div class="service-title"><i class="fa-solid fa-file-invoice" style="color: #10b981;"></i> રિઝ્યુમ / BIO ડેટા</div></div>
         <div class="service-card simple" data-title="બેનર પોસ્ટર બનાવવા" data-category="other"><div class="service-title"><i class="fa-regular fa-image" style="color: #10b981;"></i> બેનર / પોસ્ટર બનાવવા</div></div>
 
+        <!-- FOOTER / CONTACT BOX -->
         <div class="inquiry-box" id="contact">
             <h2 style="text-align: center; color: var(--primary); margin-top: 0; font-size: 32px; font-weight: 800;"><i class="fa-brands fa-whatsapp"></i> ડોક્યુમેન્ટ્સ અને પૂછપરછ</h2>
             <p style="text-align: center; margin-bottom: 30px; font-size: 20px;">અહીં માહિતી ભરીને મોકલો. (ફોર્મ ભરવા માટે અહીંથી જ ડોક્યુમેન્ટ સેન્ડ કરી શકો છો).</p>
