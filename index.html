@@ -29,8 +29,8 @@
             --secondary: #0ea5e9;
             --accent: #8b5cf6;
             --border-color: #e2e8f0;
-            --hover-shadow: rgba(26, 115, 232, 0.15);
-            --card-shadow: 0 8px 25px rgba(0,0,0,0.04);
+            --hover-shadow: rgba(26, 115, 232, 0.25);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
             --glass-bg: rgba(255, 255, 255, 0.15);
             --glass-border: rgba(255, 255, 255, 0.3);
         }
@@ -40,8 +40,8 @@
             --text-color: #f8fafc;
             --card-bg: #1e293b;
             --border-color: #334155;
-            --hover-shadow: rgba(255, 255, 255, 0.08);
-            --card-shadow: 0 8px 30px rgba(0,0,0,0.25);
+            --hover-shadow: rgba(255, 255, 255, 0.15);
+            --card-shadow: 0 15px 40px rgba(0,0,0,0.4);
             --glass-bg: rgba(15, 23, 42, 0.4);
             --glass-border: rgba(255, 255, 255, 0.1);
         }
@@ -83,7 +83,7 @@
         .scrolling-text { display: inline-block; padding-left: 100%; animation: scrollNews 45s linear infinite; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);}
         @keyframes scrollNews { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
-        /* HEADER CSS */
+        /* HEADER CSS (3D UPDATED) */
         header { 
             position: relative;
             background: #0b1120; 
@@ -95,6 +95,7 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.2); 
             overflow: hidden;
             z-index: 1;
+            perspective: 1500px;
         }
 
         .aurora-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
@@ -120,6 +121,7 @@
             100% { transform: translate(30px, 30px) scale(1.1); }
         }
 
+        /* 3D Header Content */
         .header-content { 
             position: relative; 
             z-index: 2; 
@@ -132,20 +134,23 @@
             max-width: 800px;
             margin: 0 auto;
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            transform-style: preserve-3d;
+            transition: transform 0.2s ease-out;
         }
 
-        .shop-logo { max-width: 150px; border-radius: 50%; border: 6px solid rgba(255,255,255,0.9); margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); background: white; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);}
-        .shop-logo:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 15px 40px rgba(0,0,0,0.4); border-color: white;}
-        h1 { margin: 0; font-size: 48px; font-weight: 800; text-shadow: 2px 2px 8px rgba(0,0,0,0.4); line-height: 1.2; letter-spacing: 1px;}
+        .shop-logo { max-width: 150px; border-radius: 50%; border: 6px solid rgba(255,255,255,0.9); margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); background: white; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateZ(50px);}
+        .shop-logo:hover { transform: translateZ(70px) scale(1.1) rotate(5deg); box-shadow: 0 25px 50px rgba(0,0,0,0.6); border-color: white;}
+        
+        h1 { margin: 0; font-size: 48px; font-weight: 800; text-shadow: 2px 2px 8px rgba(0,0,0,0.4); line-height: 1.2; letter-spacing: 1px; transform: translateZ(40px);}
         h1 span { font-size: 26px; font-weight: 600; opacity: 0.95; letter-spacing: 3px; display: block; margin-top: 5px;}
         
-        .auto-type { font-size: 26px; font-weight: 800; color: #fde047; min-height: 35px; margin-top: 25px; margin-bottom: 20px; text-shadow: 1px 1px 4px rgba(0,0,0,0.5);}
-        .dev-badge { font-size: 16px; background: rgba(0,0,0,0.25); display: inline-block; padding: 10px 25px; border-radius: 50px; color: #ffffff; font-weight: 700; letter-spacing: 1.5px; margin-top: 5px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.4); backdrop-filter: blur(8px);}
+        .auto-type { font-size: 26px; font-weight: 800; color: #fde047; min-height: 35px; margin-top: 25px; margin-bottom: 20px; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); transform: translateZ(30px);}
+        .dev-badge { font-size: 16px; background: rgba(0,0,0,0.25); display: inline-block; padding: 10px 25px; border-radius: 50px; color: #ffffff; font-weight: 700; letter-spacing: 1.5px; margin-top: 5px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.4); backdrop-filter: blur(8px); transform: translateZ(25px);}
         
-        .shop-status { display: inline-flex; align-items: center; gap: 10px; padding: 14px 35px; border-radius: 50px; font-weight: 800; font-size: 22px; color: white; box-shadow: 0 8px 20px rgba(0,0,0,0.3); text-shadow: 1px 1px 2px rgba(0,0,0,0.4); position: relative; border: 2px solid rgba(255,255,255,0.9); transition: transform 0.3s;}
-        .shop-status:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0,0,0,0.4);}
+        .shop-status { display: inline-flex; align-items: center; gap: 10px; padding: 14px 35px; border-radius: 50px; font-weight: 800; font-size: 22px; color: white; box-shadow: 0 8px 20px rgba(0,0,0,0.3); text-shadow: 1px 1px 2px rgba(0,0,0,0.4); position: relative; border: 2px solid rgba(255,255,255,0.9); transition: transform 0.3s; transform: translateZ(35px);}
+        .shop-status:hover { transform: translateZ(45px) translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.5);}
 
-        /* STATS CSS */
+        /* STATS CSS (3D UPDATED) */
         .stats-container {
             max-width: 950px;
             margin: -45px auto 35px auto;
@@ -155,6 +160,7 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 15px;
+            perspective: 1200px;
         }
         .stat-box {
             background: var(--card-bg);
@@ -169,23 +175,23 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            transform-style: preserve-3d;
         }
         .stat-box:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px var(--hover-shadow);
+            box-shadow: 0 25px 50px var(--hover-shadow);
         }
         .stat-box:nth-child(2) { border-bottom-color: #10b981; }
         .stat-box:nth-child(3) { border-bottom-color: #f59e0b; }
         .stat-box:nth-child(4) { border-bottom-color: #8b5cf6; }
 
-        .stat-icon { font-size: 28px; color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; justify-content: center; background: var(--bg-color); width: 65px; height: 65px; border-radius: 50%; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05); transition: 0.3s; }
-        .stat-box:hover .stat-icon { transform: rotate(10deg) scale(1.1); }
+        .stat-icon { font-size: 28px; color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; justify-content: center; background: var(--bg-color); width: 65px; height: 65px; border-radius: 50%; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05); transition: 0.3s; transform: translateZ(30px); }
+        .stat-box:hover .stat-icon { transform: translateZ(40px) rotate(10deg) scale(1.1); }
         .stat-box:nth-child(2) .stat-icon { color: #10b981; }
         .stat-box:nth-child(3) .stat-icon { color: #f59e0b; }
         .stat-box:nth-child(4) .stat-icon { color: #8b5cf6; }
 
-        .stat-number { font-size: 32px; font-weight: 800; color: var(--text-color); margin-bottom: 2px; display: flex; align-items: center; gap: 2px; }
-        .stat-text { font-size: 17px; font-weight: 700; color: gray; }
+        .stat-number { font-size: 32px; font-weight: 800; color: var(--text-color); margin-bottom: 2px; display: flex; align-items: center; gap: 2px; transform: translateZ(25px); }
+        .stat-text { font-size: 17px; font-weight: 700; color: gray; transform: translateZ(20px); }
 
         /* SEARCH & CATEGORY */
         .search-container { max-width: 900px; margin: 0 auto 35px auto; padding: 0 15px; position: relative; z-index: 10; display: flex; gap: 15px;}
@@ -202,8 +208,8 @@
         .cat-btn:hover { color: var(--primary); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.08);}
         .cat-btn.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-color: transparent; box-shadow: 0 10px 30px var(--hover-shadow);}
 
-        /* MAIN CONTENT CSS */
-        .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
+        /* MAIN CONTENT CSS (3D CARDS) */
+        .container { max-width: 900px; margin: 20px auto; padding: 0 15px; perspective: 1200px; }
 
         .section-title { background: var(--card-bg); color: var(--primary); padding: 18px 25px; border-radius: 16px; margin: 45px 0 25px 0; font-size: 26px; font-weight: 800; text-align: center; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: var(--card-shadow); position: relative; overflow: hidden;}
         .section-title::before { content: ""; position: absolute; left: 0; top: 0; height: 100%; width: 8px; background: var(--primary); }
@@ -211,11 +217,19 @@
         .section-title-new { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
         .section-title-new::before { background: #fde047; }
         
-        .service-card { background: var(--card-bg); margin-bottom: 20px; border-radius: 18px; box-shadow: var(--card-shadow); border-left: 8px solid var(--primary); overflow: hidden; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); border-right: 1px solid var(--border-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);}
-        .service-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-left-width: 12px;}
+        .service-card { background: var(--card-bg); margin-bottom: 20px; border-radius: 18px; box-shadow: var(--card-shadow); border-left: 8px solid var(--primary); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); border-right: 1px solid var(--border-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); transform-style: preserve-3d; position: relative;}
+        
+        /* Interactive pop-out inside cards */
+        .service-card summary { transform: translateZ(25px); transition: transform 0.3s; }
+        .service-card .docs-list { transform: translateZ(20px); transition: transform 0.3s; }
+        .service-card:hover summary { transform: translateZ(35px); }
+        .service-card:hover .docs-list { transform: translateZ(30px); }
+        
         .service-card.simple { border-left: 8px solid #10b981; }
+        .service-card.simple .service-title { transform: translateZ(25px); transition: transform 0.3s; }
+        .service-card.simple:hover .service-title { transform: translateZ(35px); }
 
-        details { padding: 20px; position: relative;}
+        details { padding: 20px; position: relative; transform-style: preserve-3d;}
         .service-title { padding: 18px 20px; font-weight: 800; font-size: 22px; display: flex; align-items: center; color: var(--text-color); gap: 18px;}
         .service-title-icon { font-size: 28px; width: 40px; text-align: center; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
         summary { font-weight: 800; font-size: 22px; cursor: pointer; outline: none; list-style: none; display: flex; align-items: center; justify-content: space-between; color: var(--text-color); user-select: none;}
@@ -237,22 +251,25 @@
         .important-note.blue-note { color: #0284c7; background: #f0f9ff; border-left-color: #0ea5e9; }
         .important-note i { font-size: 22px; margin-top: 2px;}
 
-        /* FOOTER & FORMS CSS */
-        .inquiry-box { background: var(--card-bg); padding: 40px; border-radius: 20px; margin-top: 50px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); border-top: 8px solid #10b981; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; overflow: hidden;}
-        .inquiry-box::before { content: ""; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%); border-radius: 50%; }
+        /* FOOTER & FORMS CSS (3D UPDATED) */
+        .inquiry-box { background: var(--card-bg); padding: 40px; border-radius: 20px; margin-top: 50px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); border-top: 8px solid #10b981; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; transform-style: preserve-3d; perspective: 1000px;}
+        .inquiry-box::before { content: ""; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%); border-radius: 50%; transform: translateZ(-10px); }
         
-        .form-group { position: relative; margin: 15px 0 25px 0; }
+        .inquiry-box h2, .inquiry-box p { transform: translateZ(30px); }
+        
+        .form-group { position: relative; margin: 15px 0 25px 0; transform: translateZ(25px); }
         .form-group i { position: absolute; left: 20px; top: 18px; color: var(--primary); font-size: 22px;}
         .form-control { width: 100%; padding: 18px 20px 18px 55px; background: var(--bg-color); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 12px; font-size: 19px; font-family: inherit; font-weight: 700; box-sizing: border-box; transition: all 0.3s ease;}
         .form-control:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 4px rgba(26,115,232,0.15); transform: translateY(-2px);}
         textarea.form-control { padding: 18px; border-radius: 16px;} 
         
-        .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; width: 100%; padding: 20px; border: none; border-radius: 16px; font-size: 24px; font-family: inherit; font-weight: 800; cursor: pointer; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3); transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 12px;}
-        .submit-btn:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);}
+        .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; width: 100%; padding: 20px; border: none; border-radius: 16px; font-size: 24px; font-family: inherit; font-weight: 800; cursor: pointer; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3); transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 12px; transform: translateZ(35px);}
+        .submit-btn:hover { transform: translateZ(40px) translateY(-4px); box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);}
 
-        .payment-qr { text-align: center; margin-top: 35px; padding: 25px; background: var(--bg-color); border-radius: 16px; border: 2px dashed #1a73e8; position: relative;}
+        .payment-qr { text-align: center; margin-top: 35px; padding: 25px; background: var(--bg-color); border-radius: 16px; border: 2px dashed #1a73e8; position: relative; transform: translateZ(20px);}
 
-        .info-card { background: var(--card-bg); padding: 30px; margin-top: 35px; border-radius: 20px; box-shadow: var(--card-shadow); font-size: 20px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 18px;}
+        .info-card { background: var(--card-bg); padding: 30px; margin-top: 35px; border-radius: 20px; box-shadow: var(--card-shadow); font-size: 20px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 18px; transform-style: preserve-3d; }
+        .info-card .info-line { transform: translateZ(25px); }
         .info-line { display: flex; align-items: center; gap: 18px; font-weight: 700;}
         .info-icon { background: var(--bg-color); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 24px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);}
 
@@ -311,7 +328,7 @@
     </div>
 
     <div id="welcomePopup">
-        <div class="popup-box">
+        <div class="popup-box" data-tilt data-tilt-max="10" data-tilt-speed="400">
             <h2 style="font-size: 46px;"><i class="fa-solid fa-handshake-angle"></i> WELCOME !</h2>
             <p style="font-size: 28px; font-weight: 800; color: var(--primary);">અલ-અકશા કમ્પ્યુટર સેન્ટરમાં તમારું હાર્દિક સ્વાગત છે.</p>
             <button class="popup-btn" onclick="closeWelcomePopup()"><i class="fa-solid fa-circle-check"></i> ઓકે (OK)</button>
@@ -355,7 +372,7 @@
             <div class="blob blob-6"></div>
         </div>
 
-        <div class="header-content">
+        <div class="header-content" data-tilt data-tilt-max="3" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
             <img src="logo.jpg" alt="Al-Aksha Logo" class="shop-logo" onerror="this.style.display='none'">
             <h1>
                 અલ - અકશા કમ્પ્યુટર સેન્ટર<br>
@@ -375,22 +392,22 @@
     </header>
 
     <div class="stats-container">
-        <div class="stat-box">
+        <div class="stat-box" data-tilt data-tilt-max="15" data-tilt-speed="400">
             <div class="stat-icon"><i class="fa-solid fa-laptop-file"></i></div>
             <div class="stat-number"><span class="counter-value" data-target="100">0</span>+</div>
             <div class="stat-text">ઓનલાઈન સેવાઓ</div>
         </div>
-        <div class="stat-box">
+        <div class="stat-box" data-tilt data-tilt-max="15" data-tilt-speed="400">
             <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
             <div class="stat-number"><span class="counter-value" data-target="1500">0</span>+</div>
             <div class="stat-text">સંતુષ્ટ ગ્રાહકો</div>
         </div>
-        <div class="stat-box">
+        <div class="stat-box" data-tilt data-tilt-max="15" data-tilt-speed="400">
             <div class="stat-icon"><i class="fa-solid fa-bolt"></i></div>
             <div class="stat-number"><span class="counter-value" data-target="24">0</span></div>
             <div class="stat-text">કલાક સપોર્ટ</div>
         </div>
-        <div class="stat-box">
+        <div class="stat-box" data-tilt data-tilt-max="15" data-tilt-speed="400">
             <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
             <div class="stat-number"><span class="counter-value" data-target="100">0</span>%</div>
             <div class="stat-text">વિશ્વાસપાત્ર કામ</div>
@@ -413,12 +430,9 @@
 
     <div class="container" id="serviceList">
 
-        <!-- ==========================================
-             SECTION 1: જૂની તમામ સરકારી યોજનાઓ
-        =========================================== -->
         <div class="section-title"><i class="fa-solid fa-folder-open"></i> સરકારી યોજનાઓ અને જરૂરી ડોક્યુમેન્ટ્સ</div>
 
-        <div class="service-card" data-title="ઈ-નિર્માણ કાર્ડ" data-category="yojna">
+        <div class="service-card" data-title="ઈ-નિર્માણ કાર્ડ" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-helmet-safety service-title-icon" style="color: #f59e0b;"></i> ઈ - નિર્માણ કાર્ડ</div>
@@ -437,7 +451,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ABC કાર્ડ" data-category="yojna">
+        <div class="service-card" data-title="ABC કાર્ડ" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-graduation-cap service-title-icon" style="color: #8b5cf6;"></i> ABC કાર્ડ</div>
@@ -453,7 +467,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પાનકાર્ડ પાન કાર્ડ pan card" data-category="yojna">
+        <div class="service-card" data-title="પાનકાર્ડ પાન કાર્ડ pan card" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-regular fa-id-card service-title-icon" style="color: #3b82f6;"></i> પાનકાર્ડ (નવું / સુધારો)</div>
@@ -475,7 +489,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ઈ-શ્રમ કાર્ડ ઇ શ્રમ" data-category="yojna">
+        <div class="service-card" data-title="ઈ-શ્રમ કાર્ડ ઇ શ્રમ" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-users-gear service-title-icon" style="color: #64748b;"></i> ઈ-શ્રમ કાર્ડ (નવું/સુધારો)</div>
@@ -491,7 +505,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ચુંટણી કાર્ડ ચૂંટણી" data-category="yojna">
+        <div class="service-card" data-title="ચુંટણી કાર્ડ ચૂંટણી" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-check-to-slot service-title-icon" style="color: #ec4899;"></i> ચુંટણી કાર્ડ (નવું/સુધારો)</div>
@@ -510,7 +524,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="આધારકાર્ડ આધાર કાર્ડ" data-category="yojna">
+        <div class="service-card" data-title="આધારકાર્ડ આધાર કાર્ડ" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-fingerprint service-title-icon" style="color: #10b981;"></i> આધારકાર્ડ પ્રિન્ટ/અપડેટ</div>
@@ -526,7 +540,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="આયુષ્યમાન કાર્ડ" data-category="yojna">
+        <div class="service-card" data-title="આયુષ્યમાન કાર્ડ" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-house-medical service-title-icon" style="color: #ef4444;"></i> આયુષ્યમાન કાર્ડ</div>
@@ -543,7 +557,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="રેશન કાર્ડ e-KYC" data-category="yojna">
+        <div class="service-card" data-title="રેશન કાર્ડ e-KYC" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-wheat-awn service-title-icon" style="color: #84cc16;"></i> રેશન કાર્ડ e-KYC</div>
@@ -559,7 +573,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ABHA કાર્ડ આભા" data-category="yojna">
+        <div class="service-card" data-title="ABHA કાર્ડ આભા" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-heart-pulse service-title-icon" style="color: #06b6d4;"></i> ABHA કાર્ડ</div>
@@ -574,7 +588,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ડ્રાઇવિંગ લાઇસેન્સ લાયસન્સ" data-category="yojna">
+        <div class="service-card" data-title="ડ્રાઇવિંગ લાઇસેન્સ લાયસન્સ" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-car-side service-title-icon" style="color: #f97316;"></i> ડ્રાઇવિંગ લાઇસેન્સ</div>
@@ -591,7 +605,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પાસપોર્ટ" data-category="yojna">
+        <div class="service-card" data-title="પાસપોર્ટ" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-plane-departure service-title-icon" style="color: #4338ca;"></i> પાસપોર્ટ</div>
@@ -609,7 +623,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="PF કામ પીએફ" data-category="yojna">
+        <div class="service-card" data-title="PF કામ પીએફ" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-briefcase service-title-icon" style="color: #78716c;"></i> PF ને લગતું કામ</div>
@@ -627,7 +641,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="7/12 8-અ નકલ ઉતારા" data-category="yojna">
+        <div class="service-card" data-title="7/12 8-અ નકલ ઉતારા" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-regular fa-file-lines service-title-icon" style="color: #8b5cf6;"></i> 7/12 અને 8-અ ની નકલ</div>
@@ -642,7 +656,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પ્રોપર્ટી કાર્ડ" data-category="yojna">
+        <div class="service-card" data-title="પ્રોપર્ટી કાર્ડ" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-building service-title-icon" style="color: #0ea5e9;"></i> પ્રોપર્ટી કાર્ડ</div>
@@ -657,7 +671,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="RTE ઍડ્મિશન ફોર્મ આરટીઈ" data-category="yojna">
+        <div class="service-card" data-title="RTE ઍડ્મિશન ફોર્મ આરટીઈ" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-school service-title-icon" style="color: #d946ef;"></i> RTE ઍડ્મિશન ફોર્મ</div>
@@ -677,7 +691,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પી એમ કિસાન યોજના" data-category="yojna">
+        <div class="service-card" data-title="પી એમ કિસાન યોજના" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-seedling service-title-icon" style="color: #22c55e;"></i> પી. એમ. કિસાન યોજના</div>
@@ -695,7 +709,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ખેડૂત નોંધણી farmer registration" data-category="yojna">
+        <div class="service-card" data-title="ખેડૂત નોંધણી farmer registration" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-tractor service-title-icon" style="color: #eab308;"></i> ખેડૂત નોંધણી</div>
@@ -712,7 +726,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પંડીત દિન દયાળ ઉપાધ્યાય આવાસ યોજના મકાન સહાય" data-category="yojna">
+        <div class="service-card" data-title="પંડીત દિન દયાળ ઉપાધ્યાય આવાસ યોજના મકાન સહાય" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-house-chimney service-title-icon" style="color: #14b8a6;"></i> પંડીત દિન દયાળ આવાસ યોજના</div>
@@ -733,7 +747,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="કુંવરબાઈનું મામેરું યોજના" data-category="yojna">
+        <div class="service-card" data-title="કુંવરબાઈનું મામેરું યોજના" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-gift service-title-icon" style="color: #f43f5e;"></i> કુંવરબાઈનું મામેરું યોજના</div>
@@ -751,7 +765,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="માનવ ગરિમા યોજના" data-category="yojna">
+        <div class="service-card" data-title="માનવ ગરિમા યોજના" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-handshake-angle service-title-icon" style="color: #0284c7;"></i> માનવ ગરિમા યોજના</div>
@@ -770,7 +784,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પી એમ વિશ્વકર્મા યોજના" data-category="yojna">
+        <div class="service-card" data-title="પી એમ વિશ્વકર્મા યોજના" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-hammer service-title-icon" style="color: #d97706;"></i> પી. એમ. વિશ્વકર્મા યોજના</div>
@@ -789,7 +803,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="આઇ ખેડૂત પોર્ટલની તમામ યોજનાઓ" data-category="yojna">
+        <div class="service-card" data-title="આઇ ખેડૂત પોર્ટલની તમામ યોજનાઓ" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-laptop-file service-title-icon" style="color: #6366f1;"></i> આઇ - ખેડૂત પોર્ટલની યોજનાઓ</div>
@@ -807,7 +821,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="શિષ્યવૃત્તિના ફોર્મ સ્કોલરશીપ" data-category="yojna">
+        <div class="service-card" data-title="શિષ્યવૃત્તિના ફોર્મ સ્કોલરશીપ" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-user-graduate service-title-icon" style="color: #a855f7;"></i> શિષ્યવૃત્તિના ફોર્મ</div>
@@ -826,7 +840,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="વૃદ્ધ પેન્શન યોજના" data-category="yojna">
+        <div class="service-card" data-title="વૃદ્ધ પેન્શન યોજના" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-person-cane service-title-icon" style="color: #71717a;"></i> વૃદ્ધ પેન્શન યોજના</div>
@@ -844,12 +858,9 @@
             </details>
         </div>
 
-        <!-- ==========================================
-             SECTION 2: નવો ઉમેરેલો અલગ વિભાગ (બધી નવી માહિતી ભેગી)
-        =========================================== -->
         <div class="section-title section-title-new"><i class="fa-solid fa-file-signature"></i> ✍️ વિવિધ દાખલાઓ અને સરકારી સહાય માટે જરૂરી પુરાવા ( DOCUMENTS ) ની માહિતી </div>
 
-        <div class="service-card" data-title="આવકનો દાખલો મેળવવા" data-category="yojna">
+        <div class="service-card" data-title="આવકનો દાખલો મેળવવા" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-file-invoice-dollar service-title-icon" style="color: #10b981;"></i> આવકનો દાખલો મેળવવા</div>
@@ -868,7 +879,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="જાતિનો દાખલો મેળવવા" data-category="yojna">
+        <div class="service-card" data-title="જાતિનો દાખલો મેળવવા" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-users-viewfinder service-title-icon" style="color: #8b5cf6;"></i> જાતિનો દાખલો મેળવવા</div>
@@ -888,7 +899,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ડોમીસાઈલ સર્ટી મેળવવા" data-category="yojna">
+        <div class="service-card" data-title="ડોમીસાઈલ સર્ટી મેળવવા" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-house-flag service-title-icon" style="color: #f59e0b;"></i> ડોમીસાઈલ સર્ટી મેળવવા</div>
@@ -910,7 +921,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="નોન ક્રીમીલેયર સર્ટી મેળવવા" data-category="yojna">
+        <div class="service-card" data-title="નોન ક્રીમીલેયર સર્ટી મેળવવા" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-file-shield service-title-icon" style="color: #ec4899;"></i> નોન ક્રીમીલેયર સર્ટી મેળવવા</div>
@@ -931,7 +942,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="સિનિયર સીટીઝન સર્ટી" data-category="yojna">
+        <div class="service-card" data-title="સિનિયર સીટીઝન સર્ટી" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-person-cane service-title-icon" style="color: #64748b;"></i> સિનિયર સીટીઝન સર્ટી</div>
@@ -951,7 +962,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ધાર્મિક લઘુમતિનો દાખલો" data-category="yojna">
+        <div class="service-card" data-title="ધાર્મિક લઘુમતિનો દાખલો" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-hands-praying service-title-icon" style="color: #14b8a6;"></i> ધાર્મિક લઘુમતિનો દાખલો</div>
@@ -971,7 +982,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="અલગ રેશનકાર્ડ કરાવવા" data-category="yojna">
+        <div class="service-card" data-title="અલગ રેશનકાર્ડ કરાવવા" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-id-card-clip service-title-icon" style="color: #3b82f6;"></i> અલગ રેશનકાર્ડ કરાવવા</div>
@@ -993,7 +1004,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="નવા રેશનકાર્ડ માટે" data-category="yojna">
+        <div class="service-card" data-title="નવા રેશનકાર્ડ માટે" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-address-card service-title-icon" style="color: #0ea5e9;"></i> નવા રેશનકાર્ડ માટે</div>
@@ -1015,7 +1026,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="રેશન કાર્ડમાં નામ દાખલ કરવા" data-category="yojna">
+        <div class="service-card" data-title="રેશન કાર્ડમાં નામ દાખલ કરવા" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-user-plus service-title-icon" style="color: #10b981;"></i> રેશન કાર્ડમાં નામ દાખલ કરવા</div>
@@ -1035,7 +1046,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="આધાર કાર્ડ મેળવવા અપડેટ" data-category="yojna">
+        <div class="service-card" data-title="આધાર કાર્ડ મેળવવા અપડેટ" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-fingerprint service-title-icon" style="color: #4338ca;"></i> આધાર કાર્ડ મેળવવા / અપડેટ</div>
@@ -1051,7 +1062,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="નિરાધાર વૃદ્ધ સહાય યોજના" data-category="yojna">
+        <div class="service-card" data-title="નિરાધાર વૃદ્ધ સહાય યોજના" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-hand-holding-heart service-title-icon" style="color: #f43f5e;"></i> નિરાધાર વૃદ્ધ સહાય યોજના</div>
@@ -1071,7 +1082,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="વિધવા સહાય મેળવવા" data-category="yojna">
+        <div class="service-card" data-title="વિધવા સહાય મેળવવા" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-person-dress service-title-icon" style="color: #d946ef;"></i> વિધવા સહાય મેળવવા</div>
@@ -1092,7 +1103,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પ્રધાનમંત્રી આવાસ યોજના (B.C)" data-category="yojna">
+        <div class="service-card" data-title="પ્રધાનમંત્રી આવાસ યોજના (B.C)" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-house-chimney service-title-icon" style="color: #0284c7;"></i> પ્રધાનમંત્રી આવાસ યોજના (B.C)</div>
@@ -1111,7 +1122,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="માં અમૃતમ માં વાત્સલ્ય કાર્ડ" data-category="yojna">
+        <div class="service-card" data-title="માં અમૃતમ માં વાત્સલ્ય કાર્ડ" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-heart-pulse service-title-icon" style="color: #ef4444;"></i> માં અમૃતમ / માં વાત્સલ્ય કાર્ડ</div>
@@ -1130,7 +1141,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="વય વંદના યોજના" data-category="yojna">
+        <div class="service-card" data-title="વય વંદના યોજના" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-piggy-bank service-title-icon" style="color: #f97316;"></i> વય વંદના યોજના</div>
@@ -1150,7 +1161,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પેન્ડિંગ સહાય માટે" data-category="yojna">
+        <div class="service-card" data-title="પેન્ડિંગ સહાય માટે" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-clock-rotate-left service-title-icon" style="color: #78716c;"></i> પેન્ડિંગ સહાય માટે (નાણાં ના મળતા હોય તો)</div>
@@ -1172,7 +1183,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ઉજ્જવલા યોજના ગેસ" data-category="yojna">
+        <div class="service-card" data-title="ઉજ્જવલા યોજના ગેસ" data-category="yojna" data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-fire-flame-simple service-title-icon" style="color: #eab308;"></i> ઉજ્જવલા યોજના (ગેસ કનેક્શન)</div>
@@ -1192,27 +1203,23 @@
             </details>
         </div>
 
-        <!-- ==========================================
-             SECTION 3: અન્ય ઓનલાઈન સુવિધાઓ 
-        =========================================== -->
         <div class="section-title"><i class="fa-solid fa-desktop"></i> અમારી અન્ય ઓનલાઈન સુવિધાઓ</div>
 
-        <div class="service-card simple" data-title="ડોકયુમેંટ સ્કૅનનીંગ સ્કેનિંગ" data-category="other"><div class="service-title"><i class="fa-solid fa-print" style="color: #10b981;"></i> ડોકયુમેંટ સ્કૅનનીંગ</div></div>
-        <div class="service-card simple" data-title="ઝેરોક્ષ કલર ઝેરોક્ષ" data-category="other"><div class="service-title"><i class="fa-solid fa-copy" style="color: #10b981;"></i> ઝેરોક્ષ / કલર ઝેરોક્ષ</div></div>
-        <div class="service-card simple" data-title="પ્રિન્ટ મોબાઈલમાંથી પ્રિન્ટ" data-category="other"><div class="service-title"><i class="fa-regular fa-file-pdf" style="color: #10b981;"></i> પ્રિન્ટ / મોબાઈલમાંથી પ્રિન્ટ</div></div>
-        <div class="service-card simple" data-title="લેમિનેશન" data-category="other"><div class="service-title"><i class="fa-regular fa-id-badge" style="color: #10b981;"></i> લેમિનેશન</div></div>
-        <div class="service-card simple" data-title="સ્પર્ધાત્મક પરીક્ષાના ફોર્મ" data-category="other"><div class="service-title"><i class="fa-solid fa-file-signature" style="color: #10b981;"></i> સ્પર્ધાત્મક પરીક્ષાના ફોર્મ</div></div>
-        <div class="service-card simple" data-title="દરેક પ્રકારની ભરતીઓના ફોર્મ" data-category="other"><div class="service-title"><i class="fa-solid fa-building-user" style="color: #10b981;"></i> દરેક પ્રકારની ભરતીઓના ફોર્મ</div></div>
-        <div class="service-card simple" data-title="PVC કાર્ડ પ્રિન્ટ પીવીસી" data-category="other"><div class="service-title"><i class="fa-regular fa-credit-card" style="color: #10b981;"></i> PVC કાર્ડ પ્રિન્ટ</div></div>
-        <div class="service-card simple" data-title="કૉલ લેટર હૉલ ટિકીટ" data-category="other"><div class="service-title"><i class="fa-solid fa-envelope-open-text" style="color: #10b981;"></i> કૉલ લેટર / હૉલ - ટિકીટ</div></div>
-        <div class="service-card simple" data-title="પૈસા ઉપાડવા ATM એટીએમ" data-category="other"><div class="service-title"><i class="fa-solid fa-money-bill-wave" style="color: #10b981;"></i> પૈસા ઉપાડવા / ATM</div></div>
-        <div class="service-card simple" data-title="મોબાઈલ રીચાર્જ DTH ડીટીએચ લાઇટ બિલ" data-category="other"><div class="service-title"><i class="fa-solid fa-mobile-screen-button" style="color: #10b981;"></i> રિચાર્જ / લાઇટ બિલ ભરવા</div></div>
-        <div class="service-card simple" data-title="મેરેજ સર્ટિફિકેટ ઇંગ્લિશમાં ટાઈપિંગ" data-category="other"><div class="service-title"><i class="fa-solid fa-ring" style="color: #10b981;"></i> મેરેજ સર્ટિફિકેટ (ઇંગ્લિશમાં ટાઈપિંગ)</div></div>
-        <div class="service-card simple" data-title="રિઝ્યુમ BIO ડેટા બાયોડેટા" data-category="other"><div class="service-title"><i class="fa-solid fa-file-invoice" style="color: #10b981;"></i> રિઝ્યુમ / BIO ડેટા</div></div>
-        <div class="service-card simple" data-title="બેનર પોસ્ટર બનાવવા" data-category="other"><div class="service-title"><i class="fa-regular fa-image" style="color: #10b981;"></i> બેનર / પોસ્ટર બનાવવા</div></div>
+        <div class="service-card simple" data-title="ડોકયુમેંટ સ્કૅનનીંગ સ્કેનિંગ" data-category="other" data-tilt data-tilt-max="5" data-tilt-speed="400"><div class="service-title"><i class="fa-solid fa-print" style="color: #10b981;"></i> ડોકયુમેંટ સ્કૅનનીંગ</div></div>
+        <div class="service-card simple" data-title="ઝેરોક્ષ કલર ઝેરોક્ષ" data-category="other" data-tilt data-tilt-max="5" data-tilt-speed="400"><div class="service-title"><i class="fa-solid fa-copy" style="color: #10b981;"></i> ઝેરોક્ષ / કલર ઝેરોક્ષ</div></div>
+        <div class="service-card simple" data-title="પ્રિન્ટ મોબાઈલમાંથી પ્રિન્ટ" data-category="other" data-tilt data-tilt-max="5" data-tilt-speed="400"><div class="service-title"><i class="fa-regular fa-file-pdf" style="color: #10b981;"></i> પ્રિન્ટ / મોબાઈલમાંથી પ્રિન્ટ</div></div>
+        <div class="service-card simple" data-title="લેમિનેશન" data-category="other" data-tilt data-tilt-max="5" data-tilt-speed="400"><div class="service-title"><i class="fa-regular fa-id-badge" style="color: #10b981;"></i> લેમિનેશન</div></div>
+        <div class="service-card simple" data-title="સ્પર્ધાત્મક પરીક્ષાના ફોર્મ" data-category="other" data-tilt data-tilt-max="5" data-tilt-speed="400"><div class="service-title"><i class="fa-solid fa-file-signature" style="color: #10b981;"></i> સ્પર્ધાત્મક પરીક્ષાના ફોર્મ</div></div>
+        <div class="service-card simple" data-title="દરેક પ્રકારની ભરતીઓના ફોર્મ" data-category="other" data-tilt data-tilt-max="5" data-tilt-speed="400"><div class="service-title"><i class="fa-solid fa-building-user" style="color: #10b981;"></i> દરેક પ્રકારની ભરતીઓના ફોર્મ</div></div>
+        <div class="service-card simple" data-title="PVC કાર્ડ પ્રિન્ટ પીવીસી" data-category="other" data-tilt data-tilt-max="5" data-tilt-speed="400"><div class="service-title"><i class="fa-regular fa-credit-card" style="color: #10b981;"></i> PVC કાર્ડ પ્રિન્ટ</div></div>
+        <div class="service-card simple" data-title="કૉલ લેટર હૉલ ટિકીટ" data-category="other" data-tilt data-tilt-max="5" data-tilt-speed="400"><div class="service-title"><i class="fa-solid fa-envelope-open-text" style="color: #10b981;"></i> કૉલ લેટર / હૉલ - ટિકીટ</div></div>
+        <div class="service-card simple" data-title="પૈસા ઉપાડવા ATM એટીએમ" data-category="other" data-tilt data-tilt-max="5" data-tilt-speed="400"><div class="service-title"><i class="fa-solid fa-money-bill-wave" style="color: #10b981;"></i> પૈસા ઉપાડવા / ATM</div></div>
+        <div class="service-card simple" data-title="મોબાઈલ રીચાર્જ DTH ડીટીએચ લાઇટ બિલ" data-category="other" data-tilt data-tilt-max="5" data-tilt-speed="400"><div class="service-title"><i class="fa-solid fa-mobile-screen-button" style="color: #10b981;"></i> રિચાર્જ / લાઇટ બિલ ભરવા</div></div>
+        <div class="service-card simple" data-title="મેરેજ સર્ટિફિકેટ ઇંગ્લિશમાં ટાઈપિંગ" data-category="other" data-tilt data-tilt-max="5" data-tilt-speed="400"><div class="service-title"><i class="fa-solid fa-ring" style="color: #10b981;"></i> મેરેજ સર્ટિફિકેટ (ઇંગ્લિશમાં ટાઈપિંગ)</div></div>
+        <div class="service-card simple" data-title="રિઝ્યુમ BIO ડેટા બાયોડેટા" data-category="other" data-tilt data-tilt-max="5" data-tilt-speed="400"><div class="service-title"><i class="fa-solid fa-file-invoice" style="color: #10b981;"></i> રિઝ્યુમ / BIO ડેટા</div></div>
+        <div class="service-card simple" data-title="બેનર પોસ્ટર બનાવવા" data-category="other" data-tilt data-tilt-max="5" data-tilt-speed="400"><div class="service-title"><i class="fa-regular fa-image" style="color: #10b981;"></i> બેનર / પોસ્ટર બનાવવા</div></div>
 
-        <!-- FOOTER / CONTACT BOX -->
-        <div class="inquiry-box" id="contact">
+        <div class="inquiry-box" id="contact" data-tilt data-tilt-max="2" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.1">
             <h2 style="text-align: center; color: var(--primary); margin-top: 0; font-size: 32px; font-weight: 800;"><i class="fa-brands fa-whatsapp"></i> ડોક્યુમેન્ટ્સ અને પૂછપરછ</h2>
             <p style="text-align: center; margin-bottom: 30px; font-size: 20px;">અહીં માહિતી ભરીને મોકલો. (ફોર્મ ભરવા માટે અહીંથી જ ડોક્યુમેન્ટ સેન્ડ કરી શકો છો).</p>
             
@@ -1234,7 +1241,7 @@
             </div>
         </div>
 
-        <div class="info-card">
+        <div class="info-card" data-tilt data-tilt-max="2" data-tilt-speed="400">
             <div class="info-line">
                 <div class="info-icon"><i class="fa-solid fa-user-tie"></i></div>
                 <div><span style="color: gray; font-size: 16px; display: block;">સંચાલક</span>પઠાણ માહિરખાન</div>
@@ -1277,6 +1284,8 @@
             <i class="fa-regular fa-copyright"></i> ૨૦૨૬ AL-AKSHA COMPUTER CENTER. All Rights Reserved.
         </div>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 
     <script>
         let confettiActive = false;
