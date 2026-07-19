@@ -191,42 +191,77 @@
         .scrolling-text { display: inline-block; padding-left: 100%; animation: scrollNews 35s linear infinite; text-shadow: 0 2px 4px rgba(0,0,0,0.4); font-size: 19px;}
         @keyframes scrollNews { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
-        /* HEADER CSS WITH EXACT 05. MESH GRADIENT LOOK */
-        header { 
+        /* ==============================
+           PREMIUM MESH GRADIENT HEADER
+        ============================== */
+        header {
             position: relative;
+            overflow: hidden;
+            isolation: isolate;
+
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+
+            background: #050816;
+
+            background-image:
+            radial-gradient(circle at 5% 20%, #ff0080 0%, transparent 28%),
+            radial-gradient(circle at 90% 10%, #7b2cff 0%, transparent 30%),
+            radial-gradient(circle at 100% 80%, #00d4ff 0%, transparent 35%),
+            radial-gradient(circle at 15% 95%, #00ff88 0%, transparent 32%),
+            radial-gradient(circle at 55% 40%, #ffcc00 0%, transparent 28%),
+            radial-gradient(circle at 45% 75%, #ff5f6d 0%, transparent 35%),
+            linear-gradient(135deg, #020617, #0f172a, #1e1b4b);
+
+            background-size: 250% 250%;
+
+            animation: meshMove 18s ease infinite;
             
-            /* DYNAMIC COLORFUL MESH SKY/GLOW BACKGROUND */
-            background-color: #1a0b2e;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 0, 127, 0.6) 0%, transparent 50%),
-                radial-gradient(circle at 90% 80%, rgba(121, 40, 202, 0.6) 0%, transparent 50%),
-                radial-gradient(circle at 50% 10%, rgba(58, 12, 163, 0.6) 0%, transparent 50%),
-                radial-gradient(circle at 20% 90%, rgba(247, 37, 133, 0.5) 0%, transparent 50%);
-            background-size: 200% 200%;
-            animation: meshSkyAnimate 15s ease-in-out infinite alternate;
-            
-            color: white; 
-            text-align: center; 
-            padding: 90px 20px 100px 20px;
+            /* Retained from previous styling to keep the curved bottom */
             border-bottom-left-radius: 50px; 
             border-bottom-right-radius: 50px; 
             box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
-            overflow: hidden;
+            padding: 40px 20px;
+        }
+
+        /* Blur Glass Layer */
+        header::before {
+            content: "";
+            position: absolute;
+            inset: -25%;
+            background: inherit;
+            filter: blur(120px) saturate(180%);
+            animation: rotateMesh 25s linear infinite;
+            z-index: 0;
+        }
+
+        /* Aurora Glow */
+        header::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+            radial-gradient(circle at 50% 50%,
+            rgba(255,255,255,.15),
+            transparent 65%);
+            mix-blend-mode: screen;
+            pointer-events: none;
             z-index: 1;
         }
 
-        /* Mesh Sky Animation */
-        @keyframes meshSkyAnimate {
-            0% { background-position: 0% 0%; }
-            50% { background-position: 100% 100%; }
-            100% { background-position: 0% 100%; }
+        /* Keep Text Above */
+        .header-content,
+        header > * {
+            position: relative;
+            z-index: 5;
         }
 
-        .canvas-3d-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.85;}
-
-        .header-content { 
-            position: relative; 
-            z-index: 2; 
+        /* The glass card inside the header */
+        .header-content {
             background: rgba(10, 15, 30, 0.4); 
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
@@ -234,11 +269,64 @@
             padding: 55px 30px;
             border-radius: 40px;
             max-width: 850px;
+            width: 100%;
             margin: 0 auto;
             box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
             transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .header-content:hover { transform: translateY(-5px); }
+
+        /* Floating Glow */
+        .glow {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: .35;
+            animation: floatGlow 10s ease-in-out infinite alternate;
+            z-index: 2; /* Put it behind the header-content */
+        }
+
+        .glow:nth-child(1) {
+            background: #ff0080;
+            top: -100px;
+            left: -100px;
+        }
+
+        .glow:nth-child(2) {
+            background: #00d4ff;
+            bottom: -100px;
+            right: -100px;
+            animation-delay: 3s;
+        }
+
+        .glow:nth-child(3) {
+            background: #7b2cff;
+            top: 40%;
+            left: 45%;
+            animation-delay: 6s;
+        }
+
+        /* Animation */
+        @keyframes meshMove {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 20%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 20% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes rotateMesh {
+            0% { transform: rotate(0deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1.35); }
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0,0) scale(1); }
+            50% { transform: translate(60px,-40px) scale(1.2); }
+            100% { transform: translate(-40px,50px) scale(.9); }
+        }
 
         .shop-logo { 
             max-width: 160px; border-radius: 50%; border: 6px solid rgba(255,255,255,0.9); 
@@ -511,10 +599,11 @@
             .search-container { flex-direction: column; }
             .mic-btn { width: 100%; border-radius: 50px; height: 65px; gap: 10px;}
             .mic-btn::after { content: ' બોલીને શોધો'; font-size: 20px; font-weight: 800; font-family: inherit;}
+            header { min-height: auto; padding: 100px 20px; }
         }
 
         @media (max-width: 480px) {
-            header { padding: 70px 15px 80px 15px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;}
+            header { padding: 80px 15px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;}
             .header-content { padding: 35px 20px; border-radius: 30px; }
             h1 { font-size: 32px; }
             h1 span { font-size: 16px; margin-top: 8px;}
@@ -540,6 +629,7 @@
             .inquiry-box { padding: 30px 20px; margin-top: 40px;}
             .info-card { padding: 25px 15px; margin-top: 30px; }
             .social-cta-btn { width: 100%; justify-content: center;}
+            .glow { width: 200px; height: 200px; } /* Smaller glow on mobile */
         }
 
         /* --- STRICT MOBILE VIEW FIXES --- */
@@ -595,11 +685,13 @@
         </div>
     </div>
 
-    <!-- HEADER WITH 3D INTERACTIVE CANVAS BACKGROUND -->
+    <!-- PREMIUM MESH GRADIENT HEADER -->
     <header id="main-header">
         
-        <!-- 3D Canvas Background Element -->
-        <canvas id="header3DCanvas" class="canvas-3d-bg"></canvas>
+        <!-- Floating Glow Effects from User's CSS -->
+        <div class="glow"></div>
+        <div class="glow"></div>
+        <div class="glow"></div>
 
         <div class="header-content">
             <img src="logo.jpg" alt="Al-Aksha Logo" class="shop-logo" onerror="this.style.display='none'">
@@ -1546,7 +1638,6 @@
                     }
                     
                     animateCounters(); 
-                    init3DMeshGradient(); // START 3D MESH BACKGROUND
                 }, 400); 
             }, 800); 
         };
@@ -1711,101 +1802,6 @@
                 cards[i].style.display = title.includes(input) ? "" : "none";
             }
         }
-
-        // 11. PERFECT "05. MESH GRADIENT" 3D WIREFRAME (NO MOUSE EFFECT, AUTO ANIMATED)
-        function init3DMeshGradient() {
-            const canvas = document.getElementById('header3DCanvas');
-            const ctx = canvas.getContext('2d');
-            const header = document.getElementById('main-header');
-
-            function resizeCanvas() {
-                canvas.width = header.offsetWidth;
-                canvas.height = header.offsetHeight;
-            }
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-
-            let time = 0;
-            
-            function animate() {
-                time += 0.012; // Speed of movement
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                // Canvas Grid Settings for the Mesh
-                const cols = 45;
-                const rows = 28;
-                const size = 65; // Distance between points
-
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)'; // Glowing thin white/pink grid
-                ctx.lineWidth = 1;
-
-                // 3D to 2D projection function
-                function project(x, y, z) {
-                    const fov = 350;
-                    const camZ = -250;
-                    const camY = -120;
-                    
-                    let relZ = z - camZ;
-                    let relY = y - camY;
-                    
-                    let scale = fov / relZ;
-                    let screenX = canvas.width / 2 + (x * scale);
-                    let screenY = canvas.height / 2 + (relY * scale) + 50;
-                    return { x: screenX, y: screenY };
-                }
-
-                // Simulate moving forward continuously
-                let zOffset = (time * 120) % size;
-
-                // Draw horizontal wavy lines
-                for (let z = 0; z < rows; z++) {
-                    ctx.beginPath();
-                    for (let x = 0; x < cols; x++) {
-                        let realX = (x - cols / 2) * size;
-                        let realZ = z * size - zOffset;
-                        
-                        // Wave formulation (like the hills in image 5)
-                        let waveX = Math.sin(x * 0.3 + time * 1.5) * 45;
-                        let waveZ = Math.cos(z * 0.2 + time) * 45;
-                        let realY = waveX + waveZ + 60; // Base height
-
-                        let pt = project(realX, realY, realZ);
-
-                        if (x === 0) ctx.moveTo(pt.x, pt.y);
-                        else ctx.lineTo(pt.x, pt.y);
-                    }
-                    ctx.stroke();
-                }
-
-                // Draw vertical wavy lines
-                for (let x = 0; x < cols; x++) {
-                    ctx.beginPath();
-                    for (let z = 0; z < rows; z++) {
-                        let realX = (x - cols / 2) * size;
-                        let realZ = z * size - zOffset;
-                        
-                        let waveX = Math.sin(x * 0.3 + time * 1.5) * 45;
-                        let waveZ = Math.cos(z * 0.2 + time) * 45;
-                        let realY = waveX + waveZ + 60;
-
-                        let pt = project(realX, realY, realZ);
-
-                        // Fade out the grid smoothly into the distance
-                        let alpha = 1 - (z / rows);
-                        // Pink/Magenta glow on vertical lines
-                        ctx.strokeStyle = `rgba(255, 105, 180, ${alpha * 0.45})`; 
-
-                        if (z === 0) ctx.moveTo(pt.x, pt.y);
-                        else ctx.lineTo(pt.x, pt.y);
-                    }
-                    ctx.stroke();
-                }
-
-                requestAnimationFrame(animate);
-            }
-            animate();
-        }
-
     </script>
 </body>
 </html>
