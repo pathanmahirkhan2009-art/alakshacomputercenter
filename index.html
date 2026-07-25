@@ -18,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
         /* CSS Variables for Dark Mode & Color Picker */
@@ -48,12 +49,227 @@
 
         body { font-family: 'Baloo Bhai 2', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; scroll-behavior: smooth; transition: background 0.4s ease, color 0.4s ease;}
         
+        /* ===== 3D ANIMATED BACKGROUND ===== */
+        #threejs-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.35;
+            transition: opacity 0.6s ease;
+        }
+        [data-theme="dark"] #threejs-bg {
+            opacity: 0.55;
+        }
+
+        /* Floating 3D CSS shapes layer */
+        .css3d-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            perspective: 1200px;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border: 2px solid;
+            opacity: 0.08;
+            animation: float3d var(--duration) var(--delay) infinite ease-in-out;
+            transform-style: preserve-3d;
+        }
+        [data-theme="dark"] .floating-shape {
+            opacity: 0.12;
+        }
+
+        .shape-cube {
+            width: var(--size);
+            height: var(--size);
+            border-color: var(--primary);
+            border-radius: 8px;
+            animation-name: float3dCube;
+        }
+        .shape-diamond {
+            width: var(--size);
+            height: var(--size);
+            border-color: var(--secondary);
+            transform: rotate(45deg);
+            animation-name: float3dDiamond;
+        }
+        .shape-circle {
+            width: var(--size);
+            height: var(--size);
+            border-color: var(--accent);
+            border-radius: 50%;
+            animation-name: float3dCircle;
+        }
+        .shape-triangle {
+            width: 0;
+            height: 0;
+            border-left: calc(var(--size) / 2) solid transparent;
+            border-right: calc(var(--size) / 2) solid transparent;
+            border-bottom: var(--size) solid;
+            border-top: none;
+            border-bottom-color: var(--primary);
+            opacity: 0.06;
+            animation-name: float3dTriangle;
+        }
+        .shape-hexagon {
+            width: var(--size);
+            height: calc(var(--size) * 0.577);
+            border-color: #10b981;
+            position: absolute;
+            animation-name: float3dHex;
+        }
+        .shape-ring {
+            width: var(--size);
+            height: var(--size);
+            border-width: 3px;
+            border-color: #f59e0b;
+            border-radius: 50%;
+            animation-name: float3dRing;
+        }
+        .shape-cross {
+            width: var(--size);
+            height: var(--size);
+            border: none;
+            opacity: 0.06;
+            animation-name: float3dCross;
+        }
+        .shape-cross::before, .shape-cross::after {
+            content: '';
+            position: absolute;
+            background: var(--accent);
+        }
+        .shape-cross::before {
+            width: 100%;
+            height: 25%;
+            top: 37.5%;
+            left: 0;
+        }
+        .shape-cross::after {
+            width: 25%;
+            height: 100%;
+            left: 37.5%;
+            top: 0;
+        }
+
+        @keyframes float3dCube {
+            0%, 100% { transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+            25% { transform: translate3d(30px, -50px, 80px) rotateX(90deg) rotateY(45deg) rotateZ(30deg); }
+            50% { transform: translate3d(-20px, -80px, 40px) rotateX(180deg) rotateY(90deg) rotateZ(60deg); }
+            75% { transform: translate3d(40px, -30px, 100px) rotateX(270deg) rotateY(135deg) rotateZ(90deg); }
+        }
+        @keyframes float3dDiamond {
+            0%, 100% { transform: rotate(45deg) translate3d(0, 0, 0) scale(1); }
+            25% { transform: rotate(45deg) translate3d(-40px, -60px, 60px) scale(1.1) rotateZ(90deg); }
+            50% { transform: rotate(45deg) translate3d(30px, -90px, 30px) scale(0.9) rotateZ(180deg); }
+            75% { transform: rotate(45deg) translate3d(-20px, -40px, 90px) scale(1.05) rotateZ(270deg); }
+        }
+        @keyframes float3dCircle {
+            0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+            33% { transform: translate3d(50px, -70px, 50px) scale(1.15); }
+            66% { transform: translate3d(-30px, -100px, 80px) scale(0.85); }
+        }
+        @keyframes float3dTriangle {
+            0%, 100% { transform: translate3d(0, 0, 0) rotateY(0deg); }
+            25% { transform: translate3d(20px, -40px, 70px) rotateY(90deg); }
+            50% { transform: translate3d(-30px, -70px, 40px) rotateY(180deg); }
+            75% { transform: translate3d(40px, -20px, 90px) rotateY(270deg); }
+        }
+        @keyframes float3dHex {
+            0%, 100% { transform: translate3d(0, 0, 0) rotateZ(0deg) rotateX(0deg); }
+            50% { transform: translate3d(30px, -60px, 60px) rotateZ(180deg) rotateX(60deg); }
+        }
+        @keyframes float3dRing {
+            0%, 100% { transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale(1); }
+            25% { transform: translate3d(-25px, -45px, 50px) rotateX(45deg) rotateY(90deg) scale(1.1); }
+            50% { transform: translate3d(35px, -80px, 30px) rotateX(90deg) rotateY(180deg) scale(0.9); }
+            75% { transform: translate3d(-15px, -30px, 70px) rotateX(135deg) rotateY(270deg) scale(1.05); }
+        }
+        @keyframes float3dCross {
+            0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+            25% { transform: translate3d(40px, -50px, 40px) rotate(90deg) scale(1.1); }
+            50% { transform: translate3d(-30px, -70px, 60px) rotate(180deg) scale(0.9); }
+            75% { transform: translate3d(20px, -30px, 80px) rotate(270deg) scale(1.05); }
+        }
+
+        /* Glowing orbs */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.04;
+            animation: orbPulse var(--duration) var(--delay) infinite ease-in-out;
+            pointer-events: none;
+        }
+        [data-theme="dark"] .glow-orb {
+            opacity: 0.08;
+        }
+        @keyframes orbPulse {
+            0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.04; }
+            50% { transform: translate3d(var(--tx), var(--ty), 0) scale(1.3); opacity: 0.08; }
+        }
+        [data-theme="dark"] .glow-orb {
+            animation-name: orbPulseDark;
+        }
+        @keyframes orbPulseDark {
+            0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.08; }
+            50% { transform: translate3d(var(--tx), var(--ty), 0) scale(1.3); opacity: 0.14; }
+        }
+
+        /* Make all content above 3D background */
+        #loader, #welcomePopup, .settings-float, .settings-menu, .news-bar, header, 
+        .stats-container, .search-container, .category-tabs, .container, .wa-float, footer, #progressBar {
+            position: relative;
+            z-index: 1;
+        }
+
         /* Loading Screen */
         #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.6s ease; }
         .loader-logo { width: 130px; height: 130px; border-radius: 50%; border: 5px solid rgba(255,255,255,0.5); margin-bottom: 25px; animation: pulseLogo 1.5s infinite; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.2); padding: 5px;}
         @keyframes pulseLogo { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); } 70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } }
         .wait-text { font-size: 34px; font-weight: 800; letter-spacing: 5px; text-shadow: 2px 2px 5px rgba(0,0,0,0.3); animation: blinkText 1.5s infinite; }
         @keyframes blinkText { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* 3D Loading Spinner */
+        .loader-3d-spinner {
+            width: 60px;
+            height: 60px;
+            margin-top: 30px;
+            perspective: 200px;
+        }
+        .spinner-cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: spinCube 2s infinite ease-in-out;
+        }
+        .spinner-face {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255,255,255,0.6);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+        }
+        .spinner-face:nth-child(1) { transform: rotateY(0deg) translateZ(30px); }
+        .spinner-face:nth-child(2) { transform: rotateY(90deg) translateZ(30px); }
+        .spinner-face:nth-child(3) { transform: rotateY(180deg) translateZ(30px); }
+        .spinner-face:nth-child(4) { transform: rotateY(270deg) translateZ(30px); }
+        @keyframes spinCube {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            50% { transform: rotateX(180deg) rotateY(180deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
 
         /* Scroll Progress Bar */
         #progressBar { position: fixed; top: 0; left: 0; height: 5px; background: linear-gradient(90deg, #10b981, #059669); width: 0%; z-index: 10000; transition: width 0.1s ease-out; border-radius: 0 5px 5px 0; box-shadow: 0 2px 5px rgba(16,185,129,0.4);}
@@ -86,38 +302,352 @@
         /* HEADER CSS */
         header { 
             position: relative;
-            background: #0b1120; 
+            background: #050a18; 
             color: white; 
             text-align: center; 
             padding: 70px 20px 80px 20px;
             border-bottom-left-radius: 40px; 
             border-bottom-right-radius: 40px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2); 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 80px rgba(26,115,232,0.1); 
             overflow: hidden;
             z-index: 1;
         }
 
-        .aurora-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
-        .blob {
+        /* Header 3D Three.js Canvas */
+        #header-3d-canvas {
             position: absolute;
-            filter: blur(65px);
-            opacity: 0.75;
-            border-radius: 50%;
-            animation: moveBlob 10s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
-        
-        .blob-1 { top: -10%; left: -10%; width: 350px; height: 350px; background: var(--primary); animation-duration: 7s;}
-        .blob-2 { bottom: -20%; right: -10%; width: 400px; height: 400px; background: var(--accent); animation-delay: -2s; animation-duration: 9s;}
-        .blob-3 { top: 40%; left: 35%; width: 300px; height: 300px; background: var(--secondary); animation-delay: -4s; animation-duration: 8s;}
-        .blob-4 { top: -20%; right: 15%; width: 280px; height: 280px; background: #ec4899; animation-delay: -1s; animation-duration: 6s;} 
-        .blob-5 { bottom: 10%; left: 15%; width: 320px; height: 320px; background: #10b981; animation-delay: -3s; animation-duration: 10s;} 
-        .blob-6 { top: 60%; right: 30%; width: 250px; height: 250px; background: #f59e0b; animation-delay: -5s; animation-duration: 7s;} 
 
-        @keyframes moveBlob {
+        /* Header sparkle overlay canvas */
+        #header-sparkle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* ===== MOBILE-FRIENDLY ANIMATED MESH GRADIENT BG ===== */
+        .header-mesh-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            background: #050a18;
+        }
+
+        /* Animated color blobs - GPU accelerated, works on all mobiles */
+        .mesh-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            will-change: transform;
+            mix-blend-mode: screen;
+        }
+        .mesh-blob-1 {
+            width: 320px; height: 320px;
+            background: radial-gradient(circle, rgba(26,115,232,0.6) 0%, rgba(26,115,232,0) 70%);
+            top: -15%; left: -10%;
+            animation: meshFloat1 8s ease-in-out infinite alternate;
+        }
+        .mesh-blob-2 {
+            width: 380px; height: 380px;
+            background: radial-gradient(circle, rgba(139,92,246,0.5) 0%, rgba(139,92,246,0) 70%);
+            bottom: -20%; right: -15%;
+            animation: meshFloat2 10s ease-in-out infinite alternate;
+        }
+        .mesh-blob-3 {
+            width: 280px; height: 280px;
+            background: radial-gradient(circle, rgba(14,165,233,0.45) 0%, rgba(14,165,233,0) 70%);
+            top: 30%; left: 50%;
+            transform: translateX(-50%);
+            animation: meshFloat3 7s ease-in-out infinite alternate;
+        }
+        .mesh-blob-4 {
+            width: 250px; height: 250px;
+            background: radial-gradient(circle, rgba(236,72,153,0.4) 0%, rgba(236,72,153,0) 70%);
+            top: -10%; right: 10%;
+            animation: meshFloat4 9s ease-in-out infinite alternate;
+        }
+        .mesh-blob-5 {
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(16,185,129,0.35) 0%, rgba(16,185,129,0) 70%);
+            bottom: 5%; left: 10%;
+            animation: meshFloat5 11s ease-in-out infinite alternate;
+        }
+        .mesh-blob-6 {
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(245,158,11,0.3) 0%, rgba(245,158,11,0) 70%);
+            top: 50%; right: 25%;
+            animation: meshFloat6 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes meshFloat1 {
             0% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(60px, -50px) scale(1.15); }
-            66% { transform: translate(-50px, 60px) scale(0.9); }
-            100% { transform: translate(30px, 30px) scale(1.1); }
+            50% { transform: translate(60px, 40px) scale(1.2); }
+            100% { transform: translate(30px, -20px) scale(1.1); }
+        }
+        @keyframes meshFloat2 {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-50px, -40px) scale(1.15); }
+            100% { transform: translate(-20px, 30px) scale(0.95); }
+        }
+        @keyframes meshFloat3 {
+            0% { transform: translateX(-50%) translate(0, 0) scale(1); }
+            50% { transform: translateX(-50%) translate(40px, -30px) scale(1.25); }
+            100% { transform: translateX(-50%) translate(-30px, 20px) scale(1.05); }
+        }
+        @keyframes meshFloat4 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-40px, 50px) scale(1.2); }
+        }
+        @keyframes meshFloat5 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, -30px) scale(1.15); }
+        }
+        @keyframes meshFloat6 {
+            0% { transform: translate(0, 0) scale(0.9); }
+            100% { transform: translate(-30px, -40px) scale(1.2); }
+        }
+
+        /* ===== NEON ORB PARTICLES (CSS only, mobile perfect) ===== */
+        .neon-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .neon-orb::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+        .neon-orb-1 {
+            width: 6px; height: 6px;
+            background: #60a5fa;
+            box-shadow: 0 0 12px 4px rgba(96,165,250,0.6), 0 0 30px 10px rgba(96,165,250,0.2);
+            top: 12%; left: 15%;
+            animation: orbDrift1 12s ease-in-out infinite;
+        }
+        .neon-orb-2 {
+            width: 4px; height: 4px;
+            background: #a78bfa;
+            box-shadow: 0 0 10px 3px rgba(167,139,250,0.6), 0 0 25px 8px rgba(167,139,250,0.2);
+            top: 25%; right: 20%;
+            animation: orbDrift2 15s ease-in-out infinite;
+        }
+        .neon-orb-3 {
+            width: 8px; height: 8px;
+            background: #34d399;
+            box-shadow: 0 0 15px 5px rgba(52,211,153,0.5), 0 0 35px 12px rgba(52,211,153,0.15);
+            bottom: 20%; left: 30%;
+            animation: orbDrift3 10s ease-in-out infinite;
+        }
+        .neon-orb-4 {
+            width: 5px; height: 5px;
+            background: #f472b6;
+            box-shadow: 0 0 12px 4px rgba(244,114,182,0.5), 0 0 28px 10px rgba(244,114,182,0.15);
+            top: 40%; left: 75%;
+            animation: orbDrift4 13s ease-in-out infinite;
+        }
+        .neon-orb-5 {
+            width: 7px; height: 7px;
+            background: #38bdf8;
+            box-shadow: 0 0 14px 5px rgba(56,189,248,0.5), 0 0 32px 12px rgba(56,189,248,0.15);
+            bottom: 30%; right: 12%;
+            animation: orbDrift5 14s ease-in-out infinite;
+        }
+        .neon-orb-6 {
+            width: 3px; height: 3px;
+            background: #fbbf24;
+            box-shadow: 0 0 8px 3px rgba(251,191,36,0.6), 0 0 20px 8px rgba(251,191,36,0.2);
+            top: 60%; left: 8%;
+            animation: orbDrift6 11s ease-in-out infinite;
+        }
+        .neon-orb-7 {
+            width: 5px; height: 5px;
+            background: #818cf8;
+            box-shadow: 0 0 12px 4px rgba(129,140,248,0.5), 0 0 28px 10px rgba(129,140,248,0.15);
+            top: 18%; left: 55%;
+            animation: orbDrift7 16s ease-in-out infinite;
+        }
+        .neon-orb-8 {
+            width: 4px; height: 4px;
+            background: #2dd4bf;
+            box-shadow: 0 0 10px 4px rgba(45,212,191,0.5), 0 0 22px 8px rgba(45,212,191,0.15);
+            bottom: 15%; left: 65%;
+            animation: orbDrift8 9s ease-in-out infinite;
+        }
+        .neon-orb-9 {
+            width: 6px; height: 6px;
+            background: #c084fc;
+            box-shadow: 0 0 14px 5px rgba(192,132,252,0.5), 0 0 30px 10px rgba(192,132,252,0.15);
+            top: 70%; right: 35%;
+            animation: orbDrift9 12s ease-in-out infinite;
+        }
+        .neon-orb-10 {
+            width: 4px; height: 4px;
+            background: #fb7185;
+            box-shadow: 0 0 10px 3px rgba(251,113,133,0.5), 0 0 24px 8px rgba(251,113,133,0.15);
+            top: 8%; left: 85%;
+            animation: orbDrift10 17s ease-in-out infinite;
+        }
+        .neon-orb-11 {
+            width: 5px; height: 5px;
+            background: #4ade80;
+            box-shadow: 0 0 12px 4px rgba(74,222,128,0.5), 0 0 26px 10px rgba(74,222,128,0.15);
+            bottom: 40%; left: 5%;
+            animation: orbDrift1 18s ease-in-out infinite reverse;
+        }
+        .neon-orb-12 {
+            width: 6px; height: 6px;
+            background: #67e8f9;
+            box-shadow: 0 0 14px 5px rgba(103,232,249,0.5), 0 0 30px 10px rgba(103,232,249,0.15);
+            top: 55%; right: 8%;
+            animation: orbDrift3 20s ease-in-out infinite reverse;
+        }
+
+        @keyframes orbDrift1 { 0%,100%{transform:translate(0,0)} 25%{transform:translate(30px,-20px)} 50%{transform:translate(-15px,-40px)} 75%{transform:translate(20px,15px)} }
+        @keyframes orbDrift2 { 0%,100%{transform:translate(0,0)} 25%{transform:translate(-25px,30px)} 50%{transform:translate(20px,-15px)} 75%{transform:translate(-10px,25px)} }
+        @keyframes orbDrift3 { 0%,100%{transform:translate(0,0)} 25%{transform:translate(35px,20px)} 50%{transform:translate(-25px,35px)} 75%{transform:translate(15px,-20px)} }
+        @keyframes orbDrift4 { 0%,100%{transform:translate(0,0)} 25%{transform:translate(-20px,-25px)} 50%{transform:translate(30px,10px)} 75%{transform:translate(-15px,30px)} }
+        @keyframes orbDrift5 { 0%,100%{transform:translate(0,0)} 25%{transform:translate(20px,25px)} 50%{transform:translate(-30px,-10px)} 75%{transform:translate(25px,-20px)} }
+        @keyframes orbDrift6 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(25px,-30px)} 66%{transform:translate(-20px,20px)} }
+        @keyframes orbDrift7 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-30px,15px)} 66%{transform:translate(20px,-25px)} }
+        @keyframes orbDrift8 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(15px,25px)} 66%{transform:translate(-25px,-15px)} }
+        @keyframes orbDrift9 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-20px,-20px)} 66%{transform:translate(30px,10px)} }
+        @keyframes orbDrift10 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-25px,30px)} }
+
+        /* ===== CSS 3D PERSPECTIVE GRID ===== */
+        .header-grid-3d {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 60%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+            mask-image: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+        }
+        .header-grid-3d-inner {
+            width: 200%; height: 200%;
+            position: absolute;
+            bottom: -50%; left: -50%;
+            transform: perspective(400px) rotateX(55deg);
+            background-image:
+                linear-gradient(rgba(26,115,232,0.12) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(26,115,232,0.12) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridScroll 20s linear infinite;
+        }
+        @keyframes gridScroll {
+            0% { transform: perspective(400px) rotateX(55deg) translateY(0); }
+            100% { transform: perspective(400px) rotateX(55deg) translateY(50px); }
+        }
+
+        /* ===== FLOATING WIREFRAME SHAPES (CSS 3D for mobile) ===== */
+        .hdr-shape {
+            position: absolute;
+            border: 1.5px solid;
+            opacity: 0.12;
+            pointer-events: none;
+            transform-style: preserve-3d;
+            z-index: 0;
+        }
+        .hdr-hex-1 {
+            width: 60px; height: 60px;
+            border-color: rgba(96,165,250,0.5);
+            border-radius: 12px;
+            top: 10%; left: 8%;
+            animation: hdrSpin1 15s linear infinite;
+        }
+        .hdr-hex-2 {
+            width: 40px; height: 40px;
+            border-color: rgba(167,139,250,0.4);
+            border-radius: 50%;
+            top: 65%; right: 10%;
+            animation: hdrSpin2 18s linear infinite;
+        }
+        .hdr-hex-3 {
+            width: 50px; height: 50px;
+            border-color: rgba(52,211,153,0.4);
+            border-radius: 8px;
+            transform: rotate(45deg);
+            bottom: 25%; left: 20%;
+            animation: hdrSpin3 12s linear infinite;
+        }
+        .hdr-hex-4 {
+            width: 35px; height: 35px;
+            border-color: rgba(244,114,182,0.4);
+            border-radius: 50%;
+            top: 20%; right: 25%;
+            animation: hdrSpin4 20s linear infinite;
+        }
+        .hdr-hex-5 {
+            width: 55px; height: 55px;
+            border-color: rgba(251,191,36,0.3);
+            border-radius: 14px;
+            bottom: 35%; right: 30%;
+            animation: hdrSpin5 16s linear infinite;
+        }
+        .hdr-hex-6 {
+            width: 45px; height: 45px;
+            border-color: rgba(56,189,248,0.35);
+            border-radius: 4px;
+            top: 45%; left: 5%;
+            animation: hdrSpin6 14s linear infinite;
+        }
+
+        @keyframes hdrSpin1 { 0%{transform:rotate(0deg) translate(0,0) scale(1)} 25%{transform:rotate(90deg) translate(15px,-20px) scale(1.1)} 50%{transform:rotate(180deg) translate(-10px,15px) scale(0.9)} 75%{transform:rotate(270deg) translate(20px,10px) scale(1.05)} 100%{transform:rotate(360deg) translate(0,0) scale(1)} }
+        @keyframes hdrSpin2 { 0%{transform:rotate(0deg) translate(0,0)} 50%{transform:rotate(180deg) translate(-20px,-15px)} 100%{transform:rotate(360deg) translate(0,0)} }
+        @keyframes hdrSpin3 { 0%{transform:rotate(45deg) translate(0,0)} 50%{transform:rotate(225deg) translate(25px,-20px)} 100%{transform:rotate(405deg) translate(0,0)} }
+        @keyframes hdrSpin4 { 0%{transform:rotate(0deg) scale(1)} 50%{transform:rotate(-180deg) scale(1.2)} 100%{transform:rotate(-360deg) scale(1)} }
+        @keyframes hdrSpin5 { 0%{transform:rotate(0deg) translate(0,0)} 33%{transform:rotate(120deg) translate(-15px,20px)} 66%{transform:rotate(240deg) translate(10px,-15px)} 100%{transform:rotate(360deg) translate(0,0)} }
+        @keyframes hdrSpin6 { 0%{transform:rotate(0deg) translate(0,0)} 50%{transform:rotate(180deg) translate(20px,15px)} 100%{transform:rotate(360deg) translate(0,0)} }
+
+        /* ===== ANIMATED LIGHT BEAM ===== */
+        .header-light-beam {
+            position: absolute;
+            top: -50%; left: -20%;
+            width: 40%; height: 200%;
+            background: linear-gradient(105deg, transparent 40%, rgba(26,115,232,0.03) 45%, rgba(139,92,246,0.05) 50%, rgba(14,165,233,0.03) 55%, transparent 60%);
+            z-index: 0;
+            pointer-events: none;
+            animation: beamSweep 8s ease-in-out infinite;
+            transform: skewX(-15deg);
+        }
+        @keyframes beamSweep {
+            0% { left: -40%; }
+            100% { left: 120%; }
+        }
+
+        /* Scan line effect */
+        .header-scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 3px,
+                rgba(255,255,255,0.008) 3px,
+                rgba(255,255,255,0.008) 4px
+            );
         }
 
         .header-content { 
@@ -169,6 +699,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(10px);
         }
         .stat-box:hover {
             transform: translateY(-8px) scale(1.02);
@@ -191,27 +722,27 @@
         .search-container { max-width: 900px; margin: 0 auto 35px auto; padding: 0 15px; position: relative; z-index: 10; display: flex; gap: 15px;}
         .search-wrapper { flex-grow: 1; position: relative; }
         .search-icon { position: absolute; left: 25px; top: 50%; transform: translateY(-50%); color: var(--primary); font-size: 22px; }
-        #searchInput { width: 100%; padding: 22px 25px 22px 65px; border-radius: 50px; border: 2px solid transparent; background: var(--card-bg); color: var(--text-color); box-shadow: 0 15px 35px rgba(0,0,0,0.08); font-size: 19px; font-family: inherit; font-weight: 700; outline: none; transition: all 0.3s ease; box-sizing: border-box;}
+        #searchInput { width: 100%; padding: 22px 25px 22px 65px; border-radius: 50px; border: 2px solid transparent; background: var(--card-bg); color: var(--text-color); box-shadow: 0 15px 35px rgba(0,0,0,0.08); font-size: 19px; font-family: inherit; font-weight: 700; outline: none; transition: all 0.3s ease; box-sizing: border-box; backdrop-filter: blur(10px);}
         #searchInput:focus { border-color: var(--primary); box-shadow: 0 15px 40px var(--hover-shadow); transform: translateY(-3px);}
         .mic-btn { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; width: 70px; height: 70px; border-radius: 50%; font-size: 26px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px var(--hover-shadow); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);}
         .mic-btn:hover { transform: scale(1.1) rotate(10deg); }
 
         .category-tabs { max-width: 900px; margin: 0 auto 30px auto; display: flex; gap: 15px; padding: 5px 15px; overflow-x: auto; white-space: nowrap; scrollbar-width: none;}
         .category-tabs::-webkit-scrollbar { display: none; }
-        .cat-btn { background: var(--card-bg); color: var(--text-color); border: 2px solid transparent; padding: 12px 30px; border-radius: 50px; font-size: 18px; font-family: inherit; font-weight: 800; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 10px; box-shadow: var(--card-shadow);}
+        .cat-btn { background: var(--card-bg); color: var(--text-color); border: 2px solid transparent; padding: 12px 30px; border-radius: 50px; font-size: 18px; font-family: inherit; font-weight: 800; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 10px; box-shadow: var(--card-shadow); backdrop-filter: blur(10px);}
         .cat-btn:hover { color: var(--primary); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.08);}
         .cat-btn.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-color: transparent; box-shadow: 0 10px 30px var(--hover-shadow);}
 
         /* MAIN CONTENT CSS */
         .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
 
-        .section-title { background: var(--card-bg); color: var(--primary); padding: 18px 25px; border-radius: 16px; margin: 45px 0 25px 0; font-size: 26px; font-weight: 800; text-align: center; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: var(--card-shadow); position: relative; overflow: hidden;}
+        .section-title { background: var(--card-bg); color: var(--primary); padding: 18px 25px; border-radius: 16px; margin: 45px 0 25px 0; font-size: 26px; font-weight: 800; text-align: center; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: var(--card-shadow); position: relative; overflow: hidden; backdrop-filter: blur(10px);}
         .section-title::before { content: ""; position: absolute; left: 0; top: 0; height: 100%; width: 8px; background: var(--primary); }
         
         .section-title-new { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
         .section-title-new::before { background: #fde047; }
         
-        .service-card { background: var(--card-bg); margin-bottom: 20px; border-radius: 18px; box-shadow: var(--card-shadow); border-left: 8px solid var(--primary); overflow: hidden; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); border-right: 1px solid var(--border-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);}
+        .service-card { background: var(--card-bg); margin-bottom: 20px; border-radius: 18px; box-shadow: var(--card-shadow); border-left: 8px solid var(--primary); overflow: hidden; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); border-right: 1px solid var(--border-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); backdrop-filter: blur(10px);}
         .service-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-left-width: 12px;}
         .service-card.simple { border-left: 8px solid #10b981; }
 
@@ -238,7 +769,7 @@
         .important-note i { font-size: 22px; margin-top: 2px;}
 
         /* FOOTER & FORMS CSS */
-        .inquiry-box { background: var(--card-bg); padding: 40px; border-radius: 20px; margin-top: 50px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); border-top: 8px solid #10b981; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; overflow: hidden;}
+        .inquiry-box { background: var(--card-bg); padding: 40px; border-radius: 20px; margin-top: 50px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); border-top: 8px solid #10b981; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; overflow: hidden; backdrop-filter: blur(10px);}
         .inquiry-box::before { content: ""; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%); border-radius: 50%; }
         
         .form-group { position: relative; margin: 15px 0 25px 0; }
@@ -252,7 +783,7 @@
 
         .payment-qr { text-align: center; margin-top: 35px; padding: 25px; background: var(--bg-color); border-radius: 16px; border: 2px dashed #1a73e8; position: relative;}
 
-        .info-card { background: var(--card-bg); padding: 30px; margin-top: 35px; border-radius: 20px; box-shadow: var(--card-shadow); font-size: 20px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 18px;}
+        .info-card { background: var(--card-bg); padding: 30px; margin-top: 35px; border-radius: 20px; box-shadow: var(--card-shadow); font-size: 20px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 18px; backdrop-filter: blur(10px);}
         .info-line { display: flex; align-items: center; gap: 18px; font-weight: 700;}
         .info-icon { background: var(--bg-color); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 24px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);}
 
@@ -297,9 +828,55 @@
 
         footer { text-align: center; padding: 40px 20px; background: #0f172a; color: white; margin-top: 60px; font-size: 21px; font-weight: 600; border-top-left-radius: 40px; border-top-right-radius: 40px; box-shadow: 0 -10px 30px rgba(0,0,0,0.15); position: relative; overflow: hidden;}
         footer::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--primary), var(--secondary)); }
+
+        /* Scroll reveal animations */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal-on-scroll.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
+
+    <!-- ===== THREE.JS 3D BACKGROUND ===== -->
+    <canvas id="threejs-bg"></canvas>
+
+    <!-- ===== CSS 3D FLOATING SHAPES LAYER ===== -->
+    <div class="css3d-layer" id="css3dLayer">
+        <!-- Cubes -->
+        <div class="floating-shape shape-cube" style="--size: 45px; --duration: 18s; --delay: 0s; top: 8%; left: 5%;"></div>
+        <div class="floating-shape shape-cube" style="--size: 30px; --duration: 22s; --delay: -3s; top: 55%; right: 8%;"></div>
+        <div class="floating-shape shape-cube" style="--size: 55px; --duration: 25s; --delay: -7s; top: 75%; left: 15%;"></div>
+        <!-- Diamonds -->
+        <div class="floating-shape shape-diamond" style="--size: 35px; --duration: 20s; --delay: -2s; top: 20%; right: 12%;"></div>
+        <div class="floating-shape shape-diamond" style="--size: 25px; --duration: 16s; --delay: -5s; top: 65%; left: 25%;"></div>
+        <div class="floating-shape shape-diamond" style="--size: 40px; --duration: 24s; --delay: -8s; top: 85%; right: 20%;"></div>
+        <!-- Circles -->
+        <div class="floating-shape shape-circle" style="--size: 50px; --duration: 19s; --delay: -1s; top: 30%; left: 70%;"></div>
+        <div class="floating-shape shape-circle" style="--size: 35px; --duration: 23s; --delay: -6s; top: 10%; left: 40%;"></div>
+        <div class="floating-shape shape-circle" style="--size: 28px; --duration: 17s; --delay: -9s; top: 90%; left: 60%;"></div>
+        <!-- Triangles -->
+        <div class="floating-shape shape-triangle" style="--size: 40px; --duration: 21s; --delay: -4s; top: 45%; right: 5%;"></div>
+        <div class="floating-shape shape-triangle" style="--size: 30px; --duration: 26s; --delay: -10s; top: 15%; left: 80%;"></div>
+        <!-- Rings -->
+        <div class="floating-shape shape-ring" style="--size: 60px; --duration: 20s; --delay: -2s; top: 35%; left: 3%;"></div>
+        <div class="floating-shape shape-ring" style="--size: 40px; --duration: 28s; --delay: -6s; top: 70%; right: 15%;"></div>
+        <!-- Crosses -->
+        <div class="floating-shape shape-cross" style="--size: 35px; --duration: 22s; --delay: -3s; top: 50%; left: 85%;"></div>
+        <div class="floating-shape shape-cross" style="--size: 25px; --duration: 18s; --delay: -8s; top: 25%; left: 50%;"></div>
+
+        <!-- Glowing Orbs -->
+        <div class="glow-orb" style="width: 300px; height: 300px; background: var(--primary); top: 10%; left: -5%; --duration: 12s; --delay: 0s; --tx: 80px; --ty: 40px;"></div>
+        <div class="glow-orb" style="width: 250px; height: 250px; background: var(--accent); top: 40%; right: -5%; --duration: 15s; --delay: -4s; --tx: -60px; --ty: 50px;"></div>
+        <div class="glow-orb" style="width: 200px; height: 200px; background: #10b981; bottom: 10%; left: 20%; --duration: 18s; --delay: -7s; --tx: 40px; --ty: -30px;"></div>
+        <div class="glow-orb" style="width: 280px; height: 280px; background: #ec4899; top: 60%; left: 50%; --duration: 14s; --delay: -2s; --tx: -50px; --ty: 60px;"></div>
+        <div class="glow-orb" style="width: 220px; height: 220px; background: #f59e0b; top: 80%; right: 30%; --duration: 16s; --delay: -5s; --tx: 70px; --ty: -40px;"></div>
+    </div>
 
     <div id="progressBar"></div>
 
@@ -308,6 +885,14 @@
             <img src="logo.jpg" alt="Logo" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
         </div>
         <div class="wait-text">Loading</div>
+        <div class="loader-3d-spinner">
+            <div class="spinner-cube">
+                <div class="spinner-face"></div>
+                <div class="spinner-face"></div>
+                <div class="spinner-face"></div>
+                <div class="spinner-face"></div>
+            </div>
+        </div>
     </div>
 
     <div id="welcomePopup">
@@ -346,14 +931,50 @@
     </div>
 
     <header>
-        <div class="aurora-bg">
-            <div class="blob blob-1"></div>
-            <div class="blob blob-2"></div>
-            <div class="blob blob-3"></div>
-            <div class="blob blob-4"></div>
-            <div class="blob blob-5"></div>
-            <div class="blob blob-6"></div>
+        <!-- Mobile-Friendly Animated Mesh Gradient Background -->
+        <div class="header-mesh-bg">
+            <div class="mesh-blob mesh-blob-1"></div>
+            <div class="mesh-blob mesh-blob-2"></div>
+            <div class="mesh-blob mesh-blob-3"></div>
+            <div class="mesh-blob mesh-blob-4"></div>
+            <div class="mesh-blob mesh-blob-5"></div>
+            <div class="mesh-blob mesh-blob-6"></div>
         </div>
+
+        <!-- 3D Perspective Grid -->
+        <div class="header-grid-3d">
+            <div class="header-grid-3d-inner"></div>
+        </div>
+
+        <!-- Neon Floating Orbs -->
+        <div class="neon-orb neon-orb-1"></div>
+        <div class="neon-orb neon-orb-2"></div>
+        <div class="neon-orb neon-orb-3"></div>
+        <div class="neon-orb neon-orb-4"></div>
+        <div class="neon-orb neon-orb-5"></div>
+        <div class="neon-orb neon-orb-6"></div>
+        <div class="neon-orb neon-orb-7"></div>
+        <div class="neon-orb neon-orb-8"></div>
+        <div class="neon-orb neon-orb-9"></div>
+        <div class="neon-orb neon-orb-10"></div>
+        <div class="neon-orb neon-orb-11"></div>
+        <div class="neon-orb neon-orb-12"></div>
+
+        <!-- Floating Wireframe Shapes -->
+        <div class="hdr-shape hdr-hex-1"></div>
+        <div class="hdr-shape hdr-hex-2"></div>
+        <div class="hdr-shape hdr-hex-3"></div>
+        <div class="hdr-shape hdr-hex-4"></div>
+        <div class="hdr-shape hdr-hex-5"></div>
+        <div class="hdr-shape hdr-hex-6"></div>
+
+        <!-- Light Beam Sweep -->
+        <div class="header-light-beam"></div>
+
+        <!-- Three.js 3D Canvas (desktop) -->
+        <canvas id="header-3d-canvas"></canvas>
+        <canvas id="header-sparkle-canvas"></canvas>
+        <div class="header-scanline"></div>
 
         <div class="header-content">
             <img src="logo.jpg" alt="Al-Aksha Logo" class="shop-logo" onerror="this.style.display='none'">
@@ -416,9 +1037,9 @@
         <!-- ==========================================
              SECTION 1: જૂની તમામ સરકારી યોજનાઓ
         =========================================== -->
-        <div class="section-title"><i class="fa-solid fa-folder-open"></i> સરકારી યોજનાઓ અને જરૂરી ડોક્યુમેન્ટ્સ</div>
+        <div class="section-title reveal-on-scroll"><i class="fa-solid fa-folder-open"></i> સરકારી યોજનાઓ અને જરૂરી ડોક્યુમેન્ટ્સ</div>
 
-        <div class="service-card" data-title="ઈ-નિર્માણ કાર્ડ" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="ઈ-નિર્માણ કાર્ડ" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-helmet-safety service-title-icon" style="color: #f59e0b;"></i> ઈ - નિર્માણ કાર્ડ</div>
@@ -437,7 +1058,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ABC કાર્ડ" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="ABC કાર્ડ" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-graduation-cap service-title-icon" style="color: #8b5cf6;"></i> ABC કાર્ડ</div>
@@ -453,7 +1074,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પાનકાર્ડ પાન કાર્ડ pan card" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="પાનકાર્ડ પાન કાર્ડ pan card" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-regular fa-id-card service-title-icon" style="color: #3b82f6;"></i> પાનકાર્ડ (નવું / સુધારો)</div>
@@ -475,7 +1096,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ઈ-શ્રમ કાર્ડ ઇ શ્રમ" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="ઈ-શ્રમ કાર્ડ ઇ શ્રમ" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-users-gear service-title-icon" style="color: #64748b;"></i> ઈ-શ્રમ કાર્ડ (નવું/સુધારો)</div>
@@ -491,7 +1112,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ચુંટણી કાર્ડ ચૂંટણી" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="ચુંટણી કાર્ડ ચૂંટણી" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-check-to-slot service-title-icon" style="color: #ec4899;"></i> ચુંટણી કાર્ડ (નવું/સુધારો)</div>
@@ -510,7 +1131,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="આધારકાર્ડ આધાર કાર્ડ" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="આધારકાર્ડ આધાર કાર્ડ" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-fingerprint service-title-icon" style="color: #10b981;"></i> આધારકાર્ડ પ્રિન્ટ/અપડેટ</div>
@@ -526,7 +1147,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="આયુષ્યમાન કાર્ડ" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="આયુષ્યમાન કાર્ડ" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-house-medical service-title-icon" style="color: #ef4444;"></i> આયુષ્યમાન કાર્ડ</div>
@@ -543,7 +1164,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="રેશન કાર્ડ e-KYC" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="રેશન કાર્ડ e-KYC" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-wheat-awn service-title-icon" style="color: #84cc16;"></i> રેશન કાર્ડ e-KYC</div>
@@ -559,7 +1180,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ABHA કાર્ડ આભા" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="ABHA કાર્ડ આભા" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-heart-pulse service-title-icon" style="color: #06b6d4;"></i> ABHA કાર્ડ</div>
@@ -574,7 +1195,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ડ્રાઇવિંગ લાઇસેન્સ લાયસન્સ" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="ડ્રાઇવિંગ લાઇસેન્સ લાયસન્સ" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-car-side service-title-icon" style="color: #f97316;"></i> ડ્રાઇવિંગ લાઇસેન્સ</div>
@@ -591,7 +1212,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પાસપોર્ટ" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="પાસપોર્ટ" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-plane-departure service-title-icon" style="color: #4338ca;"></i> પાસપોર્ટ</div>
@@ -609,7 +1230,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="PF કામ પીએફ" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="PF કામ પીએફ" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-briefcase service-title-icon" style="color: #78716c;"></i> PF ને લગતું કામ</div>
@@ -627,7 +1248,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="7/12 8-અ નકલ ઉતારા" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="7/12 8-અ નકલ ઉતારા" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-regular fa-file-lines service-title-icon" style="color: #8b5cf6;"></i> 7/12 અને 8-અ ની નકલ</div>
@@ -642,7 +1263,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પ્રોપર્ટી કાર્ડ" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="પ્રોપર્ટી કાર્ડ" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-building service-title-icon" style="color: #0ea5e9;"></i> પ્રોપર્ટી કાર્ડ</div>
@@ -657,7 +1278,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="RTE ઍડ્મિશન ફોર્મ આરટીઈ" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="RTE ઍડ્મિશન ફોર્મ આરટીઈ" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-school service-title-icon" style="color: #d946ef;"></i> RTE ઍડ્મિશન ફોર્મ</div>
@@ -677,7 +1298,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પી એમ કિસાન યોજના" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="પી એમ કિસાન યોજના" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-seedling service-title-icon" style="color: #22c55e;"></i> પી. એમ. કિસાન યોજના</div>
@@ -695,7 +1316,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ખેડૂત નોંધણી farmer registration" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="ખેડૂત નોંધણી farmer registration" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-tractor service-title-icon" style="color: #eab308;"></i> ખેડૂત નોંધણી</div>
@@ -712,7 +1333,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પંડીત દિન દયાળ ઉપાધ્યાય આવાસ યોજના મકાન સહાય" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="પંડીત દિન દયાળ ઉપાધ્યાય આવાસ યોજના મકાન સહાય" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-house-chimney service-title-icon" style="color: #14b8a6;"></i> પંડીત દિન દયાળ આવાસ યોજના</div>
@@ -733,7 +1354,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="કુંવરબાઈનું મામેરું યોજના" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="કુંવરબાઈનું મામેરું યોજના" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-gift service-title-icon" style="color: #f43f5e;"></i> કુંવરબાઈનું મામેરું યોજના</div>
@@ -751,7 +1372,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="માનવ ગરિમા યોજના" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="માનવ ગરિમા યોજના" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-handshake-angle service-title-icon" style="color: #0284c7;"></i> માનવ ગરિમા યોજના</div>
@@ -770,7 +1391,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પી એમ વિશ્વકર્મા યોજના" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="પી એમ વિશ્વકર્મા યોજના" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-hammer service-title-icon" style="color: #d97706;"></i> પી. એમ. વિશ્વકર્મા યોજના</div>
@@ -789,7 +1410,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="આઇ ખેડૂત પોર્ટલની તમામ યોજનાઓ" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="આઇ ખેડૂત પોર્ટલની તમામ યોજનાઓ" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-laptop-file service-title-icon" style="color: #6366f1;"></i> આઇ - ખેડૂત પોર્ટલની યોજનાઓ</div>
@@ -807,7 +1428,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="શિષ્યવૃત્તિના ફોર્મ સ્કોલરશીપ" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="શિષ્યવૃત્તિના ફોર્મ સ્કોલરશીપ" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-user-graduate service-title-icon" style="color: #a855f7;"></i> શિષ્યવૃત્તિના ફોર્મ</div>
@@ -826,7 +1447,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="વૃદ્ધ પેન્શન યોજના" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="વૃદ્ધ પેન્શન યોજના" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-person-cane service-title-icon" style="color: #71717a;"></i> વૃદ્ધ પેન્શન યોજના</div>
@@ -847,9 +1468,9 @@
         <!-- ==========================================
              SECTION 2: નવો ઉમેરેલો અલગ વિભાગ (બધી નવી માહિતી ભેગી)
         =========================================== -->
-        <div class="section-title section-title-new"><i class="fa-solid fa-file-signature"></i> ✍️ વિવિધ દાખલાઓ અને સરકારી સહાય માટે જરૂરી પુરાવા ( DOCUMENTS ) ની માહિતી </div>
+        <div class="section-title section-title-new reveal-on-scroll"><i class="fa-solid fa-file-signature"></i> ✍️ વિવિધ દાખલાઓ અને સરકારી સહાય માટે જરૂરી પુરાવા ( DOCUMENTS ) ની માહિતી </div>
 
-        <div class="service-card" data-title="આવકનો દાખલો મેળવવા" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="આવકનો દાખલો મેળવવા" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-file-invoice-dollar service-title-icon" style="color: #10b981;"></i> આવકનો દાખલો મેળવવા</div>
@@ -868,7 +1489,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="જાતિનો દાખલો મેળવવા" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="જાતિનો દાખલો મેળવવા" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-users-viewfinder service-title-icon" style="color: #8b5cf6;"></i> જાતિનો દાખલો મેળવવા</div>
@@ -888,7 +1509,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ડોમીસાઈલ સર્ટી મેળવવા" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="ડોમીસાઈલ સર્ટી મેળવવા" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-house-flag service-title-icon" style="color: #f59e0b;"></i> ડોમીસાઈલ સર્ટી મેળવવા</div>
@@ -910,7 +1531,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="નોન ક્રીમીલેયર સર્ટી મેળવવા" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="નોન ક્રીમીલેયર સર્ટી મેળવવા" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-file-shield service-title-icon" style="color: #ec4899;"></i> નોન ક્રીમીલેયર સર્ટી મેળવવા</div>
@@ -931,7 +1552,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="સિનિયર સીટીઝન સર્ટી" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="સિનિયર સીટીઝન સર્ટી" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-person-cane service-title-icon" style="color: #64748b;"></i> સિનિયર સીટીઝન સર્ટી</div>
@@ -951,7 +1572,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ધાર્મિક લઘુમતિનો દાખલો" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="ધાર્મિક લઘુમતિનો દાખલો" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-hands-praying service-title-icon" style="color: #14b8a6;"></i> ધાર્મિક લઘુમતિનો દાખલો</div>
@@ -971,7 +1592,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="અલગ રેશનકાર્ડ કરાવવા" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="અલગ રેશનકાર્ડ કરાવવા" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-id-card-clip service-title-icon" style="color: #3b82f6;"></i> અલગ રેશનકાર્ડ કરાવવા</div>
@@ -993,7 +1614,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="નવા રેશનકાર્ડ માટે" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="નવા રેશનકાર્ડ માટે" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-address-card service-title-icon" style="color: #0ea5e9;"></i> નવા રેશનકાર્ડ માટે</div>
@@ -1015,7 +1636,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="રેશન કાર્ડમાં નામ દાખલ કરવા" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="રેશન કાર્ડમાં નામ દાખલ કરવા" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-user-plus service-title-icon" style="color: #10b981;"></i> રેશન કાર્ડમાં નામ દાખલ કરવા</div>
@@ -1035,7 +1656,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="આધાર કાર્ડ મેળવવા અપડેટ" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="આધાર કાર્ડ મેળવવા અપડેટ" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-fingerprint service-title-icon" style="color: #4338ca;"></i> આધાર કાર્ડ મેળવવા / અપડેટ</div>
@@ -1051,7 +1672,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="નિરાધાર વૃદ્ધ સહાય યોજના" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="નિરાધાર વૃદ્ધ સહાય યોજના" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-hand-holding-heart service-title-icon" style="color: #f43f5e;"></i> નિરાધાર વૃદ્ધ સહાય યોજના</div>
@@ -1071,7 +1692,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="વિધવા સહાય મેળવવા" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="વિધવા સહાય મેળવવા" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-person-dress service-title-icon" style="color: #d946ef;"></i> વિધવા સહાય મેળવવા</div>
@@ -1092,7 +1713,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પ્રધાનમંત્રી આવાસ યોજના (B.C)" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="પ્રધાનમંત્રી આવાસ યોજના (B.C)" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-house-chimney service-title-icon" style="color: #0284c7;"></i> પ્રધાનમંત્રી આવાસ યોજના (B.C)</div>
@@ -1111,7 +1732,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="માં અમૃતમ માં વાત્સલ્ય કાર્ડ" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="માં અમૃતમ માં વાત્સલ્ય કાર્ડ" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-heart-pulse service-title-icon" style="color: #ef4444;"></i> માં અમૃતમ / માં વાત્સલ્ય કાર્ડ</div>
@@ -1130,7 +1751,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="વય વંદના યોજના" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="વય વંદના યોજના" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-piggy-bank service-title-icon" style="color: #f97316;"></i> વય વંદના યોજના</div>
@@ -1150,7 +1771,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="પેન્ડિંગ સહાય માટે" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="પેન્ડિંગ સહાય માટે" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-clock-rotate-left service-title-icon" style="color: #78716c;"></i> પેન્ડિંગ સહાય માટે (નાણાં ના મળતા હોય તો)</div>
@@ -1172,7 +1793,7 @@
             </details>
         </div>
 
-        <div class="service-card" data-title="ઉજ્જવલા યોજના ગેસ" data-category="yojna">
+        <div class="service-card reveal-on-scroll" data-title="ઉજ્જવલા યોજના ગેસ" data-category="yojna">
             <details>
                 <summary>
                     <div class="summary-left"><i class="fa-solid fa-fire-flame-simple service-title-icon" style="color: #eab308;"></i> ઉજ્જવલા યોજના (ગેસ કનેક્શન)</div>
@@ -1195,24 +1816,24 @@
         <!-- ==========================================
              SECTION 3: અન્ય ઓનલાઈન સુવિધાઓ 
         =========================================== -->
-        <div class="section-title"><i class="fa-solid fa-desktop"></i> અમારી અન્ય ઓનલાઈન સુવિધાઓ</div>
+        <div class="section-title reveal-on-scroll"><i class="fa-solid fa-desktop"></i> અમારી અન્ય ઓનલાઈન સુવિધાઓ</div>
 
-        <div class="service-card simple" data-title="ડોકયુમેંટ સ્કૅનનીંગ સ્કેનિંગ" data-category="other"><div class="service-title"><i class="fa-solid fa-print" style="color: #10b981;"></i> ડોકયુમેંટ સ્કૅનનીંગ</div></div>
-        <div class="service-card simple" data-title="ઝેરોક્ષ કલર ઝેરોક્ષ" data-category="other"><div class="service-title"><i class="fa-solid fa-copy" style="color: #10b981;"></i> ઝેરોક્ષ / કલર ઝેરોક્ષ</div></div>
-        <div class="service-card simple" data-title="પ્રિન્ટ મોબાઈલમાંથી પ્રિન્ટ" data-category="other"><div class="service-title"><i class="fa-regular fa-file-pdf" style="color: #10b981;"></i> પ્રિન્ટ / મોબાઈલમાંથી પ્રિન્ટ</div></div>
-        <div class="service-card simple" data-title="લેમિનેશન" data-category="other"><div class="service-title"><i class="fa-regular fa-id-badge" style="color: #10b981;"></i> લેમિનેશન</div></div>
-        <div class="service-card simple" data-title="સ્પર્ધાત્મક પરીક્ષાના ફોર્મ" data-category="other"><div class="service-title"><i class="fa-solid fa-file-signature" style="color: #10b981;"></i> સ્પર્ધાત્મક પરીક્ષાના ફોર્મ</div></div>
-        <div class="service-card simple" data-title="દરેક પ્રકારની ભરતીઓના ફોર્મ" data-category="other"><div class="service-title"><i class="fa-solid fa-building-user" style="color: #10b981;"></i> દરેક પ્રકારની ભરતીઓના ફોર્મ</div></div>
-        <div class="service-card simple" data-title="PVC કાર્ડ પ્રિન્ટ પીવીસી" data-category="other"><div class="service-title"><i class="fa-regular fa-credit-card" style="color: #10b981;"></i> PVC કાર્ડ પ્રિન્ટ</div></div>
-        <div class="service-card simple" data-title="કૉલ લેટર હૉલ ટિકીટ" data-category="other"><div class="service-title"><i class="fa-solid fa-envelope-open-text" style="color: #10b981;"></i> કૉલ લેટર / હૉલ - ટિકીટ</div></div>
-        <div class="service-card simple" data-title="પૈસા ઉપાડવા ATM એટીએમ" data-category="other"><div class="service-title"><i class="fa-solid fa-money-bill-wave" style="color: #10b981;"></i> પૈસા ઉપાડવા / ATM</div></div>
-        <div class="service-card simple" data-title="મોબાઈલ રીચાર્જ DTH ડીટીએચ લાઇટ બિલ" data-category="other"><div class="service-title"><i class="fa-solid fa-mobile-screen-button" style="color: #10b981;"></i> રિચાર્જ / લાઇટ બિલ ભરવા</div></div>
-        <div class="service-card simple" data-title="મેરેજ સર્ટિફિકેટ ઇંગ્લિશમાં ટાઈપિંગ" data-category="other"><div class="service-title"><i class="fa-solid fa-ring" style="color: #10b981;"></i> મેરેજ સર્ટિફિકેટ (ઇંગ્લિશમાં ટાઈપિંગ)</div></div>
-        <div class="service-card simple" data-title="રિઝ્યુમ BIO ડેટા બાયોડેટા" data-category="other"><div class="service-title"><i class="fa-solid fa-file-invoice" style="color: #10b981;"></i> રિઝ્યુમ / BIO ડેટા</div></div>
-        <div class="service-card simple" data-title="બેનર પોસ્ટર બનાવવા" data-category="other"><div class="service-title"><i class="fa-regular fa-image" style="color: #10b981;"></i> બેનર / પોસ્ટર બનાવવા</div></div>
+        <div class="service-card simple reveal-on-scroll" data-title="ડોકયુમેંટ સ્કૅનનીંગ સ્કેનિંગ" data-category="other"><div class="service-title"><i class="fa-solid fa-print" style="color: #10b981;"></i> ડોકયુમેંટ સ્કૅનનીંગ</div></div>
+        <div class="service-card simple reveal-on-scroll" data-title="ઝેરોક્ષ કલર ઝેરોક્ષ" data-category="other"><div class="service-title"><i class="fa-solid fa-copy" style="color: #10b981;"></i> ઝેરોક્ષ / કલર ઝેરોક્ષ</div></div>
+        <div class="service-card simple reveal-on-scroll" data-title="પ્રિન્ટ મોબાઈલમાંથી પ્રિન્ટ" data-category="other"><div class="service-title"><i class="fa-regular fa-file-pdf" style="color: #10b981;"></i> પ્રિન્ટ / મોબાઈલમાંથી પ્રિન્ટ</div></div>
+        <div class="service-card simple reveal-on-scroll" data-title="લેમિનેશન" data-category="other"><div class="service-title"><i class="fa-regular fa-id-badge" style="color: #10b981;"></i> લેમિનેશન</div></div>
+        <div class="service-card simple reveal-on-scroll" data-title="સ્પર્ધાત્મક પરીક્ષાના ફોર્મ" data-category="other"><div class="service-title"><i class="fa-solid fa-file-signature" style="color: #10b981;"></i> સ્પર્ધાત્મક પરીક્ષાના ફોર્મ</div></div>
+        <div class="service-card simple reveal-on-scroll" data-title="દરેક પ્રકારની ભરતીઓના ફોર્મ" data-category="other"><div class="service-title"><i class="fa-solid fa-building-user" style="color: #10b981;"></i> દરેક પ્રકારની ભરતીઓના ફોર્મ</div></div>
+        <div class="service-card simple reveal-on-scroll" data-title="PVC કાર્ડ પ્રિન્ટ પીવીસી" data-category="other"><div class="service-title"><i class="fa-regular fa-credit-card" style="color: #10b981;"></i> PVC કાર્ડ પ્રિન્ટ</div></div>
+        <div class="service-card simple reveal-on-scroll" data-title="કૉલ લેટર હૉલ ટિકીટ" data-category="other"><div class="service-title"><i class="fa-solid fa-envelope-open-text" style="color: #10b981;"></i> કૉલ લેટર / હૉલ - ટિકીટ</div></div>
+        <div class="service-card simple reveal-on-scroll" data-title="પૈસા ઉપાડવા ATM એટીએમ" data-category="other"><div class="service-title"><i class="fa-solid fa-money-bill-wave" style="color: #10b981;"></i> પૈસા ઉપાડવા / ATM</div></div>
+        <div class="service-card simple reveal-on-scroll" data-title="મોબાઈલ રીચાર્જ DTH ડીટીએચ લાઇટ બિલ" data-category="other"><div class="service-title"><i class="fa-solid fa-mobile-screen-button" style="color: #10b981;"></i> રિચાર્જ / લાઇટ બિલ ભરવા</div></div>
+        <div class="service-card simple reveal-on-scroll" data-title="મેરેજ સર્ટિફિકેટ ઇંગ્લિશમાં ટાઈપિંગ" data-category="other"><div class="service-title"><i class="fa-solid fa-ring" style="color: #10b981;"></i> મેરેજ સર્ટિફિકેટ (ઇંગ્લિશમાં ટાઈપિંગ)</div></div>
+        <div class="service-card simple reveal-on-scroll" data-title="રિઝ્યુમ BIO ડેટા બાયોડેટા" data-category="other"><div class="service-title"><i class="fa-solid fa-file-invoice" style="color: #10b981;"></i> રિઝ્યુમ / BIO ડેટા</div></div>
+        <div class="service-card simple reveal-on-scroll" data-title="બેનર પોસ્ટર બનાવવા" data-category="other"><div class="service-title"><i class="fa-regular fa-image" style="color: #10b981;"></i> બેનર / પોસ્ટર બનાવવા</div></div>
 
         <!-- FOOTER / CONTACT BOX -->
-        <div class="inquiry-box" id="contact">
+        <div class="inquiry-box reveal-on-scroll" id="contact">
             <h2 style="text-align: center; color: var(--primary); margin-top: 0; font-size: 32px; font-weight: 800;"><i class="fa-brands fa-whatsapp"></i> ડોક્યુમેન્ટ્સ અને પૂછપરછ</h2>
             <p style="text-align: center; margin-bottom: 30px; font-size: 20px;">અહીં માહિતી ભરીને મોકલો. (ફોર્મ ભરવા માટે અહીંથી જ ડોક્યુમેન્ટ સેન્ડ કરી શકો છો).</p>
             
@@ -1234,7 +1855,7 @@
             </div>
         </div>
 
-        <div class="info-card">
+        <div class="info-card reveal-on-scroll">
             <div class="info-line">
                 <div class="info-icon"><i class="fa-solid fa-user-tie"></i></div>
                 <div><span style="color: gray; font-size: 16px; display: block;">સંચાલક</span>પઠાણ માહિરખાન</div>
@@ -1249,11 +1870,11 @@
             </div>
         </div>
 
-        <div class="map-section">
+        <div class="map-section reveal-on-scroll">
             <iframe src="https://maps.google.com/maps?q=Al%20Aksha%20Computer%20Centre,%20Dhunadara&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
 
-        <div class="review-box">
+        <div class="review-box reveal-on-scroll">
             <div class="review-marquee">
                 <span><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> "મારું કામ બહુ ઝડપથી અને સારી રીતે થઈ ગયું!" - સાહિલ</span>
                 <span><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> "અલ-અકશા સેન્ટર એટલે વિશ્વાસપાત્ર કામ અને પૂરી માહિતી!" - મુકેશ</span>
@@ -1279,6 +1900,583 @@
     </footer>
 
     <script>
+        // ===== THREE.JS 3D ANIMATED BACKGROUND =====
+        (function() {
+            const canvas = document.getElementById('threejs-bg');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            camera.position.z = 30;
+
+            // Mouse tracking
+            let mouseX = 0, mouseY = 0;
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+            });
+
+            // Particle system - floating dots
+            const particleCount = 180;
+            const particlesGeometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const velocities = [];
+            const colors = new Float32Array(particleCount * 3);
+
+            const colorPalette = [
+                new THREE.Color('#1a73e8'),
+                new THREE.Color('#0ea5e9'),
+                new THREE.Color('#8b5cf6'),
+                new THREE.Color('#10b981'),
+                new THREE.Color('#ec4899'),
+                new THREE.Color('#f59e0b'),
+            ];
+
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 80;
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 80;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 50;
+                
+                velocities.push({
+                    x: (Math.random() - 0.5) * 0.02,
+                    y: (Math.random() - 0.5) * 0.02,
+                    z: (Math.random() - 0.5) * 0.02
+                });
+
+                const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+                colors[i * 3] = color.r;
+                colors[i * 3 + 1] = color.g;
+                colors[i * 3 + 2] = color.b;
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const particleMaterial = new THREE.PointsMaterial({
+                size: 0.35,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending,
+                sizeAttenuation: true
+            });
+
+            const particles = new THREE.Points(particlesGeometry, particleMaterial);
+            scene.add(particles);
+
+            // Connection lines
+            const linesMaterial = new THREE.LineBasicMaterial({
+                color: 0x1a73e8,
+                transparent: true,
+                opacity: 0.08,
+                blending: THREE.AdditiveBlending
+            });
+
+            // 3D Geometric shapes - wireframe
+            const geometries = [
+                new THREE.IcosahedronGeometry(2.5, 0),
+                new THREE.OctahedronGeometry(2, 0),
+                new THREE.TetrahedronGeometry(2, 0),
+                new THREE.DodecahedronGeometry(2, 0),
+                new THREE.TorusGeometry(2, 0.5, 8, 16),
+                new THREE.TorusKnotGeometry(1.5, 0.4, 64, 8),
+                new THREE.IcosahedronGeometry(1.8, 1),
+                new THREE.OctahedronGeometry(2.2, 0),
+            ];
+
+            const shapeMeshes = [];
+            const shapeColors = [0x1a73e8, 0x0ea5e9, 0x8b5cf6, 0x10b981, 0xec4899, 0xf59e0b, 0x6366f1, 0x14b8a6];
+
+            geometries.forEach((geo, idx) => {
+                const mat = new THREE.MeshBasicMaterial({
+                    color: shapeColors[idx % shapeColors.length],
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.15,
+                });
+                const mesh = new THREE.Mesh(geo, mat);
+                mesh.position.set(
+                    (Math.random() - 0.5) * 50,
+                    (Math.random() - 0.5) * 50,
+                    (Math.random() - 0.5) * 30
+                );
+                mesh.userData = {
+                    rotSpeed: { x: (Math.random() - 0.5) * 0.008, y: (Math.random() - 0.5) * 0.008, z: (Math.random() - 0.5) * 0.005 },
+                    floatSpeed: Math.random() * 0.003 + 0.001,
+                    floatOffset: Math.random() * Math.PI * 2,
+                    origY: mesh.position.y
+                };
+                scene.add(mesh);
+                shapeMeshes.push(mesh);
+            });
+
+            // Lines group for connections
+            let linesGroup = new THREE.Group();
+            scene.add(linesGroup);
+
+            function updateLines() {
+                // Remove old lines
+                while(linesGroup.children.length > 0) {
+                    const child = linesGroup.children[0];
+                    child.geometry.dispose();
+                    linesGroup.remove(child);
+                }
+
+                const pos = particlesGeometry.attributes.position.array;
+                const maxDist = 12;
+                let lineCount = 0;
+                const maxLines = 80;
+
+                for (let i = 0; i < particleCount && lineCount < maxLines; i++) {
+                    for (let j = i + 1; j < particleCount && lineCount < maxLines; j++) {
+                        const dx = pos[i*3] - pos[j*3];
+                        const dy = pos[i*3+1] - pos[j*3+1];
+                        const dz = pos[i*3+2] - pos[j*3+2];
+                        const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+                        if (dist < maxDist) {
+                            const lineGeo = new THREE.BufferGeometry().setFromPoints([
+                                new THREE.Vector3(pos[i*3], pos[i*3+1], pos[i*3+2]),
+                                new THREE.Vector3(pos[j*3], pos[j*3+1], pos[j*3+2])
+                            ]);
+                            const opacity = (1 - dist / maxDist) * 0.12;
+                            const lineMat = new THREE.LineBasicMaterial({ 
+                                color: 0x1a73e8, transparent: true, opacity: opacity,
+                                blending: THREE.AdditiveBlending
+                            });
+                            const line = new THREE.Line(lineGeo, lineMat);
+                            linesGroup.add(line);
+                            lineCount++;
+                        }
+                    }
+                }
+            }
+
+            let frameCount = 0;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                frameCount++;
+
+                const time = Date.now() * 0.001;
+
+                // Animate particles
+                const pos = particlesGeometry.attributes.position.array;
+                for (let i = 0; i < particleCount; i++) {
+                    pos[i * 3] += velocities[i].x;
+                    pos[i * 3 + 1] += velocities[i].y;
+                    pos[i * 3 + 2] += velocities[i].z;
+
+                    // Boundary wrapping
+                    if (pos[i * 3] > 40) pos[i * 3] = -40;
+                    if (pos[i * 3] < -40) pos[i * 3] = 40;
+                    if (pos[i * 3 + 1] > 40) pos[i * 3 + 1] = -40;
+                    if (pos[i * 3 + 1] < -40) pos[i * 3 + 1] = 40;
+                    if (pos[i * 3 + 2] > 25) pos[i * 3 + 2] = -25;
+                    if (pos[i * 3 + 2] < -25) pos[i * 3 + 2] = 25;
+                }
+                particlesGeometry.attributes.position.needsUpdate = true;
+
+                // Animate shapes
+                shapeMeshes.forEach(mesh => {
+                    mesh.rotation.x += mesh.userData.rotSpeed.x;
+                    mesh.rotation.y += mesh.userData.rotSpeed.y;
+                    mesh.rotation.z += mesh.userData.rotSpeed.z;
+                    mesh.position.y = mesh.userData.origY + Math.sin(time * mesh.userData.floatSpeed * 100 + mesh.userData.floatOffset) * 3;
+                });
+
+                // Update lines every 5 frames for performance
+                if (frameCount % 5 === 0) {
+                    updateLines();
+                }
+
+                // Mouse influence on camera
+                camera.position.x += (mouseX * 3 - camera.position.x) * 0.02;
+                camera.position.y += (mouseY * 3 - camera.position.y) * 0.02;
+                camera.lookAt(scene.position);
+
+                // Slow auto-rotation
+                particles.rotation.y += 0.0003;
+                particles.rotation.x += 0.0001;
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        })();
+
+        // ===== HEADER 3D SCENE (Three.js) =====
+        (function() {
+            const canvas = document.getElementById('header-3d-canvas');
+            const headerEl = document.querySelector('header');
+            
+            const scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x050a18, 0.018);
+            
+            const camera = new THREE.PerspectiveCamera(60, headerEl.offsetWidth / headerEl.offsetHeight, 0.1, 200);
+            camera.position.set(0, 2, 18);
+            camera.lookAt(0, 0, 0);
+            
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setSize(headerEl.offsetWidth, headerEl.offsetHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setClearColor(0x000000, 0);
+
+            // Mouse tracking for header
+            let hMouseX = 0, hMouseY = 0;
+            headerEl.style.pointerEvents = 'auto';
+            headerEl.addEventListener('mousemove', (e) => {
+                const rect = headerEl.getBoundingClientRect();
+                hMouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+                hMouseY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+            });
+
+            // --- Central wireframe geometric shapes ---
+            const shapesGroup = new THREE.Group();
+            scene.add(shapesGroup);
+
+            // Large icosahedron (center piece)
+            const icoGeo = new THREE.IcosahedronGeometry(3.5, 1);
+            const icoMat = new THREE.MeshBasicMaterial({ color: 0x1a73e8, wireframe: true, transparent: true, opacity: 0.25 });
+            const icoMesh = new THREE.Mesh(icoGeo, icoMat);
+            shapesGroup.add(icoMesh);
+
+            // Inner icosahedron
+            const icoInnerGeo = new THREE.IcosahedronGeometry(2.2, 0);
+            const icoInnerMat = new THREE.MeshBasicMaterial({ color: 0x0ea5e9, wireframe: true, transparent: true, opacity: 0.18 });
+            const icoInnerMesh = new THREE.Mesh(icoInnerGeo, icoInnerMat);
+            shapesGroup.add(icoInnerMesh);
+
+            // Torus ring
+            const torusGeo = new THREE.TorusGeometry(5, 0.15, 16, 80);
+            const torusMat = new THREE.MeshBasicMaterial({ color: 0x8b5cf6, wireframe: false, transparent: true, opacity: 0.2 });
+            const torusMesh = new THREE.Mesh(torusGeo, torusMat);
+            torusMesh.rotation.x = Math.PI / 2.5;
+            shapesGroup.add(torusMesh);
+
+            // Second torus ring (tilted differently)
+            const torus2Geo = new THREE.TorusGeometry(6.5, 0.1, 16, 100);
+            const torus2Mat = new THREE.MeshBasicMaterial({ color: 0xec4899, wireframe: false, transparent: true, opacity: 0.12 });
+            const torus2Mesh = new THREE.Mesh(torus2Geo, torus2Mat);
+            torus2Mesh.rotation.x = Math.PI / 1.5;
+            torus2Mesh.rotation.y = Math.PI / 4;
+            shapesGroup.add(torus2Mesh);
+
+            // Orbiting smaller shapes
+            const orbitShapes = [];
+            const orbitGeos = [
+                new THREE.OctahedronGeometry(0.6, 0),
+                new THREE.TetrahedronGeometry(0.5, 0),
+                new THREE.DodecahedronGeometry(0.4, 0),
+                new THREE.OctahedronGeometry(0.55, 0),
+                new THREE.IcosahedronGeometry(0.45, 0),
+                new THREE.TetrahedronGeometry(0.6, 0),
+            ];
+            const orbitColors = [0x10b981, 0xf59e0b, 0xec4899, 0x1a73e8, 0x8b5cf6, 0x0ea5e9];
+            orbitGeos.forEach((geo, idx) => {
+                const mat = new THREE.MeshBasicMaterial({ color: orbitColors[idx], wireframe: true, transparent: true, opacity: 0.4 });
+                const mesh = new THREE.Mesh(geo, mat);
+                const angle = (idx / orbitGeos.length) * Math.PI * 2;
+                const radius = 7 + idx * 1.2;
+                mesh.userData = { angle, radius, speed: 0.2 + idx * 0.08, yOff: (Math.random() - 0.5) * 4 };
+                scene.add(mesh);
+                orbitShapes.push(mesh);
+            });
+
+            // --- Particle field ---
+            const pCount = 250;
+            const pGeo = new THREE.BufferGeometry();
+            const pPos = new Float32Array(pCount * 3);
+            const pColors = new Float32Array(pCount * 3);
+            const pVelocities = [];
+            const palette = [
+                new THREE.Color(0x1a73e8), new THREE.Color(0x0ea5e9), new THREE.Color(0x8b5cf6),
+                new THREE.Color(0x10b981), new THREE.Color(0xec4899), new THREE.Color(0xf59e0b),
+                new THREE.Color(0x6366f1), new THREE.Color(0x14b8a6)
+            ];
+
+            for (let i = 0; i < pCount; i++) {
+                pPos[i*3]   = (Math.random() - 0.5) * 60;
+                pPos[i*3+1] = (Math.random() - 0.5) * 40;
+                pPos[i*3+2] = (Math.random() - 0.5) * 40;
+                const c = palette[Math.floor(Math.random() * palette.length)];
+                pColors[i*3] = c.r; pColors[i*3+1] = c.g; pColors[i*3+2] = c.b;
+                pVelocities.push({
+                    x: (Math.random()-0.5)*0.015, y: (Math.random()-0.5)*0.015, z: (Math.random()-0.5)*0.01
+                });
+            }
+            pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+            pGeo.setAttribute('color', new THREE.BufferAttribute(pColors, 3));
+
+            const pMat = new THREE.PointsMaterial({
+                size: 0.2, vertexColors: true, transparent: true, opacity: 0.7,
+                blending: THREE.AdditiveBlending, sizeAttenuation: true
+            });
+            const particleSystem = new THREE.Points(pGeo, pMat);
+            scene.add(particleSystem);
+
+            // --- Connection lines between nearby particles ---
+            let lineGroup = new THREE.Group();
+            scene.add(lineGroup);
+
+            function updateConnections() {
+                while(lineGroup.children.length) {
+                    lineGroup.children[0].geometry.dispose();
+                    lineGroup.children[0].material.dispose();
+                    lineGroup.remove(lineGroup.children[0]);
+                }
+                const pos = pGeo.attributes.position.array;
+                const maxD = 8; let lc = 0;
+                for (let i = 0; i < pCount && lc < 60; i++) {
+                    for (let j = i+1; j < pCount && lc < 60; j++) {
+                        const dx = pos[i*3]-pos[j*3], dy = pos[i*3+1]-pos[j*3+1], dz = pos[i*3+2]-pos[j*3+2];
+                        const d = Math.sqrt(dx*dx+dy*dy+dz*dz);
+                        if (d < maxD) {
+                            const lg = new THREE.BufferGeometry().setFromPoints([
+                                new THREE.Vector3(pos[i*3], pos[i*3+1], pos[i*3+2]),
+                                new THREE.Vector3(pos[j*3], pos[j*3+1], pos[j*3+2])
+                            ]);
+                            const lm = new THREE.LineBasicMaterial({
+                                color: 0x1a73e8, transparent: true, opacity: (1-d/maxD)*0.15,
+                                blending: THREE.AdditiveBlending
+                            });
+                            lineGroup.add(new THREE.Line(lg, lm));
+                            lc++;
+                        }
+                    }
+                }
+            }
+
+            // --- Animated grid floor ---
+            const gridGeo = new THREE.PlaneGeometry(80, 80, 40, 40);
+            const gridMat = new THREE.MeshBasicMaterial({ color: 0x1a73e8, wireframe: true, transparent: true, opacity: 0.04 });
+            const gridMesh = new THREE.Mesh(gridGeo, gridMat);
+            gridMesh.rotation.x = -Math.PI / 2;
+            gridMesh.position.y = -8;
+            scene.add(gridMesh);
+
+            let fCount = 0;
+
+            function animateHeader3D() {
+                requestAnimationFrame(animateHeader3D);
+                fCount++;
+                const t = Date.now() * 0.001;
+
+                // Rotate central shapes
+                icoMesh.rotation.x = t * 0.15;
+                icoMesh.rotation.y = t * 0.2;
+                icoInnerMesh.rotation.x = -t * 0.25;
+                icoInnerMesh.rotation.y = -t * 0.18;
+                icoInnerMesh.rotation.z = t * 0.1;
+                torusMesh.rotation.z = t * 0.12;
+                torus2Mesh.rotation.z = -t * 0.08;
+                torus2Mesh.rotation.x = Math.PI/1.5 + Math.sin(t*0.3)*0.2;
+
+                // Pulse scale
+                const pulse = 1 + Math.sin(t * 0.8) * 0.05;
+                icoMesh.scale.setScalar(pulse);
+                icoInnerMesh.scale.setScalar(1 + Math.sin(t * 1.2) * 0.08);
+
+                // Orbit shapes
+                orbitShapes.forEach(m => {
+                    m.userData.angle += m.userData.speed * 0.008;
+                    m.position.x = Math.cos(m.userData.angle) * m.userData.radius;
+                    m.position.z = Math.sin(m.userData.angle) * m.userData.radius * 0.6;
+                    m.position.y = m.userData.yOff + Math.sin(t * 0.5 + m.userData.angle) * 1.5;
+                    m.rotation.x += 0.02;
+                    m.rotation.y += 0.015;
+                });
+
+                // Animate particles
+                const pos = pGeo.attributes.position.array;
+                for (let i = 0; i < pCount; i++) {
+                    pos[i*3]   += pVelocities[i].x;
+                    pos[i*3+1] += pVelocities[i].y;
+                    pos[i*3+2] += pVelocities[i].z;
+                    if(pos[i*3] > 30) pos[i*3] = -30;
+                    if(pos[i*3] < -30) pos[i*3] = 30;
+                    if(pos[i*3+1] > 20) pos[i*3+1] = -20;
+                    if(pos[i*3+1] < -20) pos[i*3+1] = 20;
+                    if(pos[i*3+2] > 20) pos[i*3+2] = -20;
+                    if(pos[i*3+2] < -20) pos[i*3+2] = 20;
+                }
+                pGeo.attributes.position.needsUpdate = true;
+
+                // Update lines every 6 frames
+                if (fCount % 6 === 0) updateConnections();
+
+                // Animate grid wave
+                const gridPos = gridGeo.attributes.position.array;
+                for (let i = 0; i < gridPos.length; i += 3) {
+                    gridPos[i+2] = Math.sin(gridPos[i]*0.15 + t) * Math.cos(gridPos[i+1]*0.15 + t) * 0.8;
+                }
+                gridGeo.attributes.position.needsUpdate = true;
+
+                // Mouse-reactive camera (smooth)
+                camera.position.x += (hMouseX * 4 - camera.position.x) * 0.03;
+                camera.position.y += (2 + hMouseY * 2 - camera.position.y) * 0.03;
+                camera.lookAt(0, 0, 0);
+
+                // Slow auto rotation for everything
+                particleSystem.rotation.y += 0.0004;
+                shapesGroup.rotation.y += 0.001;
+
+                renderer.render(scene, camera);
+            }
+            animateHeader3D();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = headerEl.offsetWidth / headerEl.offsetHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(headerEl.offsetWidth, headerEl.offsetHeight);
+            });
+        })();
+
+        // ===== HEADER SPARKLE & SHOOTING STARS (2D Canvas overlay) =====
+        (function() {
+            const canvas = document.getElementById('header-sparkle-canvas');
+            const ctx = canvas.getContext('2d');
+            const headerEl = document.querySelector('header');
+
+            function resize() {
+                canvas.width = headerEl.offsetWidth;
+                canvas.height = headerEl.offsetHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            // Sparkle particles
+            const sparkles = [];
+            for (let i = 0; i < 80; i++) {
+                sparkles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 0.3,
+                    twinkleSpeed: Math.random() * 0.04 + 0.01,
+                    twinkleOffset: Math.random() * Math.PI * 2,
+                    hue: [210, 260, 320, 170, 45][Math.floor(Math.random()*5)],
+                });
+            }
+
+            // Shooting stars
+            const shootingStars = [];
+            function spawnShootingStar() {
+                if (shootingStars.length < 3 && Math.random() < 0.008) {
+                    shootingStars.push({
+                        x: Math.random() * canvas.width * 0.5,
+                        y: Math.random() * canvas.height * 0.3,
+                        length: Math.random() * 80 + 40,
+                        speed: Math.random() * 4 + 3,
+                        angle: Math.PI / 6 + Math.random() * 0.3,
+                        opacity: 1,
+                        hue: [210, 260, 45][Math.floor(Math.random()*3)],
+                    });
+                }
+            }
+
+            function animateSparkle() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const t = Date.now() * 0.001;
+
+                // Draw sparkles
+                sparkles.forEach(s => {
+                    const twinkle = (Math.sin(t * s.twinkleSpeed * 60 + s.twinkleOffset) + 1) / 2;
+                    const op = twinkle * 0.6 + 0.05;
+                    const sz = s.size * (0.5 + twinkle * 0.5);
+
+                    // Cross-shaped sparkle
+                    ctx.save();
+                    ctx.translate(s.x, s.y);
+                    ctx.rotate(t * 0.5 + s.twinkleOffset);
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(-sz*2, 0); ctx.lineTo(sz*2, 0);
+                    ctx.moveTo(0, -sz*2); ctx.lineTo(0, sz*2);
+                    ctx.strokeStyle = `hsla(${s.hue}, 85%, 75%, ${op * 0.5})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+
+                    // Center dot
+                    ctx.beginPath();
+                    ctx.arc(0, 0, sz * 0.6, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsla(${s.hue}, 90%, 80%, ${op})`;
+                    ctx.fill();
+
+                    // Glow
+                    ctx.beginPath();
+                    ctx.arc(0, 0, sz * 3, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsla(${s.hue}, 80%, 70%, ${op * 0.08})`;
+                    ctx.fill();
+
+                    ctx.restore();
+                });
+
+                // Draw shooting stars
+                spawnShootingStar();
+                for (let i = shootingStars.length - 1; i >= 0; i--) {
+                    const ss = shootingStars[i];
+                    ss.x += Math.cos(ss.angle) * ss.speed;
+                    ss.y += Math.sin(ss.angle) * ss.speed;
+                    ss.opacity -= 0.008;
+
+                    if (ss.opacity <= 0 || ss.x > canvas.width || ss.y > canvas.height) {
+                        shootingStars.splice(i, 1);
+                        continue;
+                    }
+
+                    const tailX = ss.x - Math.cos(ss.angle) * ss.length;
+                    const tailY = ss.y - Math.sin(ss.angle) * ss.length;
+
+                    const gradient = ctx.createLinearGradient(tailX, tailY, ss.x, ss.y);
+                    gradient.addColorStop(0, `hsla(${ss.hue}, 80%, 70%, 0)`);
+                    gradient.addColorStop(1, `hsla(${ss.hue}, 90%, 85%, ${ss.opacity})`);
+
+                    ctx.beginPath();
+                    ctx.moveTo(tailX, tailY);
+                    ctx.lineTo(ss.x, ss.y);
+                    ctx.strokeStyle = gradient;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    // Head glow
+                    ctx.beginPath();
+                    ctx.arc(ss.x, ss.y, 3, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsla(${ss.hue}, 90%, 90%, ${ss.opacity})`;
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.arc(ss.x, ss.y, 8, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsla(${ss.hue}, 80%, 70%, ${ss.opacity * 0.2})`;
+                    ctx.fill();
+                }
+
+                requestAnimationFrame(animateSparkle);
+            }
+            animateSparkle();
+        })();
+
+        // ===== SCROLL REVEAL ANIMATION =====
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // ===== ORIGINAL WEBSITE SCRIPTS =====
         let confettiActive = false;
 
         // 1. Loading Screen Hide & Start Popup Confetti
