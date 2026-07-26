@@ -21,6 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
 
     <style>
         :root {
@@ -49,6 +50,21 @@
             --glass-bg: rgba(15, 23, 42, 0.6);
             --glass-border: rgba(255, 255, 255, 0.1);
         }
+
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--primary), var(--accent)); border-radius: 10px; border: 3px solid var(--bg-color); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--secondary); }
+
+        .theme-toggle-btn { width: 100%; margin-bottom: 12px; font-size: 16px !important; display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--bg-color); color: var(--text-color); border: 1px solid var(--border-color); padding: 12px; border-radius: 12px; cursor: pointer; transition: var(--transition-smooth); font-weight: 700; }
+        .theme-toggle-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .theme-toggle-btn .fa-sun { display: none; color: #f59e0b; font-size: 20px;}
+        .theme-toggle-btn .fa-moon { display: inline-block; color: #64748b; font-size: 20px;}
+        [data-theme="dark"] .theme-toggle-btn .fa-sun { display: inline-block; }
+        [data-theme="dark"] .theme-toggle-btn .fa-moon { display: none; }
+        
+        .logo-particle { position: absolute; width: 8px; height: 8px; border-radius: 50%; pointer-events: none; z-index: 1000; animation: scatter 0.8s ease-out forwards; }
+        @keyframes scatter { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; } }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Baloo Bhai 2', 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-color); scroll-behavior: smooth; transition: background 0.8s ease, color 0.8s ease; overflow-x: hidden; line-height: 1.6; }
@@ -110,9 +126,9 @@
         
         h1 { margin: 0; font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1.3; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         h1 span { font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 500; letter-spacing: 2px; display: block; margin-top: 5px; color: #f1f5f9; text-shadow: none;}
-        .auto-type { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; color: #fde047; min-height: 35px; margin: 15px 0; }
+        .auto-type { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; color: #fde047; min-height: 80px; margin: 15px 0; display: flex; justify-content: center; align-items: flex-start; }
         .dev-badge { font-size: 0.9rem; background: rgba(0,0,0,0.2); display: inline-block; padding: 8px 20px; border-radius: 50px; font-weight: 600; letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.1); font-family: 'Inter', sans-serif; color: white; }
-        .shop-status { display: inline-flex; align-items: center; gap: 10px; padding: 12px 30px; border-radius: 50px; font-weight: 700; font-size: 1.2rem; margin-top: 20px; background: rgba(255, 255, 255, 0.9); border: none; color: #10b981; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .shop-status { display: inline-flex; align-items: center; gap: 10px; padding: 12px 30px; border-radius: 50px; font-weight: 800; font-size: 1.2rem; margin-top: 20px; background: white; color: #10b981; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.5); }
 
         .stats-container { max-width: 1000px; margin: -50px auto 40px auto; padding: 0 20px; position: relative; z-index: 10; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
         .stat-box { background: var(--glass-bg); padding: 25px 20px; border-radius: 20px; text-align: center; box-shadow: var(--card-shadow); border: 1px solid var(--glass-border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: var(--transition-smooth); }
@@ -294,7 +310,11 @@
 
         <div class="settings-float" onclick="toggleSettings()"><i class="fa-solid fa-gear"></i></div>
         <div class="settings-menu" id="settingsMenu">
-            <button onclick="toggleTheme()" style="width: 100%; margin-bottom: 12px; font-size: 15px;"><i class="fa-solid fa-circle-half-stroke"></i> લાઈટ / ડાર્ક મોડ</button>
+            <button onclick="toggleTheme()" class="theme-toggle-btn">
+                <i class="fa-solid fa-sun"></i>
+                <i class="fa-solid fa-moon"></i>
+                <span id="themeText">ડાર્ક મોડ ચાલુ કરો</span>
+            </button>
             <div class="color-grid">
                 <button onclick="changeColor('#2563eb', '#3b82f6')">🔵 બ્લુ</button>
                 <button onclick="changeColor('#dc2626', '#ef4444')">🔴 લાલ</button>
@@ -332,7 +352,7 @@
                 </div>
                 
                 <div>
-                    <div class="shop-status" id="shopStatus"><i class="fa-solid fa-circle-notch fa-spin"></i> લોડ થાય છે...</div>
+                    <div class="shop-status" id="shopStatus"><i class="fa-solid fa-circle-notch fa-spin"></i> LOADING...</div>
                 </div>
             </div>
         </header>
@@ -1357,7 +1377,7 @@
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             camera.position.z = 30;
 
-            const particleCount = 100;
+            const particleCount = 200;
             const particlesGeometry = new THREE.BufferGeometry();
             const positions = new Float32Array(particleCount * 3);
             
@@ -1376,18 +1396,36 @@
             context.fillStyle = "#ffffff"; context.fill();
             const texture = new THREE.CanvasTexture(circleCanvas);
 
+            let hr = new Date().getHours();
+            let isNight = (hr >= 18 || hr < 6);
+
             const particleMaterial = new THREE.PointsMaterial({
-                size: 0.4, color: 0x3b82f6, transparent: true, opacity: 0.6,
+                size: isNight ? 0.6 : 0.4, 
+                color: isNight ? 0xffffff : 0x3b82f6, 
+                transparent: true, 
+                opacity: isNight ? 0.8 : 0.6,
                 map: texture, alphaTest: 0.1
             });
 
             const particles = new THREE.Points(particlesGeometry, particleMaterial);
             scene.add(particles);
 
+            let gyroX = 0, gyroY = 0;
+            window.addEventListener('deviceorientation', (e) => {
+                if(e.gamma && e.beta) {
+                    gyroX = e.gamma * 0.001;
+                    gyroY = e.beta * 0.001;
+                }
+            });
+
             function animate() {
                 requestAnimationFrame(animate);
-                particles.rotation.y += 0.0005;
-                particles.rotation.x += 0.0002;
+                if(isNight) {
+                    const time = Date.now() * 0.003;
+                    particleMaterial.opacity = 0.5 + Math.sin(time) * 0.3;
+                }
+                particles.rotation.y += 0.0005 + (gyroX - particles.rotation.y) * 0.05;
+                particles.rotation.x += 0.0002 + (gyroY - particles.rotation.x) * 0.05;
                 renderer.render(scene, camera);
             }
             animate();
@@ -1398,6 +1436,34 @@
                 renderer.setSize(window.innerWidth, window.innerHeight);
             });
         })();
+
+        // Feature 36: Scattering Particle Logo
+        const logo = document.querySelector('.shop-logo');
+        if(logo) {
+            logo.addEventListener('mouseover', (e) => {
+                for(let i=0; i<30; i++) {
+                    let p = document.createElement('div');
+                    p.className = 'logo-particle';
+                    document.body.appendChild(p);
+                    let rect = logo.getBoundingClientRect();
+                    p.style.left = (rect.left + rect.width/2) + 'px';
+                    p.style.top = (rect.top + rect.height/2 + window.scrollY) + 'px';
+                    let angle = Math.random() * Math.PI * 2;
+                    let velocity = 30 + Math.random() * 60;
+                    let tx = Math.cos(angle) * velocity;
+                    let ty = Math.sin(angle) * velocity;
+                    p.style.setProperty('--tx', `${tx}px`);
+                    p.style.setProperty('--ty', `${ty}px`);
+                    p.style.background = ['#2563eb', '#10b981', '#f59e0b', '#8b5cf6'][Math.floor(Math.random()*4)];
+                    setTimeout(() => p.remove(), 800);
+                }
+            });
+        }
+
+        // Feature 29: Buttery Smooth Scrolling (Lenis)
+        const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
 
         // Feature 15: Enhanced Scroll Reveal Animations (Apple-like)
         const revealObserver = new IntersectionObserver((entries) => {
@@ -1456,11 +1522,14 @@
         let statusEl = document.getElementById('shopStatus');
         if((hr >= 8 && hr < 12) || (hr >= 15 && hr < 20)) {
             statusEl.innerHTML = "<i class='fa-solid fa-door-open'></i> અત્યારે Office ચાલુ છે";
+            statusEl.style.background = "#10b981";
+            statusEl.style.color = "white";
+            statusEl.style.boxShadow = "0 10px 25px rgba(16, 185, 129, 0.5)";
         } else {
             statusEl.innerHTML = "<i class='fa-solid fa-door-closed'></i> અત્યારે Office બંધ છે";
-            statusEl.style.background = "rgba(239, 68, 68, 0.1)"; 
-            statusEl.style.borderColor = "#ef4444";
-            statusEl.style.color = "#ef4444";
+            statusEl.style.background = "#ef4444"; 
+            statusEl.style.color = "white";
+            statusEl.style.boxShadow = "0 10px 25px rgba(239, 68, 68, 0.5)";
         }
 
         // Auto Typing
@@ -1535,7 +1604,9 @@
         function toggleSettings() { document.getElementById('settingsMenu').classList.toggle('show'); }
         function toggleTheme() {
             let current = document.documentElement.getAttribute('data-theme');
-            document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+            let newTheme = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            document.getElementById('themeText').innerText = newTheme === 'dark' ? 'લાઈટ મોડ ચાલુ કરો' : 'ડાર્ક મોડ ચાલુ કરો';
             toggleSettings();
         }
         function changeColor(primary, secondary) {
