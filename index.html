@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="gu">
+<html lang="gu" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>અલ-અકશા કમ્પ્યુટર સેન્ટર | Al-Aksha Computer Center</title>
+    <title>અલ-અકશા કમ્પ્યુટર સેન્ટર | AL-AKSHA COMPUTER CENTER</title>
     
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VVDNCXMNNX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -14,1340 +13,1544 @@
       gtag('config', 'G-VVDNCXMNNX');
     </script>
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
     <style>
         :root {
-            --primary: #2563eb;
-            --secondary: #7c3aed;
-            --accent: #06b6d4;
-            --bg-color: #050816;
-            --text-color: #ffffff;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-
-        [data-theme="light"] {
-            --primary: #1d4ed8;
-            --secondary: #6d28d9;
-            --accent: #0891b2;
             --bg-color: #f8fafc;
-            --text-color: #0f172a;
-            --card-bg: rgba(255, 255, 255, 0.7);
-            --card-border: rgba(0, 0, 0, 0.1);
-            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --card-bg: #ffffff;
+            --primary: #2563eb;
+            --secondary: #3b82f6;
+            --accent: #8b5cf6;
+            --border-color: #e2e8f0;
+            --hover-shadow: rgba(37, 99, 235, 0.15);
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --text-color: #f1f5f9;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --hover-shadow: rgba(59, 130, 246, 0.25);
+            --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            --glass-bg: rgba(15, 23, 42, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Baloo Bhai 2', cursive, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-            transition: background-color 0.5s, color 0.5s;
-            scroll-behavior: smooth;
-        }
-
-        /* Scroll Progress Bar */
-        #scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            z-index: 9999;
-            transition: width 0.1s;
-        }
-
-        /* Three.js Background */
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        /* Loading Screen */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(135deg, var(--bg-color), var(--primary));
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            transition: opacity 0.5s;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Baloo Bhai 2', 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-color); scroll-behavior: smooth; transition: background 0.8s ease, color 0.8s ease; overflow-x: hidden; line-height: 1.6; }
         
-        .cube-spinner {
-            width: 60px;
-            height: 60px;
-            transform-style: preserve-3d;
-            animation: spin 2s infinite linear;
-            margin-bottom: 20px;
-        }
-        .face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgba(255,255,255,0.2);
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 15px var(--accent);
-        }
-        .front  { transform: translateZ(30px); }
-        .back   { transform: rotateY(180deg) translateZ(30px); }
-        .right  { transform: rotateY(90deg) translateZ(30px); }
-        .left   { transform: rotateY(-90deg) translateZ(30px); }
-        .top    { transform: rotateX(90deg) translateZ(30px); }
-        .bottom { transform: rotateX(-90deg) translateZ(30px); }
-        
-        @keyframes spin { 100% { transform: rotateX(360deg) rotateY(360deg); } }
-        
-        .loading-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #fff;
-            animation: blink 1.5s infinite;
-        }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        #threejs-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0.2; transition: opacity 0.6s ease; }
+        [data-theme="dark"] #threejs-bg { opacity: 0.3; }
+        .content-wrapper { position: relative; z-index: 1; }
 
-        /* Welcome Popup */
-        #welcome-popup {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9998;
-            backdrop-filter: blur(5px);
-        }
-        .popup-content {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            padding: 2rem;
-            border-radius: 20px;
-            text-align: center;
-            transform: scale(0);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: var(--glass-shadow);
-            max-width: 90%;
-            width: 400px;
-        }
-        .popup-content.show { transform: scale(1); }
-        .popup-btn {
-            margin-top: 1.5rem;
-            padding: 10px 30px;
-            border: none;
-            border-radius: 25px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            font-weight: bold;
+        #loader { position: fixed; inset: 0; background: var(--bg-color); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.6s ease; }
+        .loader-spinner { width: 50px; height: 50px; border: 4px solid var(--border-color); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin-top: 20px; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .wait-text { font-size: 24px; font-weight: 700; color: var(--primary); letter-spacing: 2px; }
+
+        #progressBar { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(90deg, var(--primary), var(--accent)); width: 0%; z-index: 10000; transition: width 0.1s ease-out; }
+
+        .news-bar { background: #ef4444; color: white; display: flex; align-items: center; font-weight: 700; font-size: 16px; position: sticky; top: 0; z-index: 1001; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .news-label { background: #b91c1c; padding: 10px 20px; white-space: nowrap; z-index: 10; display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; }
+        .news-scroll-container { overflow: hidden; white-space: nowrap; flex-grow: 1; padding: 10px 0;}
+        .scrolling-text { display: inline-block; padding-left: 100%; animation: scrollNews 35s linear infinite; }
+        @keyframes scrollNews { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+        /* Premium Fluid Gradient & Grid Header Background (More Colors) */
+        header { 
+            position: relative; 
+            background: linear-gradient(45deg, #2563eb, #d946ef, #06b6d4, #10b981, #2563eb); 
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white; 
+            text-align: center; 
+            padding: 60px 20px 100px 20px; 
+            border-bottom-left-radius: 40px; 
+            border-bottom-right-radius: 40px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2); 
+            overflow: hidden; 
+            transition: background 1.5s ease;
         }
 
-        /* Header (CSS Only) */
-        header {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            text-align: center;
-            padding: 2rem 1rem;
-            z-index: 1;
-        }
-        
-        .css-bg-container {
+        /* Tech Grid Pattern Overlay */
+        header::before {
+            content: '';
             position: absolute;
             inset: 0;
-            z-index: -1;
-            overflow: hidden;
-            background: var(--bg-color);
-        }
-        
-        .mesh-blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            mix-blend-mode: screen;
-            opacity: 0.6;
-            animation: floatBlob 10s infinite alternate ease-in-out;
-            will-change: transform;
-        }
-        [data-theme="light"] .mesh-blob { mix-blend-mode: multiply; opacity: 0.3; }
-        
-        .blob1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--primary); animation-delay: 0s; }
-        .blob2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: var(--secondary); animation-delay: -2s; }
-        .blob3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: var(--accent); animation-delay: -4s; }
-        
-        @keyframes floatBlob { 100% { transform: translate(20%, 20%) scale(1.1); } }
-
-        .perspective-grid {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 40vh;
             background-image: 
-                linear-gradient(transparent 65%, rgba(6, 182, 212, 0.4) 75%, transparent 80%),
-                linear-gradient(90deg, transparent 48%, rgba(37, 99, 235, 0.4) 50%, transparent 52%);
-            background-size: 100% 40px, 40px 100%;
-            transform: perspective(500px) rotateX(60deg);
-            transform-origin: bottom;
-            animation: gridScroll 3s linear infinite;
-            will-change: transform;
-        }
-        @keyframes gridScroll { to { background-position: 0 40px, 0 0; } }
-
-        .scanlines {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
-            background-size: 100% 4px;
-            pointer-events: none;
-            opacity: 0.3;
-        }
-        
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, #fff 0%, transparent 70%);
-            box-shadow: 0 0 20px 5px var(--accent);
-            animation: orbDrift 15s linear infinite;
-            will-change: transform;
-        }
-        @keyframes orbDrift { 100% { transform: translateY(-100vh) rotate(360deg); } }
-
-        .wireframe-shape {
-            position: absolute;
-            width: 100px; height: 100px;
-            border: 2px solid rgba(255,255,255,0.1);
-            animation: rotate3D 10s linear infinite;
-            will-change: transform;
-        }
-        @keyframes rotate3D { 100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); } }
-
-        .header-content {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--card-border);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: var(--glass-shadow);
-            max-width: 800px;
-            width: 90%;
-            z-index: 2;
-        }
-
-        .logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid var(--accent);
-            padding: 5px;
-            margin-bottom: 1rem;
-            object-fit: cover;
-            background: #fff;
-        }
-
-        h1 {
-            font-size: 2.2rem;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
-        }
-
-        .typewriter {
-            font-size: 1.2rem;
-            color: var(--accent);
-            min-height: 30px;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .badge {
-            display: inline-block;
-            background: linear-gradient(45deg, #10b981, #059669);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-        }
-
-        .shop-status {
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-        }
-        .status-open { color: #10b981; }
-        .status-closed { color: #ef4444; }
-
-        /* Stats */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-top: 2rem;
-            width: 90%;
-            max-width: 800px;
-            z-index: 2;
-        }
-        @media(min-width: 768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
-        
-        .stat-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--card-border);
-            border-bottom: 4px solid var(--primary);
-            padding: 1.5rem 1rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        .stat-card:hover { transform: translateY(-5px); }
-        .stat-num { font-size: 2rem; font-weight: 800; color: var(--accent); }
-        .stat-text { font-size: 1rem; font-weight: 600; }
-
-        /* Main Content */
-        main {
-            padding: 2rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
+                linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
             z-index: 1;
+            pointer-events: none;
         }
 
-        /* News Ticker */
-        .news-ticker {
-            background: linear-gradient(90deg, #ef4444, #b91c1c);
-            color: white;
-            padding: 10px;
-            border-radius: 10px;
-            overflow: hidden;
-            white-space: nowrap;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
-            position: sticky;
-            top: 10px;
-            z-index: 100;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        .ticker-text {
-            display: inline-block;
-            animation: ticker 15s linear infinite;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* Search & Filter */
-        .search-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 2rem;
-            position: relative;
-        }
-        .search-input {
-            flex: 1;
-            padding: 15px 20px;
-            border-radius: 30px;
-            border: 1px solid var(--card-border);
-            background: var(--card-bg);
-            color: var(--text-color);
-            font-size: 1.1rem;
-            backdrop-filter: blur(10px);
-            padding-left: 45px;
-        }
-        .search-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 15px rgba(37,99,235,0.3); }
-        .search-icon { position: absolute; left: 15px; top: 18px; color: var(--accent); font-size: 1.2rem; }
-        .voice-btn {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 50%;
-            width: 55px; height: 55px;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(37,99,235,0.4);
-            transition: transform 0.2s;
-        }
-        .voice-btn:active { transform: scale(0.9); }
-        .voice-btn.listening { animation: pulse 1.5s infinite; background: #ef4444; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.7); } 70% { box-shadow: 0 0 0 15px rgba(239,68,68,0); } 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); } }
+        .header-content { position: relative; z-index: 2; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 40px 30px; border-radius: 24px; max-width: 800px; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .shop-logo { width: 100px; height: 100px; border-radius: 50%; border: 4px solid rgba(255,255,255,0.8); margin-bottom: 10px; object-fit: cover; background: white; }
+        
+        .lottie-container { width: 180px; height: 180px; margin: 0 auto -10px auto; pointer-events: none; }
+        
+        h1 { margin: 0; font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1.3; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 span { font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 500; letter-spacing: 2px; display: block; margin-top: 5px; color: #f1f5f9; text-shadow: none;}
+        .auto-type { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 700; color: #fde047; min-height: 35px; margin: 15px 0; }
+        .dev-badge { font-size: 0.9rem; background: rgba(0,0,0,0.2); display: inline-block; padding: 8px 20px; border-radius: 50px; font-weight: 600; letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.1); font-family: 'Inter', sans-serif; color: white; }
+        .shop-status { display: inline-flex; align-items: center; gap: 10px; padding: 12px 30px; border-radius: 50px; font-weight: 700; font-size: 1.2rem; margin-top: 20px; background: rgba(255, 255, 255, 0.9); border: none; color: #10b981; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 
-        .category-tabs {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 10px;
-            margin-bottom: 2rem;
-            scrollbar-width: none;
-        }
+        .stats-container { max-width: 1000px; margin: -50px auto 40px auto; padding: 0 20px; position: relative; z-index: 10; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .stat-box { background: var(--glass-bg); padding: 25px 20px; border-radius: 20px; text-align: center; box-shadow: var(--card-shadow); border: 1px solid var(--glass-border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: var(--transition-smooth); }
+        .stat-box:hover { transform: translateY(-5px); box-shadow: 0 15px 30px var(--hover-shadow); }
+        .stat-icon { font-size: 28px; color: var(--primary); margin-bottom: 10px; }
+        .stat-number { font-size: 32px; font-weight: 800; font-family: 'Inter', sans-serif; color: var(--text-color); }
+        .stat-text { font-size: 15px; font-weight: 600; color: var(--text-muted); }
+
+        .search-container { max-width: 900px; margin: 0 auto 30px auto; padding: 0 20px; display: flex; gap: 15px; }
+        .search-wrapper { flex-grow: 1; position: relative; }
+        .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 18px; }
+        #searchInput { width: 100%; padding: 18px 20px 18px 55px; border-radius: 16px; border: 2px solid var(--border-color); background: var(--card-bg); color: var(--text-color); font-size: 16px; font-family: inherit; font-weight: 500; outline: none; transition: var(--transition-smooth); box-shadow: var(--card-shadow); }
+        #searchInput:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--hover-shadow); }
+        .mic-btn { background: var(--primary); color: white; border: none; width: 60px; height: 60px; border-radius: 16px; font-size: 20px; cursor: pointer; transition: var(--transition-smooth); box-shadow: 0 4px 15px var(--hover-shadow); flex-shrink: 0; }
+        .mic-btn:hover { background: var(--secondary); transform: scale(1.05); }
+
+        .category-tabs { max-width: 900px; margin: 0 auto 40px auto; padding: 5px 20px; display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; }
         .category-tabs::-webkit-scrollbar { display: none; }
-        .tab-btn {
-            padding: 10px 20px;
-            border-radius: 20px;
-            border: 1px solid var(--primary);
-            background: transparent;
-            color: var(--text-color);
-            cursor: pointer;
-            white-space: nowrap;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        .tab-btn.active, .tab-btn:hover { background: var(--primary); color: white; }
+        .cat-btn { background: var(--card-bg); color: var(--text-color); border: 1px solid var(--border-color); padding: 10px 24px; border-radius: 50px; font-size: 16px; font-weight: 600; cursor: pointer; transition: var(--transition-smooth); white-space: nowrap; box-shadow: var(--card-shadow); }
+        .cat-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-        /* Section Titles */
-        .section-title {
-            font-size: 1.8rem;
-            margin: 3rem 0 1.5rem;
-            padding: 10px 20px;
-            background: linear-gradient(90deg, var(--primary), transparent);
-            border-left: 5px solid var(--accent);
-            border-radius: 0 20px 20px 0;
-            display: inline-block;
-        }
-        .section-title.gradient { background: linear-gradient(90deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 10px; padding: 15px; display: block; text-align: center; }
-
-        /* Service Cards */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-        @media(min-width: 640px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media(min-width: 1024px) { .cards-grid { grid-template-columns: repeat(3, 1fr); } }
-
-        .service-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--card-border);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s;
-            box-shadow: var(--glass-shadow);
-            position: relative;
-        }
-        .service-card:hover { transform: translateY(-5px); border-color: var(--accent); }
-        .service-card.simple { border-left: 5px solid #10b981; padding: 1rem; display: flex; align-items: center; gap: 15px; }
-        .service-card.simple i { font-size: 1.5rem; color: #10b981; }
-        .service-card.simple h3 { margin: 0; font-size: 1.2rem; }
-
-        .card-header {
-            padding: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            cursor: pointer;
-        }
-        .icon-box {
-            width: 50px; height: 50px;
-            border-radius: 12px;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 1.5rem;
-            color: white;
-            flex-shrink: 0;
-        }
-        .card-title { font-size: 1.3rem; font-weight: 700; flex: 1; }
-        .expand-icon { transition: transform 0.3s; }
-        .service-card.expanded .expand-icon { transform: rotate(180deg); }
-
-        .card-body {
-            padding: 0 1.5rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
-            background: rgba(0,0,0,0.2);
-        }
-        [data-theme="light"] .card-body { background: rgba(0,0,0,0.05); }
-        .service-card.expanded .card-body { padding: 0 1.5rem 1.5rem; max-height: 500px; border-top: 1px solid var(--card-border); margin-top: 10px; padding-top: 15px;}
+        .container { max-width: 900px; margin: 0 auto 60px auto; padding: 0 20px; }
         
-        .doc-list { list-style: none; }
-        .doc-list li { margin-bottom: 8px; display: flex; gap: 10px; font-size: 1.1rem; }
-        .doc-list li i { color: var(--accent); margin-top: 5px; }
+        .section-title { font-size: 22px; font-weight: 800; color: var(--text-color); margin: 40px 0 20px 0; display: flex; align-items: center; gap: 12px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; line-height: 1.4; word-break: break-word;}
+        .section-title i { color: var(--primary); }
         
-        .note { background: rgba(239, 68, 68, 0.2); border-left: 3px solid #ef4444; padding: 10px; margin-top: 10px; border-radius: 5px; font-size: 0.95rem; }
-        .note.blue { background: rgba(59, 130, 246, 0.2); border-left-color: #3b82f6; }
-
-        .tts-btn {
-            position: absolute;
-            top: 10px; right: 10px;
-            background: rgba(255,255,255,0.1);
-            border: none; border-radius: 50%;
-            width: 35px; height: 35px;
-            color: var(--text-color);
-            cursor: pointer;
-            z-index: 2;
-        }
-        .tts-btn:hover { background: var(--primary); color: white; }
-
-        /* Contact Section */
-        .contact-section {
-            margin-top: 4rem;
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: var(--glass-shadow);
-        }
-        .contact-title { font-size: 1.8rem; display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; color: #25d366; }
-        .contact-form { display: flex; flex-direction: column; gap: 15px; margin-top: 1.5rem; }
-        .input-group { position: relative; }
-        .input-group i { position: absolute; left: 15px; top: 15px; color: var(--accent); }
-        .form-input {
-            width: 100%;
-            padding: 15px 15px 15px 45px;
-            border-radius: 10px;
-            border: 1px solid var(--card-border);
-            background: rgba(0,0,0,0.2);
-            color: var(--text-color);
-            font-size: 1.1rem;
-        }
-        [data-theme="light"] .form-input { background: rgba(255,255,255,0.5); }
-        .form-input:focus { outline: none; border-color: var(--primary); }
-        textarea.form-input { resize: vertical; min-height: 100px; }
-        .submit-btn {
-            background: linear-gradient(45deg, #25d366, #128c7e);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-        }
-
-        .payment-info { margin-top: 2rem; text-align: center; }
-        .qr-code { width: 150px; height: 150px; border-radius: 10px; border: 3px solid var(--primary); margin: 10px auto; display: block; object-fit: contain; background: white;}
-        .upi-id { font-size: 1.2rem; font-weight: bold; color: var(--accent); user-select: all; }
-
-        /* Info Card & Map */
-        .info-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 2rem; }
-        @media(min-width: 768px) { .info-grid { grid-template-columns: 1fr 1fr; } }
-        .info-card { background: var(--card-bg); padding: 2rem; border-radius: 20px; border: 1px solid var(--card-border); }
-        .info-item { display: flex; gap: 15px; margin-bottom: 1.5rem; font-size: 1.2rem; }
-        .info-item i { font-size: 1.5rem; color: var(--primary); width: 30px; text-align: center; }
-        .info-item a { color: var(--accent); text-decoration: none; }
-        .map-container iframe { width: 100%; height: 100%; min-height: 250px; border-radius: 20px; border: none; }
-
-        /* Reviews Marquee */
-        .review-marquee {
-            margin-top: 4rem;
-            overflow: hidden;
-            background: rgba(0,0,0,0.3);
-            padding: 2rem 0;
-            border-top: 1px solid var(--card-border);
-            border-bottom: 1px solid var(--card-border);
-        }
-        [data-theme="light"] .review-marquee { background: rgba(255,255,255,0.3); }
-        .marquee-content { display: flex; gap: 2rem; animation: scrollMarquee 20s linear infinite; width: max-content; }
-        .review-card { background: var(--card-bg); padding: 1.5rem; border-radius: 15px; min-width: 300px; border: 1px solid var(--card-border); }
-        .stars { color: #fbbf24; margin-bottom: 10px; }
-        @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        /* Floating Elements */
-        .float-btn {
-            position: fixed;
-            width: 60px; height: 60px;
-            border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 1.8rem;
-            color: white;
-            cursor: pointer;
-            z-index: 99;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            text-decoration: none;
-            transition: transform 0.3s;
-        }
-        .float-btn:hover { transform: scale(1.1); }
-        .wa-float { bottom: 20px; right: 20px; background: #25d366; }
-        .wa-tooltip {
-            position: absolute; right: 75px; background: var(--card-bg); backdrop-filter: blur(5px);
-            padding: 5px 15px; border-radius: 20px; font-size: 1rem; white-space: nowrap; color: var(--text-color); border: 1px solid var(--card-border); pointer-events: none; opacity: 0; transition: opacity 0.3s;
-        }
-        .wa-float:hover .wa-tooltip { opacity: 1; }
+        .reveal-apple { opacity: 0; transform: translateY(60px) scale(0.92); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; }
+        .reveal-apple.revealed { opacity: 1; transform: translateY(0) scale(1); }
         
-        .settings-float { bottom: 20px; left: 20px; background: var(--secondary); }
+        .service-card { background: var(--card-bg); margin-bottom: 16px; border-radius: 16px; box-shadow: var(--card-shadow); border: 1px solid var(--border-color); overflow: hidden; transition: var(--transition-smooth); }
+        .service-card:hover { border-color: var(--primary); box-shadow: 0 12px 30px var(--hover-shadow); transform: translateY(-3px); }
         
-        .settings-menu {
-            position: fixed; bottom: 90px; left: 20px;
-            background: var(--card-bg); backdrop-filter: blur(15px);
-            border: 1px solid var(--card-border); border-radius: 15px;
-            padding: 15px; box-shadow: var(--glass-shadow);
-            transform: scale(0); transform-origin: bottom left; transition: transform 0.3s;
-            z-index: 98; width: 220px;
+        .service-card.simple { display: flex; align-items: center; padding: 20px; }
+        .service-card.simple .service-title { padding: 0; border: none; width: 100%; display: flex; align-items: flex-start; gap: 15px; font-size: 18px; font-weight: 700; line-height: 1.4; word-break: break-word; }
+        .service-card.simple .service-title i { margin-top: 3px; font-size: 22px; flex-shrink: 0;}
+
+        details { position: relative; }
+        summary { padding: 20px; font-weight: 700; font-size: 18px; cursor: pointer; outline: none; list-style: none; display: flex; align-items: center; justify-content: space-between; color: var(--text-color); user-select: none; gap: 15px; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--text-muted); transition: transform 0.3s; font-size: 16px; flex-shrink: 0; }
+        details[open] summary::after { transform: rotate(180deg); color: var(--primary); }
+        details[open] summary { border-bottom: 1px solid var(--border-color); }
+        
+        .summary-left { display: flex; align-items: flex-start; gap: 15px; flex-grow: 1; word-break: break-word; line-height: 1.4; }
+        .service-title-icon { font-size: 24px; width: 35px; text-align: center; flex-shrink: 0; margin-top: 2px; }
+        
+        .tts-btn { background: var(--bg-color); color: var(--primary); padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 600; border: 1px solid var(--border-color); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: var(--transition-smooth); flex-shrink: 0; font-family: 'Inter', sans-serif; }
+        .tts-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .summary-actions { display: flex; align-items: center; gap: 12px; }
+
+        .docs-list { padding: 20px; background: var(--bg-color); font-size: 16px; font-weight: 500; color: var(--text-color); }
+        .docs-list strong { color: var(--primary); display: flex; align-items: center; gap: 8px; font-size: 18px; margin-bottom: 12px; word-break: break-word; }
+        .docs-list ul { list-style: none; padding-left: 5px; }
+        .docs-list li { padding-left: 30px; margin-bottom: 10px; position: relative; line-height: 1.5; word-break: break-word; }
+        .docs-list li i { position: absolute; left: 0; top: 4px; color: #10b981; font-size: 18px; }
+        
+        .important-note { background: rgba(239, 68, 68, 0.1); color: #dc2626; padding: 15px; border-radius: 12px; font-weight: 600; font-size: 15px; margin-top: 15px; display: flex; align-items: flex-start; gap: 10px; border: 1px solid rgba(239, 68, 68, 0.2); word-break: break-word;}
+        .important-note.blue-note { background: rgba(59, 130, 246, 0.1); color: #2563eb; border-color: rgba(59, 130, 246, 0.2); }
+        .important-note i { font-size: 20px; flex-shrink: 0; margin-top: 2px;}
+
+        .inquiry-box { background: var(--card-bg); padding: 40px; border-radius: 24px; margin-top: 50px; box-shadow: var(--card-shadow); border: 1px solid var(--border-color); }
+        .form-group { position: relative; margin-bottom: 20px; }
+        .form-group i { position: absolute; left: 20px; top: 18px; color: var(--text-muted); font-size: 18px;}
+        .form-control { width: 100%; padding: 16px 20px 16px 50px; background: var(--bg-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 12px; font-size: 16px; font-family: inherit; font-weight: 500; transition: var(--transition-smooth); }
+        .form-control:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 4px var(--hover-shadow); }
+        textarea.form-control { padding: 16px; } 
+        
+        .submit-btn { background: var(--primary); color: white; width: 100%; padding: 16px; border: none; border-radius: 12px; font-size: 18px; font-weight: 700; cursor: pointer; transition: var(--transition-smooth); display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .submit-btn:hover { background: var(--secondary); transform: translateY(-2px); box-shadow: 0 10px 20px var(--hover-shadow);}
+
+        .payment-qr { text-align: center; margin-top: 30px; padding: 25px; background: var(--bg-color); border-radius: 16px; border: 1px dashed var(--border-color); }
+
+        .info-card { background: var(--card-bg); padding: 30px; margin-top: 30px; border-radius: 20px; box-shadow: var(--card-shadow); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 20px; }
+        .info-line { display: flex; align-items: flex-start; gap: 15px; font-weight: 600; font-size: 16px; line-height: 1.4; word-break: break-word;}
+        .info-icon { background: rgba(37, 99, 235, 0.1); width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; flex-shrink: 0; }
+
+        .wa-float { position: fixed; bottom: 30px; right: 30px; background: #25D366; color: white; border-radius: 50px; display: flex; align-items: center; padding: 12px 24px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); z-index: 1000; text-decoration: none; gap: 10px; font-size: 16px; font-weight: 700; transition: var(--transition-smooth); }
+        .wa-float:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4); }
+        .wa-float i { font-size: 24px; }
+
+        .settings-float { position: fixed; bottom: 30px; left: 30px; background: var(--card-bg); color: var(--text-color); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: var(--card-shadow); z-index: 1000; cursor: pointer; font-size: 20px; border: 1px solid var(--border-color); transition: var(--transition-smooth); }
+        .settings-float:hover { background: var(--primary); color: white; border-color: var(--primary); transform: rotate(90deg); }
+        .settings-menu { position: fixed; bottom: 90px; left: 30px; background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 16px; display: none; flex-direction: column; gap: 12px; box-shadow: var(--card-shadow); z-index: 1000; width: 280px; backdrop-filter: blur(10px); }
+        .settings-menu.show { display: flex; animation: fadeUp 0.3s ease-out; }
+        .settings-menu button { background: var(--bg-color); color: var(--text-color); border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; transition: var(--transition-smooth); }
+        .settings-menu button:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .color-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+
+        footer { text-align: center; padding: 40px 20px; background: #0f172a; color: #cbd5e1; margin-top: 60px; font-size: 16px; font-weight: 500; position: relative; overflow: hidden; }
+
+        .reveal-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-up.revealed { opacity: 1; transform: translateY(0); }
+
+        #welcomePopup { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 2000; transition: 0.4s; }
+        .popup-box { background: var(--card-bg); padding: 40px; border-radius: 24px; text-align: center; max-width: 90%; width: 400px; border: 1px solid var(--border-color); box-shadow: 0 25px 50px rgba(0,0,0,0.2); animation: scaleUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .popup-box h2 { color: var(--primary); font-size: 32px; margin-bottom: 15px; word-break: break-word;}
+        .popup-box p { font-size: 20px; font-weight: 700; color: var(--text-color); margin-bottom: 25px; word-break: break-word;}
+        .popup-btn { background: var(--primary); color: white; border: none; padding: 12px 30px; border-radius: 50px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px var(--hover-shadow); transition: var(--transition-smooth); }
+        .popup-btn:hover { background: var(--secondary); transform: translateY(-2px); }
+        
+        @keyframes scaleUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 768px) {
+            .stats-container { grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: -30px; }
+            .header-content { padding: 30px 20px; }
+            summary { flex-direction: column; align-items: flex-start; gap: 15px;}
+            .summary-actions { width: 100%; display: flex; justify-content: space-between; align-items: center;}
+            summary::after { display: none; }
+            .wa-float { padding: 12px; bottom: 20px; right: 20px; border-radius: 50%; }
+            .wa-float span { display: none; }
+            .wa-float i { font-size: 28px; margin: 0; }
+            .settings-float { bottom: 20px; left: 20px; }
+            .settings-menu { bottom: 80px; left: 20px; }
         }
-        .settings-menu.open { transform: scale(1); }
-        .settings-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid var(--card-border); padding-bottom: 5px; }
-        .color-picker { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
-        .color-btn { width: 30px; height: 30px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; }
-        .color-btn.active { border-color: white; box-shadow: 0 0 5px white; }
-        .action-btn { display: block; width: 100%; padding: 8px; margin-bottom: 8px; border: none; border-radius: 8px; background: rgba(128,128,128,0.2); color: var(--text-color); cursor: pointer; text-align: left; }
-        .action-btn i { width: 25px; }
-
-        /* Footer */
-        footer { text-align: center; padding: 3rem 1rem; background: rgba(0,0,0,0.5); margin-top: 0; position: relative; z-index: 1;}
-        [data-theme="light"] footer { background: rgba(0,0,0,0.05); }
-        .footer-logo { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 1rem; }
-        .footer-text { font-size: 1.2rem; margin-bottom: 1rem; }
-        .copyright { font-size: 0.9rem; opacity: 0.7; }
-
-        /* Animations */
-        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* Hidden Class */
-        .hidden { display: none !important; }
+        @media (max-width: 480px) {
+            header { padding: 40px 15px 60px 15px; }
+            .lottie-container { width: 150px; height: 150px; }
+            .shop-logo { width: 80px; height: 80px; }
+            .stat-box { padding: 15px 10px; }
+            .stat-number { font-size: 24px; }
+            .search-container { flex-direction: column; }
+            .mic-btn { width: 100%; border-radius: 12px; height: 50px;}
+        }
     </style>
-</head>
-<body>
-
-    <!-- Scroll Progress -->
-    <div id="scroll-progress"></div>
-
-    <!-- Loading Screen -->
-    <div id="loader">
-        <div class="cube-spinner">
-            <div class="face front"></div>
-            <div class="face back"></div>
-            <div class="face right"></div>
-            <div class="face left"></div>
-            <div class="face top"></div>
-            <div class="face bottom"></div>
-        </div>
-        <div class="loading-text">Loading...</div>
-    </div>
-
-    <!-- Welcome Popup -->
-    <div id="welcome-popup">
-        <div class="popup-content" id="popup-content">
-            <h2>સ્વાગત છે! 🎉</h2>
-            <p style="margin: 15px 0; font-size: 1.2rem;">અલ-અકશા કમ્પ્યુટર સેન્ટરમાં આપનું હાર્દિક સ્વાગત છે.</p>
-            <button class="popup-btn" onclick="closePopup()">આગળ વધો</button>
-        </div>
-    </div>
-
-    <!-- Three.js Container -->
-    <div id="canvas-container"></div>
-
-    <!-- Header -->
-    <header>
-        <div class="css-bg-container">
-            <div class="mesh-blob blob1"></div>
-            <div class="mesh-blob blob2"></div>
-            <div class="mesh-blob blob3"></div>
-            <div class="perspective-grid"></div>
-            <div class="scanlines"></div>
-            
-            <!-- Particles -->
-            <script>
-                for(let i=0; i<15; i++) {
-                    let size = Math.random() * 30 + 10;
-                    let left = Math.random() * 100;
-                    let top = Math.random() * 100 + 50;
-                    let dur = Math.random() * 10 + 10;
-                    let del = Math.random() * -15;
-                    document.write(`<div class="orb" style="width:${size}px; height:${size}px; left:${left}%; top:${top}%; animation-duration:${dur}s; animation-delay:${del}s;"></div>`);
-                }
-                for(let i=0; i<6; i++) {
-                    let left = Math.random() * 90;
-                    let top = Math.random() * 90;
-                    let del = Math.random() * -10;
-                    document.write(`<div class="wireframe-shape" style="left:${left}%; top:${top}%; animation-delay:${del}s;"></div>`);
-                }
-            </script>
-        </div>
-
-        <div class="header-content reveal active">
-            <img src="logo.jpg" alt="Logo" class="logo" onerror="this.src='https://ui-avatars.com/api/?name=AA&background=2563eb&color=fff&size=120'">
-            <h1>અલ - અકશા કમ્પ્યુટર સેન્ટર</h1>
-            <h2>AL-AKSHA COMPUTER CENTER</h2>
-            <div class="typewriter" id="typewriter"></div>
-            <div class="badge">DEVELOPED BY | PATHAN MAHIRKHAN 😎</div>
-            <div class="shop-status" id="shop-status">ચેક કરી રહ્યા છીએ...</div>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-card reveal">
-                <div class="stat-num" data-target="100">0</div>
-                <div class="stat-text">ઓનલાઈન સેવાઓ+</div>
-            </div>
-            <div class="stat-card reveal">
-                <div class="stat-num" data-target="1500">0</div>
-                <div class="stat-text">સંતુષ્ટ ગ્રાહકો+</div>
-            </div>
-            <div class="stat-card reveal">
-                <div class="stat-num" data-target="24">0</div>
-                <div class="stat-text">કલાક સપોર્ટ</div>
-            </div>
-            <div class="stat-card reveal">
-                <div class="stat-num" data-target="100">0</div>
-                <div class="stat-text">% વિશ્વાસપાત્ર કામ</div>
-            </div>
-        </div>
-    </header>
-
-    <main>
-        <!-- News Ticker -->
-        <div class="news-ticker">
-            <div class="ticker-text">💻 તમામ સરકારી યોજનાઓની માહિતી માટે મુલાકાત લો.. ✨</div>
-        </div>
-
-        <!-- Search and Tabs -->
-        <div class="search-container reveal">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="તમારું કામ શોધો... (દા.ત. પાનકાર્ડ, આધાર)">
-            <button class="voice-btn" id="voiceBtn" title="બોલીને શોધો"><i class="fa-solid fa-microphone"></i></button>
-        </div>
-
-        <div class="category-tabs reveal" id="tabs">
-            <button class="tab-btn active" data-filter="all">બધા કામ</button>
-            <button class="tab-btn" data-filter="yojna">સરકારી યોજનાઓ</button>
-            <button class="tab-btn" data-filter="other">અન્ય સુવિધાઓ</button>
-        </div>
-
-        <!-- Cards Section 1 -->
-        <h2 class="section-title reveal">સરકારી યોજનાઓ અને જરૂરી ડોક્યુમેન્ટ્સ</h2>
-        <div class="cards-grid" id="cards-container">
-            <!-- Cards will be generated by JS -->
-        </div>
-
-        <!-- Cards Section 2 -->
-        <h2 class="section-title gradient reveal">✍️ વિવિધ દાખલાઓ અને સરકારી સહાય માટે જરૂરી પુરાવા ( DOCUMENTS ) ની માહિતી</h2>
-        <div class="cards-grid" id="cards-container-2">
-            <!-- Cards will be generated by JS -->
-        </div>
-
-        <!-- Cards Section 3 -->
-        <h2 class="section-title reveal">અમારી અન્ય ઓનલાઈન સુવિધાઓ</h2>
-        <div class="cards-grid" id="cards-container-3">
-            <!-- Simple Cards will be generated by JS -->
-        </div>
-
-        <!-- Contact Section -->
-        <div class="contact-section reveal">
-            <h2 class="contact-title"><i class="fa-brands fa-whatsapp"></i> ડોક્યુમેન્ટ્સ અને પૂછપરછ</h2>
-            <p>અહીં માહિતી ભરીને મોકલો. (ફોર્મ ભરવા માટે અહીંથી જ ડોક્યુમેન્ટ સેન્ડ કરી શકો છો).</p>
-            
-            <form class="contact-form" id="waForm" onsubmit="sendWhatsApp(event)">
-                <div class="input-group">
-                    <i class="fa-solid fa-user"></i>
-                    <input type="text" id="waName" class="form-input" placeholder="તમારું નામ" required>
-                </div>
-                <div class="input-group">
-                    <i class="fa-solid fa-message"></i>
-                    <textarea id="waMsg" class="form-input" placeholder="❓ તમારે શું કામ છે? દા.ત. મારે પાનકાર્ડ બનાવવું છે..." required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">ડોક્યુમેન્ટ / મેસેજ મોકલો <i class="fa-solid fa-paper-plane"></i></button>
-            </form>
-
-            <div class="payment-info">
-                <h3>ઓનલાઈન પેમેન્ટ માટે સ્કેન કરો</h3>
-                <img src="qr.png" alt="QR Code" class="qr-code" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=pathanmustufakhan539@okaxis'">
-                <div class="upi-id">UPI ID: pathanmustufakhan539@okaxis</div>
-            </div>
-        </div>
-
-        <!-- Info Card & Map -->
-        <div class="info-grid reveal">
-            <div class="info-card">
-                <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--primary);">સંપર્ક માહિતી</h3>
-                <div class="info-item">
-                    <i class="fa-solid fa-user-tie"></i>
-                    <div><strong>સંચાલક:</strong> પઠાણ માહિરખાન</div>
-                </div>
-                <div class="info-item">
-                    <i class="fa-solid fa-phone"></i>
-                    <div><strong>મોબાઇલ:</strong> <a href="tel:9638730186">9638730186</a></div>
-                </div>
-                <div class="info-item">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <div><strong>સરનામું:</strong> અલ-અકશા કમ્પ્યુટર સેન્ટર, મસ્જિદ પાસે, ઢુણાદરા 388230</div>
-                </div>
-            </div>
-            <div class="map-container">
-                <iframe src="https://maps.google.com/maps?q=Al%20Aksha%20Computer%20Centre,%20Dhunadara&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-        </div>
-
-        <!-- Reviews Marquee -->
-        <div class="review-marquee reveal">
-            <div class="marquee-content">
-                <div class="review-card">
-                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"મારું કામ બહુ ઝડપથી અને સારી રીતે થઈ ગયું!"</p>
-                    <strong>- સાહિલ</strong>
-                </div>
-                <div class="review-card">
-                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"અલ-અકશા સેન્ટર એટલે વિશ્વાસપાત્ર કામ અને પૂરી માહિતી!"</p>
-                    <strong>- મુકેશ</strong>
-                </div>
-                <div class="review-card">
-                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"તમામ ઓનલાઈન ફોર્મ ભરવા માટે ગામની બેસ્ટ જગ્યા."</p>
-                    <strong>- રાહુલ</strong>
-                </div>
-                <!-- Duplicate for seamless scroll -->
-                <div class="review-card">
-                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"મારું કામ બહુ ઝડપથી અને સારી રીતે થઈ ગયું!"</p>
-                    <strong>- સાહિલ</strong>
-                </div>
-                <div class="review-card">
-                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"અલ-અકશા સેન્ટર એટલે વિશ્વાસપાત્ર કામ અને પૂરી માહિતી!"</p>
-                    <strong>- મુકેશ</strong>
-                </div>
-                <div class="review-card">
-                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"તમામ ઓનલાઈન ફોર્મ ભરવા માટે ગામની બેસ્ટ જગ્યા."</p>
-                    <strong>- રાહુલ</strong>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <img src="logo.jpg" alt="Logo" class="footer-logo" onerror="this.src='https://ui-avatars.com/api/?name=AA&background=2563eb&color=fff'">
-        <div class="footer-text">આપનો દિવસ શુભ રહે! 🌻✨ હસતા રહો! 😊</div>
-        <div class="copyright">© ૨૦૨૬ AL-AKSHA COMPUTER CENTER. All Rights Reserved.</div>
-    </footer>
-
-    <!-- Floating Buttons -->
-    <a href="https://chat.whatsapp.com/L1FLyUAJR9CIFHEvzq0i2z" target="_blank" class="float-btn wa-float">
-        <i class="fa-brands fa-whatsapp"></i>
-        <span class="wa-tooltip">WhatsApp ગ્રુપમાં જોડાઓ</span>
-    </a>
-
-    <div class="float-btn settings-float" onclick="toggleSettings()">
-        <i class="fa-solid fa-gear" style="animation: spin 5s linear infinite;"></i>
-    </div>
-
-    <!-- Settings Menu -->
-    <div class="settings-menu" id="settingsMenu">
-        <div class="settings-title">સેટિંગ્સ</div>
-        <div class="settings-title" style="font-size: 0.9rem; border:none; margin-bottom:5px;">થીમ કલર પસંદ કરો:</div>
-        <div class="color-picker" id="colorPicker">
-            <div class="color-btn active" style="background:#2563eb;" onclick="changeColor('#2563eb', '#7c3aed', '#06b6d4', this)"></div>
-            <div class="color-btn" style="background:#ef4444;" onclick="changeColor('#ef4444', '#f97316', '#facc15', this)"></div>
-            <div class="color-btn" style="background:#10b981;" onclick="changeColor('#10b981', '#059669', '#34d399', this)"></div>
-            <div class="color-btn" style="background:#8b5cf6;" onclick="changeColor('#8b5cf6', '#d946ef', '#c084fc', this)"></div>
-            <div class="color-btn" style="background:#f43f5e;" onclick="changeColor('#f43f5e', '#e11d48', '#fda4af', this)"></div>
-            <div class="color-btn" style="background:#0ea5e9;" onclick="changeColor('#0ea5e9', '#0284c7', '#7dd3fc', this)"></div>
-            <div class="color-btn" style="background:#f59e0b;" onclick="changeColor('#f59e0b', '#d97706', '#fcd34d', this)"></div>
-            <div class="color-btn" style="background:#64748b;" onclick="changeColor('#64748b', '#475569', '#94a3b8', this)"></div>
-            <div class="color-btn" style="background:#14b8a6;" onclick="changeColor('#14b8a6', '#0d9488', '#5eead4', this)"></div>
-            <div class="color-btn" style="background:#ec4899;" onclick="changeColor('#ec4899', '#db2777', '#f472b6', this)"></div>
-        </div>
-        <button class="action-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i> લાઈટ/ડાર્ક મોડ</button>
-        <button class="action-btn" onclick="shareWebsite()"><i class="fa-solid fa-share-nodes"></i> શેર કરો</button>
-    </div>
-
-    <!-- Scripts -->
-    <!-- Canvas Confetti -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <!-- Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <script>
-        // Data for Section 1: Yojna
-        const yojnaData = [
-            { title: "ઈ-નિર્માણ કાર્ડ", en: "e nirman card", icon: "fa-helmet-safety", color: "#f59e0b", docs: ["આધાર કાર્ડ", "રેશન કાર્ડ", "બેંક પાસબુક", "પાસપોર્ટ સાઇઝ ફોટો", "90 દિવસ કામ કર્યાનું પ્રમાણપત્ર"] },
-            { title: "ABC કાર્ડ", en: "abc card", icon: "fa-graduation-cap", color: "#8b5cf6", docs: ["આધાર કાર્ડ (મોબાઈલ નંબર લિંક હોવો જરૂરી)", "કોલેજ/યુનિવર્સિટીનું આઈડી કાર્ડ અથવા એનરોલમેન્ટ નંબર"] },
-            { title: "પાનકાર્ડ (નવું / સુધારો)", en: "pancard new update", icon: "fa-id-card", color: "#3b82f6", docs: ["આધાર કાર્ડ", "2 પાસપોર્ટ સાઇઝ ફોટા", "જૂના પાનકાર્ડની નકલ (સુધારા માટે)", "ચુંટણીકાર્ડ અથવા જન્મનો દાખલો"], note: "નોંધ: ઇન્સ્ટન્ટ e-PAN કાર્ડ બનતા 24 કલાકનો સમય લાગે છે. આ ઇન્સ્ટન્ટ e-PAN કાર્ડ બેંક, લોન કે પાસપોર્ટના કામમાં ચાલતું નથી." },
-            { title: "ઈ-શ્રમ કાર્ડ (નવું/સુધારો)", en: "e shram card", icon: "fa-users-gear", color: "#64748b", docs: ["આધાર કાર્ડ (મોબાઈલ નંબર લિંક હોવો જરૂરી)", "બેંક પાસબુક"] },
-            { title: "ચુંટણી કાર્ડ (નવું/સુધારો)", en: "voter id election card", icon: "fa-check-to-slot", color: "#ec4899", docs: ["આધાર કાર્ડ", "પાસપોર્ટ સાઇઝ ફોટો", "જન્મનો પુરાવો (LC)", "રહેઠાણનો પુરાવો", "જૂનું ચુંટણી કાર્ડ"] },
-            { title: "આધારકાર્ડ પ્રિન્ટ/અપડેટ", en: "aadhar card print update", icon: "fa-fingerprint", color: "#10b981", docs: ["આધારકાર્ડ નંબર", "લિંક થયેલ મોબઇલ નંબર"] },
-            { title: "આયુષ્યમાન કાર્ડ", en: "ayushman card health", icon: "fa-house-medical", color: "#ef4444", docs: ["રેશન કાર્ડ", "આધાર કાર્ડ", "લિંક મોબાઈલ નંબર"] },
-            { title: "રેશન કાર્ડ e-KYC", en: "ration card e kyc", icon: "fa-wheat-awn", color: "#84cc16", docs: ["આધારકાર્ડ (લિંક મોબાઈલ સાથે)", "રેશન કાર્ડ"] },
-            { title: "ABHA કાર્ડ", en: "abha card health", icon: "fa-heart-pulse", color: "#06b6d4", docs: ["આધાર કાર્ડ (મોબાઈલ નંબર લિંક હોવો જરૂરી)"] },
-            { title: "ડ્રાઇવિંગ લાઇસેન્સ", en: "driving license", icon: "fa-car-side", color: "#f97316", docs: ["આધાર કાર્ડ", "પાસપોર્ટ સાઇઝ ફોટો", "LC અથવા જન્મનો દાખલો"] },
-            { title: "પાસપોર્ટ", en: "passport", icon: "fa-plane-departure", color: "#4338ca", docs: ["આધાર કાર્ડ", "પાન કાર્ડ અથવા ચુંટણી કાર્ડ", "માર્કશીટ અથવા LC", "બેંક પાસબુક"] },
-            { title: "PF ને લગતું કામ", en: "pf provident fund", icon: "fa-briefcase", color: "#78716c", docs: ["UAN નંબર", "આધાર કાર્ડ", "પાન કાર્ડ", "બેંકની પાસબુક"] },
-            { title: "7/12 અને 8-અ ની નકલ", en: "7 12 8 a nakal land", icon: "fa-file-lines", color: "#8b5cf6", docs: ["ગામ, તાલુકો, જિલ્લો અને ખાતા નંબર અથવા સર્વે નંબર."] },
-            { title: "પ્રોપર્ટી કાર્ડ", en: "property card", icon: "fa-building", color: "#0ea5e9", docs: ["સિટી સર્વે નંબર અને વોર્ડ નંબર."] },
-            { title: "RTE ઍડ્મિશન ફોર્મ", en: "rte admission form school", icon: "fa-school", color: "#d946ef", docs: ["બાળકના જન્મનો દાખલો", "માતા-પિતાના આધાર કાર્ડ", "આવકનો દાખલો", "જાતિનો દાખલો (જો લાગુ પડે)", "લાઈટ બિલ અથવા ભાડા કરાર", "બાળકના ફોટા"] },
-            { title: "પી. એમ. કિસાન યોજના", en: "pm kisan yojna", icon: "fa-seedling", color: "#22c55e", docs: ["આધાર કાર્ડ", "7/12 અને 8-અ ના ઉતારા", "બેંક પાસબુક (લિંક મોબાઈલ)", "મરણ નો દાખલો (જો લાગુ પડે)"] },
-            { title: "ખેડૂત નોંધણી", en: "khedut nondhani farmer registration", icon: "fa-tractor", color: "#eab308", docs: ["આધાર કાર્ડ (લિંક મોબાઈલ નંબર સાથે)", "7/12 અને 8-અ ના ઉતારા", "બેંક પાસબુક"] },
-            { title: "પંડીત દિન દયાળ આવાસ યોજના", en: "pandit din dayal awas yojna housing", icon: "fa-house-chimney", color: "#14b8a6", docs: ["આધાર કાર્ડ", "રેશન કાર્ડ", "ચુંટણી કાર્ડ", "આવકનો દાખલો", "પ્લોટ / જમીનનો દસ્તાવેજ", "બેંક પાસબુક", "બાંધકામ રજા ચિઠ્ઠી", "પાસપોર્ટ સાઇઝ ફોટો", "તલાટી ના સહી સિક્કા વાળું ફોર્મ"] },
-            { title: "કુંવરબાઈનું મામેરું યોજના", en: "kuvarbai nu mameru yojna marriage", icon: "fa-gift", color: "#f43f5e", docs: ["દીકરી અને પિતાનું / પતિનું આધાર કાર્ડ", "આવક અને જાતિનો દાખલો", "મેરેજ સર્ટિફિકેટ અને બેંક પાસબુક", "પાસપોર્ટ સાઇઝ ફોટો"] },
-            { title: "માનવ ગરિમા યોજના", en: "manav garima yojna tool kit", icon: "fa-handshake-angle", color: "#0284c7", docs: ["આધાર કાર્ડ અને રેશન કાર્ડ", "આવકનો દાખલો અને જાતિનો દાખલો", "બેંક પાસબુક અને પાસપોર્ટ ફોટો", "વ્યવસાય લક્ષી તાલીમ નું પ્રમાણપત્ર", "શાળા છોડ્યાનું પ્રમાણપત્ર (LC)"] },
-            { title: "પી. એમ. વિશ્વકર્મા યોજના", en: "pm vishwakarma yojna", icon: "fa-hammer", color: "#d97706", docs: ["આધાર કાર્ડ (મોબાઈલ નંબર લિંક)", "રેશન કાર્ડ અને બેંક પાસબુક", "પાસપોર્ટ સાઇઝ ફોટો", "વ્યવસાય નો પુરાવો", "જાતિનું પ્રમાણપત્ર"] },
-            { title: "આઇ - ખેડૂત પોર્ટલની યોજનાઓ", en: "ikhedut portal yojna farmer", icon: "fa-laptop-file", color: "#6366f1", docs: ["આધાર કાર્ડ (લિંક મોબાઈલ)", "રેશન કાર્ડ", "7/12 અને 8-અ ના ઉતારા", "બેંક પાસબુક"] },
-            { title: "શિષ્યવૃત્તિના ફોર્મ", en: "scholarship form students", icon: "fa-user-graduate", color: "#a855f7", docs: ["આધાર કાર્ડ અને છેલ્લી માર્કશીટ", "આવકનો દાખલો અને જાતિનો દાખલો", "બેંક પાસબુક અને ફી ની પહોંચ", "LC અથવા BONAFIED પ્રમાણપત્ર", "પાસપોર્ટ સાઇઝ ફોટો"] },
-            { title: "વૃદ્ધ પેન્શન યોજના", en: "vrudh pension yojna old age", icon: "fa-person-cane", color: "#71717a", docs: ["આધાર કાર્ડ અને રેશન કાર્ડ", "ઉંમરનો પુરાવો (60 વર્ષથી વધુ)", "આવકનો દાખલો અને બેંક પાસબુક", "જન્મનું પ્રમાણપત્ર અથવા LC"] }
-        ];
-
-        // Data for Section 2: Documents
-        const docsData = [
-            { title: "આવકનો દાખલો મેળવવા", en: "income certificate aavak no dakhlo", icon: "fa-file-invoice-dollar", color: "#10b981", docs: ["ફોર્મ અને ફોટો", "રેશન કાર્ડની નકલ", "સ્કૂલ લિવિંગ", "તલાટીની આવકનો દાખલો", "છેલ્લુ લાઈટબીલ"] },
-            { title: "જાતિનો દાખલો મેળવવા", en: "caste certificate jati no dakhlo", icon: "fa-users-viewfinder", color: "#8b5cf6", docs: ["ફોર્મ અને ફોટો", "રેશન કાર્ડની નકલ", "સ્કૂલ લિવિંગ", "પિતા/માતા/બહેનનું સ્કૂલ લિવીંગ સર્ટી", "છેલ્લુ લાઈટબીલ", "તલાટીની આવકનો દાખલો"] },
-            { title: "ડોમીસાઈલ સર્ટી મેળવવા", en: "domicile certificate", icon: "fa-house-flag", color: "#f59e0b", docs: ["ફોર્મ અને ફોટો", "રેશન કાર્ડની નકલ", "સ્કૂલ લિવિંગ", "તલાટીનો ૧૦ વર્ષનો રહેઠાણનો દાખલો", "રહેઠાણ અંગેનું સોગંદનામું", "છેલ્લુ લાઈટબીલ", "જન્મનો દાખલો", "પોલીસ સ્ટે. નો દાખલો"] },
-            { title: "નોન ક્રીમીલેયર સર્ટી મેળવવા", en: "non creamy layer certificate ncl", icon: "fa-file-shield", color: "#ec4899", docs: ["ફોર્મ અને ફોટો", "રેશન કાર્ડની નકલ", "જાતિનો દાખલો", "સ્કૂલ લિવિંગ", "વાલીનું આવકનું સોગંદનામું", "છેલ્લુ લાઈટબીલ", "આવકનો દાખલો"] },
-            { title: "સિનિયર સીટીઝન સર્ટી", en: "senior citizen certificate", icon: "fa-person-cane", color: "#64748b", docs: ["ફોર્મ અને ફોટો", "રેશન કાર્ડની નકલ", "સ્કૂલ લિવિંગ", "જન્મનો દાખલો", "ચુંટણી કાર્ડની નકલ", "છેલ્લુ લાઈટબીલ"] },
-            { title: "ધાર્મિક લઘુમતિનો દાખલો", en: "religious minority certificate", icon: "fa-hands-praying", color: "#14b8a6", docs: ["ફોર્મ અને ફોટો", "રેશન કાર્ડની નકલ", "સ્કૂલ લિવિંગ", "તલાટીની આવકનો દાખલો", "છેલ્લુ લાઈટબીલ", "સ્કૂલના આચાર્યનો લેટરપેડ પર દાખલો"] },
-            { title: "અલગ રેશનકાર્ડ કરાવવા", en: "separate ration card", icon: "fa-id-card-clip", color: "#3b82f6", docs: ["ફોર્મ અને ફોટો", "રેશન કાર્ડની નકલ", "જુનું રેશન કાર્ડ", "આધાર કાર્ડ", "આવકનો દાખલો", "બેંક પાસબુકની નકલ", "તલાટીનો દાખલો", "પિતાનું સંમતિ સોગંદનામું / લાઈટબીલ"] },
-            { title: "નવા રેશનકાર્ડ માટે", en: "new ration card", icon: "fa-address-card", color: "#0ea5e9", docs: ["ફોર્મ અને ફોટો", "રેશન કાર્ડની નકલ", "નામ કમીનો દાખલો", "આધાર કાર્ડ", "આવકનો દાખલો", "બેંક પાસબુકની નકલ", "તલાટીનો દાખલો", "લાઈટબીલ"] },
-            { title: "રેશન કાર્ડમાં નામ દાખલ કરવા", en: "add name in ration card", icon: "fa-user-plus", color: "#10b981", docs: ["ફોર્મ અને ફોટો", "ચુંટણી કાર્ડની નકલ", "રેશન કાર્ડની નકલ", "આધાર કાર્ડ", "જન્મનો દાખલો", "પતિ/પત્નીનું નામ દાખલ કરવાનું હોય તો નામ કમીનો દાખલો"] },
-            { title: "આધાર કાર્ડ મેળવવા / અપડેટ", en: "aadhar card new update", icon: "fa-fingerprint", color: "#4338ca", docs: ["I.D. પ્રુફ (નીચે પૈકી એક): પાન કાર્ડ / ચુંટણી કાર્ડ / ડ્રાઈવીંગ લાઈસન્સ / પાસપોર્ટ", "Address પ્રુફ (નીચે પૈકી એક): રેશનકાર્ડ / લાઈટબીલ / ગેસની બુક"] },
-            { title: "નિરાધાર વૃદ્ધ સહાય યોજના", en: "niradhar vrudh sahay yojna", icon: "fa-hand-holding-heart", color: "#f43f5e", docs: ["ફોર્મ અને ફોટો", "રેશન કાર્ડની નકલ", "સ્કૂલ લિવિંગ", "ચુંટણી કાર્ડની નકલ", "બેંક પાસબુકની નકલ", "આધાર કાર્ડ"] },
-            { title: "વિધવા સહાય મેળવવા", en: "vidhva sahay widow assistance", icon: "fa-person-dress", color: "#d946ef", docs: ["ફોર્મ અને ફોટો", "રેશન કાર્ડની નકલ", "સ્કૂલ લિવિંગ", "પતિના મૃત્યુનો દાખલો", "ચુંટણી કાર્ડની નકલ", "છેલ્લુ લાઈટબીલ", "સંતાનોના જન્મ તારીખનો દાખલો"] },
-            { title: "પ્રધાનમંત્રી આવાસ યોજના (B.C)", en: "pm awas yojna", icon: "fa-house-chimney", color: "#0284c7", docs: ["સનદ", "૭/૧૨ નો ઉતારો", "વેરાની પહોંચ", "આધાર કાર્ડ", "ચુંટણી કાર્ડ"] },
-            { title: "માં અમૃતમ / માં વાત્સલ્ય કાર્ડ", en: "ma amrutam vatsalya card health", icon: "fa-heart-pulse", color: "#ef4444", docs: ["ફોર્મ અને ફોટો", "રેશન કાર્ડની નકલ", "ચુંટણી કાર્ડની નકલ", "આધાર કાર્ડ", "આવકનો દાખલો"] },
-            { title: "વય વંદના યોજના", en: "vaya vandana yojna", icon: "fa-piggy-bank", color: "#f97316", docs: ["ફોર્મ અને ફોટો", "રેશન કાર્ડની નકલ", "સ્કૂલ લિવિંગ", "આધાર કાર્ડ", "૦૦ થી ૧૬ નો ચીફ ઓફિસરનો BPL દાખલો", "બેંક પાસબુકની નકલ"] },
-            { title: "પેન્ડિંગ સહાય માટે (નાણાં ના મળતા હોય તો)", en: "pending sahay money", icon: "fa-clock-rotate-left", color: "#78716c", docs: ["સહાય મંજુરીની મામલતદારશ્રી ના હુકમની નકલ", "બેંક પાસબુકની નકલ", "આધાર કાર્ડની નકલ", "ચુંટણી કાર્ડની નકલ"], note: "નોંધ: ઉપર મુજબનો તમામ પુરાવાઓ સાથે લઈને અરજી કરવી.", noteblue: true },
-            { title: "ઉજ્જવલા યોજના (ગેસ કનેક્શન)", en: "ujjwala yojna gas connection", icon: "fa-fire-flame-simple", color: "#eab308", docs: ["મહિલા લાભાર્થીનું આધાર કાર્ડ", "કુટુંબના સભ્યોની નકલ (આધારકાર્ડ વગેરે)", "રેશન કાર્ડની નકલ", "મહિલા લાભાર્થીની બેંક પાસબુકની નકલ", "લાઈટ બીલ", "મહિલા લાભાર્થીના ૨ ફોટા"] }
-        ];
-
-        // Data for Section 3: Simple Cards
-        const simpleData = [
-            { title: "ડોકયુમેંટ સ્કૅનનીંગ", en: "document scanning", icon: "fa-print" },
-            { title: "ઝેરોક્ષ / કલર ઝેરોક્ષ", en: "xerox color photocopy", icon: "fa-copy" },
-            { title: "પ્રિન્ટ / મોબાઈલમાંથી પ્રિન્ટ", en: "print mobile printing", icon: "fa-file-pdf" },
-            { title: "લેમિનેશન", en: "lamination", icon: "fa-id-badge" },
-            { title: "સ્પર્ધાત્મક પરીક્ષાના ફોર્મ", en: "competitive exam forms", icon: "fa-file-signature" },
-            { title: "દરેક પ્રકારની ભરતીઓના ફોર્મ", en: "recruitment jobs forms", icon: "fa-building-user" },
-            { title: "PVC કાર્ડ પ્રિન્ટ", en: "pvc card print", icon: "fa-credit-card" },
-            { title: "કૉલ લેટર / હૉલ - ટિકીટ", en: "call letter hall ticket", icon: "fa-envelope-open-text" },
-            { title: "પૈસા ઉપાડવા / ATM", en: "money withdrawal atm cash", icon: "fa-money-bill-wave" },
-            { title: "રિચાર્જ / લાઇટ બિલ ભરવા", en: "recharge light bill payment", icon: "fa-mobile-screen-button" },
-            { title: "મેરેજ સર્ટિફિકેટ (ઇંગ્લિશમાં ટાઈપિંગ)", en: "marriage certificate typing", icon: "fa-ring" },
-            { title: "રિઝ્યુમ / BIO ડેટા", en: "resume bio data", icon: "fa-file-invoice" },
-            { title: "બેનર / પોસ્ટર બનાવવા", en: "banner poster design", icon: "fa-image" }
-        ];
-
-        // Generate Detailed Cards
-        function generateCards(data, containerId, category) {
-            const container = document.getElementById(containerId);
-            data.forEach((item) => {
-                let docsList = item.docs.map(doc => `<li><i class="fa-solid fa-circle-check"></i> ${doc}</li>`).join('');
-                let noteHtml = '';
-                if(item.note) {
-                    let noteClass = item.noteblue ? 'note blue' : 'note';
-                    noteHtml = `<div class="${noteClass}">${item.note}</div>`;
-                }
-
-                let cardHtml = `
-                    <div class="service-card reveal" data-category="${category}" data-title="${item.title} ${item.en}">
-                        <button class="tts-btn" onclick="speakText('${item.title}', event)" title="સાંભળો"><i class="fa-solid fa-volume-high"></i></button>
-                        <div class="card-header" onclick="toggleCard(this)">
-                            <div class="icon-box" style="background: ${item.color}; box-shadow: 0 4px 15px ${item.color}66;"><i class="fa-solid ${item.icon}"></i></div>
-                            <div class="card-title">${item.title}</div>
-                            <i class="fa-solid fa-chevron-down expand-icon"></i>
-                        </div>
-                        <div class="card-body">
-                            <ul class="doc-list">${docsList}</ul>
-                            ${noteHtml}
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += cardHtml;
-            });
-        }
-
-        // Generate Simple Cards
-        function generateSimpleCards() {
-            const container = document.getElementById('cards-container-3');
-            simpleData.forEach((item) => {
-                let cardHtml = `
-                    <div class="service-card simple reveal" data-category="other" data-title="${item.title} ${item.en}">
-                        <i class="fa-solid ${item.icon}"></i>
-                        <h3>${item.title}</h3>
-                    </div>
-                `;
-                container.innerHTML += cardHtml;
-            });
-        }
-
-        generateCards(yojnaData, 'cards-container', 'yojna');
-        generateCards(docsData, 'cards-container-2', 'yojna');
-        generateSimpleCards();
-
-        // Card Toggle
-        function toggleCard(element) {
-            const card = element.parentElement;
-            const wasExpanded = card.classList.contains('expanded');
+        // Feature 21: Time-based Themes & Header Gradient implementation
+        function applyTimeBasedTheme() {
+            let hr = new Date().getHours();
+            let root = document.documentElement;
             
-            // Close all other cards (optional, for accordion style)
-            // document.querySelectorAll('.service-card.expanded').forEach(c => c.classList.remove('expanded'));
-            
-            if(!wasExpanded) {
-                card.classList.add('expanded');
+            // Apply Dark/Light theme mode
+            if(hr >= 18 || hr < 6) {
+                root.setAttribute('data-theme', 'dark');
             } else {
-                card.classList.remove('expanded');
+                root.setAttribute('data-theme', 'light');
             }
-        }
-
-        // Text to Speech
-        function speakText(text, event) {
-            event.stopPropagation();
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'gu-IN';
-                window.speechSynthesis.speak(utterance);
-            }
-        }
-
-        // Search Functionality
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', filterCards);
-
-        function filterCards() {
-            const query = searchInput.value.toLowerCase();
-            const activeTab = document.querySelector('.tab-btn.active').dataset.filter;
             
-            document.querySelectorAll('.service-card').forEach(card => {
-                const title = card.dataset.title.toLowerCase();
-                const category = card.dataset.category;
-                
-                const matchesSearch = title.includes(query);
-                const matchesTab = (activeTab === 'all' || category === activeTab);
-                
-                if(matchesSearch && matchesTab) {
-                    card.classList.remove('hidden');
+            // Set dynamic animated gradient header with more mixed colors
+            window.addEventListener('DOMContentLoaded', () => {
+                let header = document.querySelector('header');
+                if(!header) return;
+
+                if (hr >= 6 && hr < 12) {
+                    // Morning (Sunrise - Vibrant Orange, Pink, Violet, Red mix)
+                    header.style.background = 'linear-gradient(45deg, #f59e0b, #ec4899, #8b5cf6, #ef4444, #f59e0b)';
+                } else if (hr >= 12 && hr < 18) {
+                    // Afternoon (Day - Bright Blue, Magenta, Cyan, Emerald mix)
+                    header.style.background = 'linear-gradient(45deg, #2563eb, #d946ef, #06b6d4, #10b981, #2563eb)';
                 } else {
-                    card.classList.add('hidden');
+                    // Night (Deep Slate, Indigo, Deep Purple mix)
+                    header.style.background = 'linear-gradient(45deg, #0f172a, #312e81, #4c1d95, #1e1b4b, #0f172a)';
                 }
+                header.style.backgroundSize = '400% 400%';
             });
         }
+        applyTimeBasedTheme();
+    </script>
+</head>
+<body>
+    <canvas id="threejs-bg"></canvas>
 
-        // Tabs
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                filterCards();
-            });
-        });
+    <div class="content-wrapper">
+        <div id="progressBar"></div>
 
-        // Voice Search
-        const voiceBtn = document.getElementById('voiceBtn');
-        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            const recognition = new SpeechRecognition();
-            recognition.lang = 'gu-IN';
-            recognition.continuous = false;
+        <div id="loader">
+            <div class="loader-spinner"></div>
+            <div class="wait-text" style="margin-top: 20px;">લોડ થાય છે...</div>
+        </div>
 
-            voiceBtn.addEventListener('click', () => {
-                recognition.start();
-                voiceBtn.classList.add('listening');
-            });
+        <div id="welcomePopup">
+            <div class="popup-box">
+                <h2><i class="fa-solid fa-handshake-angle"></i> WELCOME!</h2>
+                <p>અલ-અકશા કમ્પ્યુટર સેન્ટરમાં આપનું સ્વાગત છે.</p>
+                <button class="popup-btn" onclick="closeWelcomePopup()"><i class="fa-solid fa-check"></i> ઓકે (OK)</button>
+            </div>
+        </div>
 
-            recognition.onresult = (event) => {
-                const result = event.results[0][0].transcript;
-                searchInput.value = result;
-                filterCards();
-            };
+        <div class="settings-float" onclick="toggleSettings()"><i class="fa-solid fa-gear"></i></div>
+        <div class="settings-menu" id="settingsMenu">
+            <button onclick="toggleTheme()" style="width: 100%; margin-bottom: 12px; font-size: 15px;"><i class="fa-solid fa-circle-half-stroke"></i> લાઈટ / ડાર્ક મોડ</button>
+            <div class="color-grid">
+                <button onclick="changeColor('#2563eb', '#3b82f6')">🔵 બ્લુ</button>
+                <button onclick="changeColor('#dc2626', '#ef4444')">🔴 લાલ</button>
+                <button onclick="changeColor('#059669', '#10b981')">🟢 લીલો</button>
+                <button onclick="changeColor('#7c3aed', '#8b5cf6')">🟣 જાંબલી</button>
+                <button onclick="changeColor('#ea580c', '#f97316')">🟠 કેસરી</button>
+                <button onclick="changeColor('#0284c7', '#0ea5e9')">🦚 સ્કાય</button>
+                <button onclick="changeColor('#db2777', '#ec4899')">🩷 પિંક</button>
+                <button onclick="changeColor('#475569', '#64748b')">🖤 ગ્રે</button>
+            </div>
+            <button onclick="shareWebsite()" style="width: 100%; margin-top: 12px; font-size: 15px;"><i class="fa-solid fa-share-nodes"></i> સાઈટ શેર કરો</button>
+        </div>
 
-            recognition.onend = () => {
-                voiceBtn.classList.remove('listening');
-            };
-        } else {
-            voiceBtn.style.display = 'none';
-        }
+        <div class="news-bar">
+            <div class="news-label"><i class="fa-solid fa-bullhorn fa-shake"></i> ન્યૂઝ:</div>
+            <div class="news-scroll-container">
+                <div class="scrolling-text">
+                   | 💻 તમામ સરકારી યોજનાઓની માહિતી માટે મુલાકાત લો.. ✨
+                </div>
+            </div>
+        </div>
 
-        // Typewriter Effect
-        const textToType = "📍 ઢુણાદરા | 💻 ઓનલાઇન સેવાઓનું વિશ્વાસપાત્ર કેન્દ્ર";
-        const typeContainer = document.getElementById('typewriter');
-        let typeIndex = 0;
-        function typeWriter() {
-            if (typeIndex < textToType.length) {
-                typeContainer.innerHTML += textToType.charAt(typeIndex);
-                typeIndex++;
-                setTimeout(typeWriter, 100);
-            }
-        }
+        <header>
+            <div class="header-content">
+                <div class="lottie-container">
+                    <lottie-player src="https://lottie.host/3e8e2c0b-fa52-4404-b960-590fb448eebf/qKryqYkO38.json" background="transparent" speed="1" style="width: 100%; height: 100%;" loop autoplay></lottie-player>
+                </div>
+                
+                <img src="logo.jpg" alt="Al-Aksha Logo" class="shop-logo" onerror="this.style.display='none'">
+                <h1>
+                    અલ - અકશા કમ્પ્યુટર સેન્ટર<br>
+                    <span>AL-AKSHA COMPUTER CENTER</span>
+                </h1>
+                
+                <div class="auto-type" id="typingText"></div>
+                
+                <div class="dev-badge">
+                    <i class="fa-solid fa-laptop-code" style="color: #fde047;"></i> DEVELOPED BY | PATHAN MAHIRKHAN
+                </div>
+                
+                <div>
+                    <div class="shop-status" id="shopStatus"><i class="fa-solid fa-circle-notch fa-spin"></i> લોડ થાય છે...</div>
+                </div>
+            </div>
+        </header>
 
-        // Shop Status
-        function updateShopStatus() {
-            const statusEl = document.getElementById('shop-status');
-            const hour = new Date().getHours();
-            // Open: 8-12 and 15-20
-            if ((hour >= 8 && hour < 12) || (hour >= 15 && hour < 20)) {
-                statusEl.innerHTML = '<i class="fa-solid fa-door-open"></i> અત્યારે દુકાન ચાલુ છે';
-                statusEl.className = 'shop-status status-open';
-            } else {
-                statusEl.innerHTML = '<i class="fa-solid fa-door-closed"></i> અત્યારે દુકાન બંધ છે (સમય: 8 થી 12, અને 3 થી 8)';
-                statusEl.className = 'shop-status status-closed';
-            }
-        }
+        <div class="stats-container">
+            <div class="stat-box reveal-apple">
+                <div class="stat-icon"><i class="fa-solid fa-laptop-file"></i></div>
+                <div class="stat-number"><span class="counter-value" data-target="100">0</span>+</div>
+                <div class="stat-text">ઓનલાઈન સેવાઓ</div>
+            </div>
+            <div class="stat-box reveal-apple" style="transition-delay: 0.1s;">
+                <div class="stat-icon" style="color: #10b981;"><i class="fa-solid fa-users"></i></div>
+                <div class="stat-number"><span class="counter-value" data-target="1500">0</span>+</div>
+                <div class="stat-text">સંતુષ્ટ ગ્રાહકો</div>
+            </div>
+            <div class="stat-box reveal-apple" style="transition-delay: 0.2s;">
+                <div class="stat-icon" style="color: #f59e0b;"><i class="fa-solid fa-bolt"></i></div>
+                <div class="stat-number"><span class="counter-value" data-target="24">0</span></div>
+                <div class="stat-text">કલાક સપોર્ટ</div>
+            </div>
+            <div class="stat-box reveal-apple" style="transition-delay: 0.3s;">
+                <div class="stat-icon" style="color: #8b5cf6;"><i class="fa-solid fa-award"></i></div>
+                <div class="stat-number"><span class="counter-value" data-target="100">0</span>%</div>
+                <div class="stat-text">વિશ્વાસપાત્ર કામ</div>
+            </div>
+        </div>
 
-        // Stats Counter Animation
-        function animateStats() {
-            const stats = document.querySelectorAll('.stat-num');
-            stats.forEach(stat => {
-                const target = +stat.getAttribute('data-target');
-                const updateCount = () => {
-                    const count = +stat.innerText;
-                    const speed = target / 50; // adjust speed
-                    if(count < target) {
-                        stat.innerText = Math.ceil(count + speed);
-                        setTimeout(updateCount, 40);
-                    } else {
-                        stat.innerText = target;
-                    }
-                };
-                updateCount();
-            });
-        }
+        <div class="search-container reveal-apple">
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="searchInput" onkeyup="searchService()" placeholder="યોજના અથવા સેવાનું નામ શોધો...">
+            </div>
+            <button class="mic-btn" onclick="startVoiceSearch()" title="બોલીને શોધો"><i class="fa-solid fa-microphone"></i></button>
+        </div>
 
-        // Scroll Progress
-        window.onscroll = function() {
-            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            let scrolled = (winScroll / height) * 100;
-            document.getElementById("scroll-progress").style.width = scrolled + "%";
-        };
+        <div class="category-tabs reveal-apple">
+            <button class="cat-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> બધા કામ</button>
+            <button class="cat-btn" onclick="filterCategory('yojna', this)"><i class="fa-solid fa-landmark-flag"></i> સરકારી યોજનાઓ</button>
+            <button class="cat-btn" onclick="filterCategory('other', this)"><i class="fa-solid fa-desktop"></i> અન્ય સુવિધાઓ</button>
+        </div>
 
-        // Scroll Reveal
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    if (entry.target.classList.contains('stats-grid')) {
-                        // wait, stats are revealed individually, better trigger counter when any stat is visible
-                    }
-                    if(entry.target.querySelector('.stat-num') && entry.target.dataset.animated !== 'true') {
-                        entry.target.dataset.animated = 'true';
-                        // trigger global stat animation once
-                        if(!window.statsAnimated) {
-                            window.statsAnimated = true;
-                            animateStats();
-                        }
-                    }
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        revealElements.forEach(el => revealObserver.observe(el));
+        <div class="container" id="serviceList">
 
-        // WhatsApp Form Submit
-        function sendWhatsApp(e) {
-            e.preventDefault();
-            const name = document.getElementById('waName').value;
-            const msg = document.getElementById('waMsg').value;
-            const fullMsg = `મારું નામ: ${name}%0Aકામ: ${msg}`;
-            
-            // Confetti
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
-            
-            setTimeout(() => {
-                window.open(`https://wa.me/919638730186?text=${fullMsg}`, '_blank');
-            }, 1000);
-        }
+            <!-- ==========================================
+                 SECTION 1: સરકારી યોજનાઓ અને જરૂરી ડોક્યુમેન્ટ્સ
+            =========================================== -->
+            <div class="section-title reveal-up"><i class="fa-solid fa-folder-open"></i> સરકારી યોજનાઓ અને જરૂરી ડોક્યુમેન્ટ્સ</div>
 
-        // Settings & Theme
-        function toggleSettings() {
-            document.getElementById('settingsMenu').classList.toggle('open');
-        }
+            <div class="service-card reveal-apple" data-title="ઈ-નિર્માણ કાર્ડ" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-helmet-safety service-title-icon" style="color: #f59e0b;"></i> ઈ - નિર્માણ કાર્ડ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઇઝ ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> 90 દિવસ કામ કર્યાનું પ્રમાણપત્ર</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
 
-        function toggleTheme() {
-            const body = document.body;
-            const icon = document.getElementById('themeIcon');
-            if(body.getAttribute('data-theme') === 'light') {
-                body.removeAttribute('data-theme');
-                icon.className = 'fa-solid fa-moon';
-            } else {
-                body.setAttribute('data-theme', 'light');
-                icon.className = 'fa-solid fa-sun';
-            }
-        }
+            <div class="service-card reveal-apple" data-title="ABC કાર્ડ" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-graduation-cap service-title-icon" style="color: #8b5cf6;"></i> ABC કાર્ડ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ (મોબાઈલ નંબર લિંક હોવો જરૂરી)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> કોલેજ/યુનિવર્સિટીનું આઈડી કાર્ડ અથવા એનરોલમેન્ટ નંબર</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
 
-        function changeColor(primary, secondary, accent, btnElement) {
-            document.documentElement.style.setProperty('--primary', primary);
-            document.documentElement.style.setProperty('--secondary', secondary);
-            document.documentElement.style.setProperty('--accent', accent);
-            
-            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-            btnElement.classList.add('active');
-        }
+            <div class="service-card reveal-apple" data-title="પાનકાર્ડ પાન કાર્ડ pan card" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-regular fa-id-card service-title-icon" style="color: #3b82f6;"></i> પાનકાર્ડ (નવું / સુધારો)</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> 2 પાસપોર્ટ સાઇઝ ફોટા</li>
+                            <li><i class="fa-solid fa-circle-check"></i> જૂના પાનકાર્ડની નકલ (સુધારા માટે)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ચુંટણીકાર્ડ અથવા જન્મનો દાખલો</li>
+                        </ul>
+                        <div class="important-note">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <span>નોંધ: ઇન્સ્ટન્ટ e-PAN કાર્ડ બનતા 24 કલાકનો સમય લાગે છે. આ ઇન્સ્ટન્ટ e-PAN કાર્ડ બેંક, લોન કે પાસપોર્ટના કામમાં ચાલતું નથી.</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
 
-        function shareWebsite() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'અલ-અકશા કમ્પ્યુટર સેન્ટર',
-                    text: 'ઓનલાઈન સેવાઓ માટે ઉત્તમ સ્થળ',
-                    url: window.location.href
-                });
-            } else {
-                alert('તમારું બ્રાઉઝર શેર કરવાની સુવિધા ધરાવતું નથી. કૃપા કરીને લિંક કોપી કરો.');
-            }
-        }
+            <div class="service-card reveal-apple" data-title="ઈ-શ્રમ કાર્ડ ઇ શ્રમ" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-users-gear service-title-icon" style="color: #64748b;"></i> ઈ-શ્રમ કાર્ડ (નવું/સુધારો)</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ (મોબાઈલ નંબર લિંક હોવો જરૂરી)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
 
-        // Init and Load
-        function closePopup() {
-            document.getElementById('popup-content').classList.remove('show');
-            setTimeout(() => {
-                document.getElementById('welcome-popup').style.display = 'none';
-                typeWriter(); // Start typing after popup closes
-            }, 300);
-        }
+            <div class="service-card reveal-apple" data-title="ચુંટણી કાર્ડ ચૂંટણી" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-check-to-slot service-title-icon" style="color: #ec4899;"></i> ચુંટણી કાર્ડ (નવું/સુધારો)</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઇઝ ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> જન્મનો પુરાવો (LC)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રહેઠાણનો પુરાવો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> જૂનું ચુંટણી કાર્ડ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
 
-        window.onload = () => {
-            setTimeout(() => {
-                document.getElementById('loader').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loader').style.display = 'none';
-                    document.getElementById('welcome-popup').style.display = 'flex';
-                    setTimeout(() => {
-                        document.getElementById('popup-content').classList.add('show');
-                        confetti({ particleCount: 150, spread: 100, origin: { y: 0.5 } });
-                    }, 100);
-                    updateShopStatus();
-                }, 500);
-            }, 1500);
-            
-            initThreeJS();
-        };
+            <div class="service-card reveal-apple" data-title="આધારકાર્ડ આધાર કાર્ડ" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-fingerprint service-title-icon" style="color: #10b981;"></i> આધારકાર્ડ પ્રિન્ટ/અપડેટ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી વિગત:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ નંબર</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લિંક થયેલ મોબઇલ નંબર</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
 
-        // Three.js Background
-        function initThreeJS() {
-            const container = document.getElementById('canvas-container');
+            <div class="service-card reveal-apple" data-title="આયુષ્યમાન કાર્ડ" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-house-medical service-title-icon" style="color: #ef4444;"></i> આયુષ્યમાન કાર્ડ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લિંક મોબાઈલ નંબર</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="રેશન કાર્ડ e-KYC" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-wheat-awn service-title-icon" style="color: #84cc16;"></i> રેશન કાર્ડ e-KYC</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ (લિંક મોબાઈલ સાથે)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="ABHA કાર્ડ આભા" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-heart-pulse service-title-icon" style="color: #06b6d4;"></i> ABHA કાર્ડ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ (મોબાઈલ નંબર લિંક હોવો જરૂરી)</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="ડ્રાઇવિંગ લાઇસેન્સ લાયસન્સ" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-car-side service-title-icon" style="color: #f97316;"></i> ડ્રાઇવિંગ લાઇસેન્સ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઇઝ ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> LC અથવા જન્મનો દાખલો</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="પાસપોર્ટ" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-plane-departure service-title-icon" style="color: #4338ca;"></i> પાસપોર્ટ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પાન કાર્ડ અથવા ચુંટણી કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> માર્કશીટ અથવા LC</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="PF કામ પીએફ" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-briefcase service-title-icon" style="color: #78716c;"></i> PF ને લગતું કામ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> UAN નંબર</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પાન કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંકની પાસબુક</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="7/12 8-અ નકલ ઉતારા" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-regular fa-file-lines service-title-icon" style="color: #8b5cf6;"></i> 7/12 અને 8-અ ની નકલ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી માહિતી:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ગામ, તાલુકો, જિલ્લો અને ખાતા નંબર અથવા સર્વે નંબર.</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="પ્રોપર્ટી કાર્ડ" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-building service-title-icon" style="color: #0ea5e9;"></i> પ્રોપર્ટી કાર્ડ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી માહિતી:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> સિટી સર્વે નંબર અને વોર્ડ નંબર.</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="RTE ઍડ્મિશન ફોર્મ આરટીઈ" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-school service-title-icon" style="color: #d946ef;"></i> RTE ઍડ્મિશન ફોર્મ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> બાળકના જન્મનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> માતા-પિતાના આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> જાતિનો દાખલો (જો લાગુ પડે)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લાઈટ બિલ અથવા ભાડા કરાર</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બાળકના ફોટા</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="પી એમ કિસાન યોજના" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-seedling service-title-icon" style="color: #22c55e;"></i> પી. એમ. કિસાન યોજના</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> 7/12 અને 8-અ ના ઉતારા</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક (લિંક મોબાઈલ)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> મરણ નો દાખલો (જો લાગુ પડે)</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="ખેડૂત નોંધણી farmer registration" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-tractor service-title-icon" style="color: #eab308;"></i> ખેડૂત નોંધણી</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ (લિંક મોબાઈલ નંબર સાથે)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> 7/12 અને 8-અ ના ઉતારા</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="પંડીત દિન દયાળ ઉપાધ્યાય આવાસ યોજના મકાન સહાય" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-house-chimney service-title-icon" style="color: #14b8a6;"></i> પંડીત દિન દયાળ આવાસ યોજના</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ, રેશન કાર્ડ, ચુંટણી કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પ્લોટ / જમીનનો દસ્તાવેજ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બાંધકામ રજા ચિઠ્ઠી</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઇઝ ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> તલાટી ના સહી સિક્કા વાળું ફોર્મ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="કુંવરબાઈનું મામેરું યોજના" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-gift service-title-icon" style="color: #f43f5e;"></i> કુંવરબાઈનું મામેરું યોજના</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> દીકરી અને પિતાનું / પતિનું આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આવક અને જાતિનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> મેરેજ સર્ટિફિકેટ અને બેંક પાસબુક</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઇઝ ફોટો</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="માનવ ગરિમા યોજના" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-handshake-angle service-title-icon" style="color: #0284c7;"></i> માનવ ગરિમા યોજના</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ અને રેશન કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો અને જાતિનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક અને પાસપોર્ટ ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> વ્યવસાય લક્ષી તાલીમ નું પ્રમાણપત્ર</li>
+                            <li><i class="fa-solid fa-circle-check"></i> શાળા છોડ્યાનું પ્રમાણપત્ર (LC)</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="પી એમ વિશ્વકર્મા યોજના" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-hammer service-title-icon" style="color: #d97706;"></i> પી. એમ. વિશ્વકર્મા યોજના</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ (મોબાઈલ નંબર લિંક)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડ અને બેંક પાસબુક</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઇઝ ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> વ્યવસાય નો પુરાવો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> જાતિનું પ્રમાણપત્ર</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="આઇ ખેડૂત પોર્ટલની તમામ યોજનાઓ" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-laptop-file service-title-icon" style="color: #6366f1;"></i> આઇ - ખેડૂત પોર્ટલની યોજનાઓ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ (લિંક મોબાઈલ)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> 7/12 અને 8-અ ના ઉતારા</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="શિષ્યવૃત્તિના ફોર્મ સ્કોલરશીપ" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-user-graduate service-title-icon" style="color: #a855f7;"></i> શિષ્યવૃત્તિના ફોર્મ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ અને છેલ્લી માર્કશીટ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો અને જાતિનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક અને ફી ની પહોંચ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> LC અથવા BONAFIED પ્રમાણપત્ર</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઇઝ ફોટો</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="વૃદ્ધ પેન્શન યોજના" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-person-cane service-title-icon" style="color: #71717a;"></i> વૃદ્ધ પેન્શન યોજના</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ અને રેશન કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ઉંમરનો પુરાવો (60 વર્ષથી વધુ)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો અને બેંક પાસબુક</li>
+                            <li><i class="fa-solid fa-circle-check"></i> જન્મનું પ્રમાણપત્ર અથવા LC</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+
+            <!-- ==========================================
+                 SECTION 2: દાખલાઓ અને પુરાવા
+            =========================================== -->
+            <div class="section-title reveal-up"><i class="fa-solid fa-file-signature"></i> ✍️ વિવિધ દાખલાઓ અને સરકારી સહાય માટે જરૂરી પુરાવા</div>
+
+            <div class="service-card reveal-apple" data-title="આવકનો દાખલો મેળવવા" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-file-invoice-dollar service-title-icon" style="color: #10b981;"></i> આવકનો દાખલો મેળવવા</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવિંગ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> તલાટીની આવકનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> છેલ્લુ લાઈટબીલ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="જાતિનો દાખલો મેળવવા" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-users-viewfinder service-title-icon" style="color: #8b5cf6;"></i> જાતિનો દાખલો મેળવવા</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવિંગ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પિતા/માતા/બહેનનું સ્કૂલ લિવીંગ સર્ટી</li>
+                            <li><i class="fa-solid fa-circle-check"></i> છેલ્લુ લાઈટબીલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> તલાટીની આવકનો દાખલો</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="ડોમીસાઈલ સર્ટી મેળવવા" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-house-flag service-title-icon" style="color: #f59e0b;"></i> ડોમીસાઈલ સર્ટી મેળવવા</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવિંગ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> તલાટીનો ૧૦ વર્ષનો રહેઠાણનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રહેઠાણ અંગેનું સોગંદનામું</li>
+                            <li><i class="fa-solid fa-circle-check"></i> છેલ્લુ લાઈટબીલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> જન્મનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પોલીસ સ્ટે. નો દાખલો</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="નોન ક્રીમીલેયર સર્ટી મેળવવા" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-file-shield service-title-icon" style="color: #ec4899;"></i> નોન ક્રીમીલેયર સર્ટી મેળવવા</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> જાતિનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવિંગ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> વાલીનું આવકનું સોગંદનામું</li>
+                            <li><i class="fa-solid fa-circle-check"></i> છેલ્લુ લાઈટબીલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="સિનિયર સીટીઝન સર્ટી" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-person-cane service-title-icon" style="color: #64748b;"></i> સિનિયર સીટીઝન સર્ટી</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવિંગ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> જન્મનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ચુંટણી કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> છેલ્લુ લાઈટબીલ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="ધાર્મિક લઘુમતિનો દાખલો" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-hands-praying service-title-icon" style="color: #14b8a6;"></i> ધાર્મિક લઘુમતિનો દાખલો</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવિંગ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> તલાટીની આવકનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> છેલ્લુ લાઈટબીલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સ્કૂલના આચાર્યનો લેટરપેડ પર દાખલો</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="અલગ રેશનકાર્ડ કરાવવા" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-id-card-clip service-title-icon" style="color: #3b82f6;"></i> અલગ રેશનકાર્ડ કરાવવા</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> જુનું રેશન કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુકની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> તલાટીનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પિતાનું સંમતિ સોગંદનામું / લાઈટબીલ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="નવા રેશનકાર્ડ માટે" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-address-card service-title-icon" style="color: #0ea5e9;"></i> નવા રેશનકાર્ડ માટે</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> નામ કમીનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુકની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> તલાટીનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લાઈટબીલ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="રેશન કાર્ડમાં નામ દાખલ કરવા" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-user-plus service-title-icon" style="color: #10b981;"></i> રેશન કાર્ડમાં નામ દાખલ કરવા</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ચુંટણી કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> જન્મનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પતિ/પત્નીનું નામ દાખલ કરવાનું હોય તો નામ કમીનો દાખલો</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="આધાર કાર્ડ મેળવવા અપડેટ" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-fingerprint service-title-icon" style="color: #4338ca;"></i> આધાર કાર્ડ મેળવવા / અપડેટ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> <b>I.D. પ્રુફ (નીચે પૈકી એક):</b> પાન કાર્ડ / ચુંટણી કાર્ડ / ડ્રાઈવીંગ લાઈસન્સ / પાસપોર્ટ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> <b>Address પ્રુફ (નીચે પૈકી એક):</b> રેશનકાર્ડ / લાઈટબીલ / ગેસની બુક</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="નિરાધાર વૃદ્ધ સહાય યોજના" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-hand-holding-heart service-title-icon" style="color: #f43f5e;"></i> નિરાધાર વૃદ્ધ સહાય યોજના</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવિંગ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ચુંટણી કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુકની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="વિધવા સહાય મેળવવા" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-person-dress service-title-icon" style="color: #d946ef;"></i> વિધવા સહાય મેળવવા</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવિંગ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પતિના મૃત્યુનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ચુંટણી કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> છેલ્લુ લાઈટબીલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સંતાનોના જન્મ તારીખનો દાખલો</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="પ્રધાનમંત્રી આવાસ યોજના (B.C)" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-house-chimney service-title-icon" style="color: #0284c7;"></i> પ્રધાનમંત્રી આવાસ યોજના (B.C)</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> સનદ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ૭/૧૨ નો ઉતારો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> વેરાની પહોંચ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ચુંટણી કાર્ડ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="માં અમૃતમ માં વાત્સલ્ય કાર્ડ" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-heart-pulse service-title-icon" style="color: #ef4444;"></i> માં અમૃતમ / માં વાત્સલ્ય કાર્ડ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ચુંટણી કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="વય વંદના યોજના" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-piggy-bank service-title-icon" style="color: #f97316;"></i> વય વંદના યોજના</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવિંગ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ૦૦ થી ૧૬ નો ચીફ ઓફિસરનો BPL દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુકની નકલ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="પેન્ડિંગ સહાય માટે" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-clock-rotate-left service-title-icon" style="color: #78716c;"></i> પેન્ડિંગ સહાય માટે (નાણાં ના મળતા હોય તો)</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> સહાય મંજુરીની મામલતદારશ્રી ના હુકમની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુકની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ચુંટણી કાર્ડની નકલ</li>
+                        </ul>
+                        <div class="important-note blue-note">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>નોંધ: ઉપર મુજબનો તમામ પુરાવાઓ સાથે લઈને અરજી કરવી.</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <div class="service-card reveal-apple" data-title="ઉજ્જવલા યોજના ગેસ" data-category="yojna">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-fire-flame-simple service-title-icon" style="color: #eab308;"></i> ઉજ્જવલા યોજના (ગેસ કનેક્શન)</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> મહિલા લાભાર્થીનું આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> કુટુંબના સભ્યોની નકલ (આધારકાર્ડ વગેરે)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશન કાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> મહિલા લાભાર્થીની બેંક પાસબુકની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લાઈટ બીલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> મહિલા લાભાર્થીના ૨ ફોટા</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+
+            <!-- ==========================================
+                 SECTION 3: અન્ય ઓનલાઈન સુવિધાઓ 
+            =========================================== -->
+            <div class="section-title reveal-up"><i class="fa-solid fa-desktop"></i> અમારી અન્ય ઓનલાઈન સુવિધાઓ</div>
+
+            <div class="service-card simple reveal-apple" data-title="ડોકયુમેંટ સ્કૅનનીંગ સ્કેનિંગ" data-category="other">
+                <div class="service-title"><i class="fa-solid fa-print" style="color: #10b981;"></i> ડોકયુમેંટ સ્કૅનનીંગ</div>
+            </div>
+            <div class="service-card simple reveal-apple" data-title="ઝેરોક્ષ કલર ઝેરોક્ષ" data-category="other">
+                <div class="service-title"><i class="fa-solid fa-copy" style="color: #3b82f6;"></i> ઝેરોક્ષ / કલર ઝેરોક્ષ</div>
+            </div>
+            <div class="service-card simple reveal-apple" data-title="પ્રિન્ટ મોબાઈલમાંથી પ્રિન્ટ" data-category="other">
+                <div class="service-title"><i class="fa-regular fa-file-pdf" style="color: #8b5cf6;"></i> પ્રિન્ટ / મોબાઈલમાંથી પ્રિન્ટ</div>
+            </div>
+            <div class="service-card simple reveal-apple" data-title="લેમિનેશન" data-category="other">
+                <div class="service-title"><i class="fa-regular fa-id-badge" style="color: #ec4899;"></i> લેમિનેશન</div>
+            </div>
+            <div class="service-card simple reveal-apple" data-title="સ્પર્ધાત્મક પરીક્ષાના ફોર્મ" data-category="other">
+                <div class="service-title"><i class="fa-solid fa-file-signature" style="color: #f59e0b;"></i> સ્પર્ધાત્મક પરીક્ષાના ફોર્મ</div>
+            </div>
+            <div class="service-card simple reveal-apple" data-title="દરેક પ્રકારની ભરતીઓના ફોર્મ" data-category="other">
+                <div class="service-title"><i class="fa-solid fa-building-user" style="color: #10b981;"></i> દરેક પ્રકારની ભરતીઓના ફોર્મ</div>
+            </div>
+            <div class="service-card simple reveal-apple" data-title="PVC કાર્ડ પ્રિન્ટ પીવીસી" data-category="other">
+                <div class="service-title"><i class="fa-regular fa-credit-card" style="color: #3b82f6;"></i> PVC કાર્ડ પ્રિન્ટ</div>
+            </div>
+            <div class="service-card simple reveal-apple" data-title="કૉલ લેટર હૉલ ટિકીટ" data-category="other">
+                <div class="service-title"><i class="fa-solid fa-envelope-open-text" style="color: #8b5cf6;"></i> કૉલ લેટર / હૉલ - ટિકીટ</div>
+            </div>
+            <div class="service-card simple reveal-apple" data-title="પૈસા ઉપાડવા ATM એટીએમ" data-category="other">
+                <div class="service-title"><i class="fa-solid fa-money-bill-wave" style="color: #ec4899;"></i> પૈસા ઉપાડવા / ATM</div>
+            </div>
+            <div class="service-card simple reveal-apple" data-title="મોબાઈલ રીચાર્જ DTH ડીટીએચ લાઇટ બિલ" data-category="other">
+                <div class="service-title"><i class="fa-solid fa-mobile-screen-button" style="color: #f59e0b;"></i> રિચાર્જ / લાઇટ બિલ ભરવા</div>
+            </div>
+            <div class="service-card simple reveal-apple" data-title="મેરેજ સર્ટિફિકેટ ઇંગ્લિશમાં ટાઈપિંગ" data-category="other">
+                <div class="service-title"><i class="fa-solid fa-ring" style="color: #10b981;"></i> મેરેજ સર્ટિફિકેટ (ઇંગ્લિશમાં ટાઈપિંગ)</div>
+            </div>
+            <div class="service-card simple reveal-apple" data-title="રિઝ્યુમ BIO ડેટા બાયોડેટા" data-category="other">
+                <div class="service-title"><i class="fa-solid fa-file-invoice" style="color: #3b82f6;"></i> રિઝ્યુમ / BIO ડેટા</div>
+            </div>
+            <div class="service-card simple reveal-apple" data-title="બેનર પોસ્ટર બનાવવા" data-category="other">
+                <div class="service-title"><i class="fa-regular fa-image" style="color: #8b5cf6;"></i> બેનર / પોસ્ટર બનાવવા</div>
+            </div>
+
+            <!-- Contact Box -->
+            <div class="inquiry-box reveal-up" id="contact">
+                <h2 style="text-align: center; color: var(--primary); margin-top: 0; font-size: 28px; font-weight: 800;"><i class="fa-brands fa-whatsapp"></i> ડોક્યુમેન્ટ્સ અને પૂછપરછ</h2>
+                <p style="text-align: center; margin-bottom: 30px; font-size: 16px; color: var(--text-muted);">અહીં માહિતી ભરીને મોકલો. (ફોર્મ ભરવા માટે અહીંથી જ ડોક્યુમેન્ટ સેન્ડ કરી શકો છો).</p>
+                
+                <div class="form-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="cName" class="form-control" placeholder="તમારું નામ લખો">
+                </div>
+                
+                <div class="form-group">
+                    <i class="fa-solid fa-message" style="top: 20px;"></i>
+                    <textarea id="cMsg" class="form-control" rows="3" placeholder="તમારે શું કામ છે? દા.ત. મારે પાનકાર્ડ બનાવવું છે..."></textarea>
+                </div>
+                
+                <button class="submit-btn" onclick="sendInquiry()"><i class="fa-solid fa-paper-plane"></i> ડોક્યુમેન્ટ / મેસેજ મોકલો</button>
+                
+                <div class="payment-qr">
+                    <p style="font-weight: 700; margin: 0 0 15px 0; font-size: 18px;"><i class="fa-solid fa-qrcode"></i> ઓનલાઈન પેમેન્ટ (Scan & Pay)</p>
+                    <img src="qr.png" alt="UPI QR Code" style="width: 200px; height: auto; border-radius: 12px; border: 2px solid var(--border-color); padding: 10px; background: white;" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2YxZjVmOSIvPjx0ZXh0IHg9IjUwIiB5PSI1NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTRhM2I4Ij5RUiBDb2RlPC90ZXh0Pjwvc3ZnPg=='">
+                    <p style="margin: 15px 0 0 0; color: var(--text-muted); font-weight: 600; font-size: 16px;">UPI ID: pathanmustufakhan539@okaxis</p>
+                </div>
+            </div>
+
+            <div class="info-card reveal-up">
+                <div class="info-line">
+                    <div class="info-icon"><i class="fa-solid fa-user-tie"></i></div>
+                    <div><span style="color: var(--text-muted); font-size: 14px; display: block;">સંચાલક</span>પઠાણ માહિરખાન</div>
+                </div>
+                <div class="info-line">
+                    <div class="info-icon"><i class="fa-solid fa-phone-volume"></i></div>
+                    <div><span style="color: var(--text-muted); font-size: 14px; display: block;">મોબાઇલ</span><a href="tel:9638730186" style="color: var(--primary); text-decoration: none;">9638730186</a></div>
+                </div>
+                <div class="info-line">
+                    <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div><span style="color: var(--text-muted); font-size: 14px; display: block;">સરનામું</span>અલ-અકશા કમ્પ્યુટર સેન્ટર, મસ્જિદ પાસે, ઢુણાદરા 388230</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <a href="https://chat.whatsapp.com/L1FLyUAJR9CIFHEvzq0i2z" class="wa-float" target="_blank" title="WhatsApp ગ્રુપ માં Join થવા અહી ક્લિક કરો">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span>WhatsApp ગ્રુપમાં જોડાઓ</span>
+    </a>
+
+    <footer>
+        <div style="margin-bottom: 20px;">
+            <img src="logo.jpg" alt="Logo" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.2); object-fit: cover;" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2YxZjVmOSIvPjx0ZXh0IHg9IjUwIiB5PSI1NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjIwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTRhM2I4Ij5Mb2dvPC90ZXh0Pjwvc3ZnPg=='">
+        </div>
+        આપનો દિવસ શુભ રહે! 🌻✨ હસતા રહો! 😊<br>
+        <div style="opacity: 0.5; display:block; margin-top:20px; font-size: 14px; letter-spacing: 1px; font-family: 'Inter', sans-serif;">
+            <i class="fa-regular fa-copyright"></i> 2026 AL-AKSHA COMPUTER CENTER. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth ThreeJS Background Animation
+        (function() {
+            const canvas = document.getElementById('threejs-bg');
+            if(!canvas) return;
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(window.devicePixelRatio);
-            container.appendChild(renderer.domElement);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            camera.position.z = 30;
 
-            // Particles
+            const particleCount = 100;
             const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 300; // Increased for better look on full page
-            const posArray = new Float32Array(particlesCount * 3);
+            const positions = new Float32Array(particleCount * 3);
             
-            for(let i = 0; i < particlesCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 15;
-            }
-            
-            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-            
-            const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.02,
-                color: 0x06b6d4, // accent color
-                transparent: true,
-                opacity: 0.8,
-                blending: THREE.AdditiveBlending
-            });
-            
-            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-            scene.add(particlesMesh);
-
-            // Lines connecting particles
-            const lineMaterial = new THREE.LineBasicMaterial({ color: 0x2563eb, transparent: true, opacity: 0.1 });
-            // Simplified line rendering for performance: just a few connections
-            
-            // Wireframe shapes floating in background
-            const shapes = [];
-            const geometries = [
-                new THREE.IcosahedronGeometry(0.5, 0),
-                new THREE.OctahedronGeometry(0.5, 0),
-                new THREE.TetrahedronGeometry(0.5, 0)
-            ];
-            
-            const wireMaterial = new THREE.MeshBasicMaterial({
-                color: 0x7c3aed,
-                wireframe: true,
-                transparent: true,
-                opacity: 0.2
-            });
-            
-            for(let i=0; i<10; i++) {
-                const geo = geometries[Math.floor(Math.random() * geometries.length)];
-                const mesh = new THREE.Mesh(geo, wireMaterial);
-                mesh.position.set(
-                    (Math.random() - 0.5) * 10,
-                    (Math.random() - 0.5) * 10,
-                    (Math.random() - 0.5) * 10 - 2
-                );
-                mesh.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, 0);
-                
-                // Add velocity for animation
-                mesh.userData = {
-                    rx: (Math.random() - 0.5) * 0.01,
-                    ry: (Math.random() - 0.5) * 0.01,
-                    yVel: (Math.random() - 0.5) * 0.005
-                };
-                
-                scene.add(mesh);
-                shapes.push(mesh);
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 100;
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 100;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 50;
             }
 
-            camera.position.z = 5;
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            
+            const circleCanvas = document.createElement('canvas');
+            circleCanvas.width = 16; circleCanvas.height = 16;
+            const context = circleCanvas.getContext('2d');
+            context.beginPath(); context.arc(8, 8, 8, 0, Math.PI * 2);
+            context.fillStyle = "#ffffff"; context.fill();
+            const texture = new THREE.CanvasTexture(circleCanvas);
 
-            // Mouse interaction
-            let mouseX = 0;
-            let mouseY = 0;
-            document.addEventListener('mousemove', (event) => {
-                mouseX = event.clientX / window.innerWidth - 0.5;
-                mouseY = event.clientY / window.innerHeight - 0.5;
+            const particleMaterial = new THREE.PointsMaterial({
+                size: 0.4, color: 0x3b82f6, transparent: true, opacity: 0.6,
+                map: texture, alphaTest: 0.1
             });
 
-            // Handle resize
+            const particles = new THREE.Points(particlesGeometry, particleMaterial);
+            scene.add(particles);
+
+            function animate() {
+                requestAnimationFrame(animate);
+                particles.rotation.y += 0.0005;
+                particles.rotation.x += 0.0002;
+                renderer.render(scene, camera);
+            }
+            animate();
+
             window.addEventListener('resize', () => {
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
             });
+        })();
 
-            // Animation Loop
-            const clock = new THREE.Clock();
-            
-            function animate() {
-                requestAnimationFrame(animate);
-                const elapsedTime = clock.getElapsedTime();
+        // Feature 15: Enhanced Scroll Reveal Animations (Apple-like)
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+        
+        document.querySelectorAll('.reveal-up, .reveal-apple').forEach(el => revealObserver.observe(el));
 
-                // Rotate particle system slowly
-                particlesMesh.rotation.y = elapsedTime * 0.05;
-                particlesMesh.rotation.x = elapsedTime * 0.02;
+        // Loader & Welcome Popup
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                    animateCounters(); 
+                    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#2563eb', '#10b981', '#f59e0b'] });
+                }, 600);
+            }, 1000);
+        };
 
-                // Gentle mouse parallax
-                camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
-                camera.position.y += (-mouseY * 2 - camera.position.y) * 0.05;
-                camera.lookAt(scene.position);
+        function closeWelcomePopup() {
+            document.getElementById('welcomePopup').style.opacity = '0';
+            setTimeout(() => document.getElementById('welcomePopup').style.display = 'none', 400);
+        }
 
-                // Animate shapes
-                shapes.forEach(shape => {
-                    shape.rotation.x += shape.userData.rx;
-                    shape.rotation.y += shape.userData.ry;
-                    shape.position.y += shape.userData.yVel;
-                    
-                    // Boundary check to keep them visible
-                    if(shape.position.y > 5) shape.position.y = -5;
-                    if(shape.position.y < -5) shape.position.y = 5;
-                });
+        // Animated Stats
+        function animateCounters() {
+            document.querySelectorAll('.counter-value').forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const speed = 100; 
+                const updateCount = () => {
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 20);
+                    } else { counter.innerText = target; }
+                };
+                updateCount();
+            });
+        }
 
-                renderer.render(scene, camera);
+        // Scroll Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            document.getElementById("progressBar").style.width = (winScroll / height) * 100 + "%";
+        };
+
+        // Shop Status
+        let hr = new Date().getHours();
+        let statusEl = document.getElementById('shopStatus');
+        if((hr >= 8 && hr < 12) || (hr >= 15 && hr < 20)) {
+            statusEl.innerHTML = "<i class='fa-solid fa-door-open'></i> અત્યારે Office ચાલુ છે";
+        } else {
+            statusEl.innerHTML = "<i class='fa-solid fa-door-closed'></i> અત્યારે Office બંધ છે";
+            statusEl.style.background = "rgba(239, 68, 68, 0.1)"; 
+            statusEl.style.borderColor = "#ef4444";
+            statusEl.style.color = "#ef4444";
+        }
+
+        // Auto Typing
+        const words = ["📍 ઢુણાદરા | 💻 ઓનલાઇન સેવાઓનું વિશ્વાસપાત્ર કેન્દ્ર"];
+        let i = 0, j = 0, isDeleting = false;
+        function typeText() {
+            let text = words[i];
+            document.getElementById('typingText').innerText = text.substring(0, j) + "|";
+            if(!isDeleting && j === text.length) { isDeleting = true; setTimeout(typeText, 3000); return; }
+            if(isDeleting && j === 0) { isDeleting = false; i = (i + 1) % words.length; }
+            j += isDeleting ? -1 : 1;
+            setTimeout(typeText, isDeleting ? 30 : 80);
+        }
+        typeText();
+
+        // Category Filter
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            let cards = document.getElementsByClassName('service-card');
+            for (let i = 0; i < cards.length; i++) {
+                let c = cards[i].getAttribute('data-category');
+                cards[i].style.display = (cat === 'all' || c === cat) ? "" : "none";
             }
-            animate();
+        }
+
+        // Search functions
+        function searchService() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('service-card');
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getAttribute('data-title').toLowerCase();
+                cards[i].style.display = title.includes(input) ? "" : "none";
+            }
+        }
+        function startVoiceSearch() {
+            if ('webkitSpeechRecognition' in window) {
+                let recognition = new webkitSpeechRecognition();
+                recognition.lang = "gu-IN";
+                recognition.start();
+                document.getElementById('searchInput').placeholder = "સાંભળી રહ્યા છીએ...";
+                recognition.onresult = function(e) {
+                    document.getElementById('searchInput').value = e.results[0][0].transcript;
+                    searchService();
+                    document.getElementById('searchInput').placeholder = "યોજના અથવા સેવાનું નામ શોધો...";
+                };
+            } else { alert("તમારો ફોન વોઇસ સર્ચ સપોર્ટ કરતો નથી."); }
+        }
+
+        // TTS
+        function speakText(element) {
+            let text = element.parentElement.parentElement.innerText.replace('સાંભળો', '').trim();
+            let utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'gu-IN';
+            speechSynthesis.speak(utterance);
+            event.stopPropagation();
+        }
+
+        // WhatsApp Inquiry
+        function sendInquiry() {
+            let name = document.getElementById('cName').value.trim();
+            let msg = document.getElementById('cMsg').value.trim();
+            if(!name || !msg) { alert("કૃપા કરીને વિગતો ભરો!"); return; }
+            confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+            setTimeout(() => {
+                let waText = "નમસ્કાર,%0A👤 નામ: " + encodeURIComponent(name) + "%0A📝 કામ: " + encodeURIComponent(msg) + "%0A📎 (મારા ડોક્યુમેન્ટ્સ હું આની સાથે મોકલી રહ્યો/રહી છું)";
+                window.open("https://wa.me/919638730186?text=" + waText, '_blank');
+            }, 800); 
+        }
+
+        // Settings
+        function toggleSettings() { document.getElementById('settingsMenu').classList.toggle('show'); }
+        function toggleTheme() {
+            let current = document.documentElement.getAttribute('data-theme');
+            document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+            toggleSettings();
+        }
+        function changeColor(primary, secondary) {
+            document.documentElement.style.setProperty('--primary', primary);
+            document.documentElement.style.setProperty('--secondary', secondary);
+            toggleSettings();
+        }
+        function shareWebsite() {
+            if (navigator.share) {
+                navigator.share({ title: 'અલ-અકશા કમ્પ્યુટર સેન્ટર', text: 'તમામ સરકારી યોજનાઓ અને ઓનલાઈન કામ માટે મુલાકાતકો:', url: window.location.href });
+            } else { alert("તમારા બ્રાઉઝરમાં શેર સપોર્ટ નથી, લિંક કોપી કરો."); }
+            toggleSettings();
         }
     </script>
 </body>
