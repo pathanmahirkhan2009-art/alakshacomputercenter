@@ -86,7 +86,9 @@
         .scrolling-text { display: inline-block; padding-left: 100%; animation: scrollNews 35s linear infinite; }
         @keyframes scrollNews { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
-        /* Premium Fluid Gradient & Grid Header Background (More Colors) */
+        /* ============================================================
+           PREMIUM CINEMATIC HEADER — ENHANCED LIVE ANIMATION SYSTEM
+           ============================================================ */
         header { 
             position: relative; 
             background: linear-gradient(45deg, #2563eb, #a855f7, #d946ef, #06b6d4, #10b981, #3b82f6, #2563eb); 
@@ -100,19 +102,62 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.2); 
             overflow: hidden; 
             transition: background 1.5s ease;
+            isolation: isolate;
         }
 
-        /* Tech Grid Pattern Overlay */
+        /* Tech Grid Pattern Overlay — now with pulsing animation */
         header::before {
             content: '';
             position: absolute;
             inset: 0;
             background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+                linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
             background-size: 40px 40px;
-            z-index: 1;
+            z-index: 2;
             pointer-events: none;
+            animation: headerGridPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes headerGridPulse {
+            0%, 100% { opacity: 0.5; background-size: 40px 40px; }
+            50% { opacity: 1; background-size: 42px 42px; }
+        }
+
+        /* Aurora Conic Gradient — Deep Rotating Background Layer */
+        header::after {
+            content: '';
+            position: absolute;
+            top: -60%;
+            left: -60%;
+            width: 220%;
+            height: 220%;
+            background: conic-gradient(
+                from 0deg at 50% 50%,
+                transparent 0deg,
+                rgba(139, 92, 246, 0.3) 55deg,
+                transparent 110deg,
+                rgba(6, 182, 212, 0.25) 165deg,
+                transparent 220deg,
+                rgba(236, 72, 153, 0.3) 275deg,
+                transparent 330deg,
+                rgba(16, 185, 129, 0.2) 355deg,
+                transparent 360deg
+            );
+            animation: auroraRotate 25s linear infinite;
+            z-index: 1;
+            filter: blur(80px);
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        [data-theme="dark"] header::after {
+            opacity: 0.9;
+        }
+
+        @keyframes auroraRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         @keyframes gradientBG {
@@ -121,7 +166,205 @@
             100% { background-position: 0% 50%; }
         }
 
-        .header-content { position: relative; z-index: 2; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 40px 30px; border-radius: 24px; max-width: 800px; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        /* Constellation Particle Canvas */
+        #headerCanvas {
+            position: absolute;
+            inset: 0;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 3;
+            pointer-events: none;
+            opacity: 0.45;
+        }
+        [data-theme="dark"] #headerCanvas {
+            opacity: 0.65;
+        }
+
+        /* Floating Luminous Orbs */
+        .header-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+            will-change: transform;
+            filter: blur(55px);
+        }
+        .header-orb-1 {
+            width: 300px; height: 300px;
+            background: rgba(99, 102, 241, 0.35);
+            top: -8%; left: 3%;
+            animation: orbDrift1 20s ease-in-out infinite;
+        }
+        .header-orb-2 {
+            width: 240px; height: 240px;
+            background: rgba(6, 182, 212, 0.3);
+            top: 35%; right: 3%;
+            animation: orbDrift2 17s ease-in-out infinite;
+        }
+        .header-orb-3 {
+            width: 360px; height: 360px;
+            background: rgba(236, 72, 153, 0.2);
+            bottom: -18%; left: 22%;
+            animation: orbDrift3 23s ease-in-out infinite;
+        }
+        .header-orb-4 {
+            width: 200px; height: 200px;
+            background: rgba(16, 185, 129, 0.3);
+            top: 12%; right: 22%;
+            animation: orbDrift4 19s ease-in-out infinite;
+        }
+        .header-orb-5 {
+            width: 270px; height: 270px;
+            background: rgba(245, 158, 11, 0.18);
+            bottom: 8%; right: 38%;
+            animation: orbDrift5 21s ease-in-out infinite;
+        }
+
+        @keyframes orbDrift1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(55px, -35px) scale(1.06); }
+            50% { transform: translate(-25px, 50px) scale(0.94); }
+            75% { transform: translate(40px, 18px) scale(1.03); }
+        }
+        @keyframes orbDrift2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            30% { transform: translate(-45px, 35px) scale(1.1); }
+            60% { transform: translate(35px, -30px) scale(0.9); }
+        }
+        @keyframes orbDrift3 {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(65px, -28px); }
+            66% { transform: translate(-40px, 38px); }
+        }
+        @keyframes orbDrift4 {
+            0%, 100% { transform: translate(0, 0); }
+            20% { transform: translate(-32px, 42px); }
+            40% { transform: translate(28px, -18px); }
+            60% { transform: translate(42px, 28px); }
+            80% { transform: translate(-18px, -38px); }
+        }
+        @keyframes orbDrift5 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            35% { transform: translate(-50px, -28px) scale(1.06); }
+            65% { transform: translate(28px, 42px) scale(0.94); }
+        }
+
+        /* Sweeping Light Streaks */
+        .header-streak {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .header-streak-1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.02) 25%,
+                rgba(255, 255, 255, 0.07) 50%,
+                rgba(255, 255, 255, 0.02) 75%,
+                transparent 100%
+            );
+            transform: skewX(-20deg);
+            animation: sweepLight 10s ease-in-out infinite;
+            will-change: transform;
+        }
+        .header-streak-2::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 35%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.015) 25%,
+                rgba(255, 255, 255, 0.05) 50%,
+                rgba(255, 255, 255, 0.015) 75%,
+                transparent 100%
+            );
+            transform: skewX(-35deg);
+            animation: sweepLight 14s ease-in-out infinite 5s;
+            will-change: transform;
+        }
+
+        @keyframes sweepLight {
+            0% { left: -120%; }
+            100% { left: 220%; }
+        }
+
+        /* Scanning Horizon Line */
+        .header-scan-line {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .header-scan-line::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 8%, rgba(255,255,255,0.45) 50%, transparent 92%);
+            animation: headerScanMove 7s linear infinite;
+            box-shadow:
+                0 0 12px 1px rgba(255, 255, 255, 0.2),
+                0 0 40px 3px rgba(139, 92, 246, 0.08);
+            will-change: top, opacity;
+        }
+
+        @keyframes headerScanMove {
+            0%   { top: -2px; opacity: 0; }
+            5%   { opacity: 0.7; }
+            92%  { opacity: 0.7; }
+            100% { top: calc(100% + 2px); opacity: 0; }
+        }
+
+        /* Edge Glow Accents */
+        .header-edge-glow {
+            position: absolute;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .header-edge-glow-left {
+            top: 0; left: 0; bottom: 0;
+            width: 120px;
+            background: linear-gradient(90deg, rgba(139, 92, 246, 0.15), transparent);
+            animation: edgeGlowPulse 6s ease-in-out infinite;
+        }
+        .header-edge-glow-right {
+            top: 0; right: 0; bottom: 0;
+            width: 120px;
+            background: linear-gradient(270deg, rgba(6, 182, 212, 0.15), transparent);
+            animation: edgeGlowPulse 6s ease-in-out infinite 3s;
+        }
+        .header-edge-glow-bottom {
+            bottom: 0; left: 0; right: 0;
+            height: 80px;
+            background: linear-gradient(0deg, rgba(236, 72, 153, 0.12), transparent);
+            animation: edgeGlowPulse 5s ease-in-out infinite 1.5s;
+        }
+
+        @keyframes edgeGlowPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        /* ============================================================
+           END PREMIUM HEADER ANIMATION SYSTEM
+           ============================================================ */
+
+        .header-content { position: relative; z-index: 5; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 40px 30px; border-radius: 24px; max-width: 800px; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         .shop-logo { width: 100px; height: 100px; border-radius: 50%; border: 4px solid rgba(255,255,255,0.8); margin-bottom: 10px; object-fit: cover; background: white; }
         
         h1 { margin: 0; font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1.3; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
@@ -244,6 +487,9 @@
             .wa-float i { font-size: 28px; margin: 0; }
             .settings-float { bottom: 20px; left: 20px; }
             .settings-menu { bottom: 80px; left: 20px; }
+            /* Reduce orb intensity on mobile for performance */
+            .header-orb { filter: blur(45px); }
+            .header-orb-3 { width: 250px; height: 250px; }
         }
         @media (max-width: 480px) {
             header { padding: 40px 15px 60px 15px; }
@@ -252,6 +498,9 @@
             .stat-number { font-size: 24px; }
             .search-container { flex-direction: column; }
             .mic-btn { width: 100%; border-radius: 12px; height: 50px;}
+            /* Further reduce on small screens */
+            .header-orb-4, .header-orb-5 { display: none; }
+            #headerCanvas { opacity: 0.3; }
         }
     </style>
 
@@ -338,6 +587,21 @@
         </div>
 
         <header>
+            <!-- ===== PREMIUM HEADER ANIMATION LAYERS ===== -->
+            <canvas id="headerCanvas"></canvas>
+            <div class="header-orb header-orb-1"></div>
+            <div class="header-orb header-orb-2"></div>
+            <div class="header-orb header-orb-3"></div>
+            <div class="header-orb header-orb-4"></div>
+            <div class="header-orb header-orb-5"></div>
+            <div class="header-streak header-streak-1"></div>
+            <div class="header-streak header-streak-2"></div>
+            <div class="header-scan-line"></div>
+            <div class="header-edge-glow header-edge-glow-left"></div>
+            <div class="header-edge-glow header-edge-glow-right"></div>
+            <div class="header-edge-glow header-edge-glow-bottom"></div>
+            <!-- ===== END ANIMATION LAYERS ===== -->
+
             <div class="header-content">
                 <img src="logo.jpg" alt="Al-Aksha Logo" class="shop-logo" onerror="this.style.display='none'">
                 <h1>
@@ -1436,6 +1700,129 @@
                 renderer.setSize(window.innerWidth, window.innerHeight);
             });
         })();
+
+        // =========================================================
+        // PREMIUM HEADER CONSTELLATION CANVAS ANIMATION
+        // Lightweight plexus/network particle effect inside header
+        // =========================================================
+        (function() {
+            const canvas = document.getElementById('headerCanvas');
+            if (!canvas) return;
+            const header = canvas.closest('header');
+            if (!header) return;
+            const ctx = canvas.getContext('2d');
+
+            const PARTICLE_COUNT = 65;
+            const CONNECTION_DIST = 110;
+            const SPEED = 0.3;
+            let particles = [];
+            let w, h, dpr;
+            let animId;
+
+            function resize() {
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                w = header.offsetWidth;
+                h = header.offsetHeight;
+                canvas.width = w * dpr;
+                canvas.height = h * dpr;
+                canvas.style.width = w + 'px';
+                canvas.style.height = h + 'px';
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+
+            function init() {
+                resize();
+                particles = [];
+                for (let i = 0; i < PARTICLE_COUNT; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    particles.push({
+                        x: Math.random() * w,
+                        y: Math.random() * h,
+                        vx: Math.cos(angle) * SPEED * (0.5 + Math.random()),
+                        vy: Math.sin(angle) * SPEED * (0.5 + Math.random()),
+                        r: Math.random() * 1.8 + 0.6,
+                        alpha: Math.random() * 0.4 + 0.3,
+                        pulseOffset: Math.random() * Math.PI * 2
+                    });
+                }
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, w, h);
+                const time = Date.now() * 0.001;
+
+                // Update positions
+                for (const p of particles) {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < -15) p.x = w + 15;
+                    if (p.x > w + 15) p.x = -15;
+                    if (p.y < -15) p.y = h + 15;
+                    if (p.y > h + 15) p.y = -15;
+                }
+
+                // Draw connections
+                ctx.lineWidth = 0.5;
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distSq = dx * dx + dy * dy;
+                        const maxDistSq = CONNECTION_DIST * CONNECTION_DIST;
+                        if (distSq < maxDistSq) {
+                            const dist = Math.sqrt(distSq);
+                            const opacity = (1 - dist / CONNECTION_DIST) * 0.3;
+                            ctx.beginPath();
+                            ctx.strokeStyle = 'rgba(255, 255, 255, ' + opacity + ')';
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                // Draw particles with subtle pulse
+                for (const p of particles) {
+                    const pulse = 0.7 + Math.sin(time * 1.5 + p.pulseOffset) * 0.3;
+                    const glowR = p.r * 3;
+                    
+                    // Outer glow
+                    const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowR);
+                    gradient.addColorStop(0, 'rgba(255, 255, 255, ' + (p.alpha * pulse * 0.4) + ')');
+                    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    ctx.beginPath();
+                    ctx.fillStyle = gradient;
+                    ctx.arc(p.x, p.y, glowR, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Core dot
+                    ctx.beginPath();
+                    ctx.fillStyle = 'rgba(255, 255, 255, ' + (p.alpha * pulse) + ')';
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                animId = requestAnimationFrame(draw);
+            }
+
+            init();
+            draw();
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    resize();
+                    for (const p of particles) {
+                        if (p.x > w) p.x = Math.random() * w;
+                        if (p.y > h) p.y = Math.random() * h;
+                    }
+                }, 250);
+            });
+        })();
+        // =========================================================
+        // END HEADER CONSTELLATION CANVAS
+        // =========================================================
 
         // Feature 36: Scattering Particle Logo
         const logo = document.querySelector('.shop-logo');
