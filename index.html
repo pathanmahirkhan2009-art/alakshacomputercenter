@@ -160,12 +160,6 @@
             to { transform: rotate(360deg); }
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
         /* Constellation Particle Canvas */
         #headerCanvas {
             position: absolute;
@@ -656,6 +650,7 @@
             <button class="cat-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> બધા કામ</button>
             <button class="cat-btn" onclick="filterCategory('yojna', this)"><i class="fa-solid fa-landmark-flag"></i> સરકારી યોજનાઓ</button>
             <button class="cat-btn" onclick="filterCategory('other', this)"><i class="fa-solid fa-desktop"></i> અન્ય સુવિધાઓ</button>
+            <button class="cat-btn" onclick="filterCategory('purava', this)"><i class="fa-solid fa-clipboard-list"></i> પુરાવાઓની યાદી</button>
         </div>
 
         <div class="container" id="serviceList">
@@ -1524,7 +1519,719 @@
 
 
             <!-- ==========================================
-                 SECTION 3: અન્ય ઓનલાઈન સુવિધાઓ 
+                 SECTION 3: પુરાવાઓની યાદી (NEW)
+            =========================================== -->
+            <div class="section-title reveal-up"><i class="fa-solid fa-clipboard-list"></i> 📋 વિવિધ સરકારી યોજનાઓના લાભ લેવા માટે પુરાવાઓની યાદી</div>
+
+            <!-- 1. બિન અનામતના દાખલા -->
+            <div class="service-card reveal-apple" data-title="બિન અનામતના દાખલા EWS જનરલ" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-file-circle-check service-title-icon" style="color: #6366f1;"></i> ૧. બિન અનામતના દાખલા માટે</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> અરજદારના આધારકાર્ડની ઝેરોક્ષ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઈઝ ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> અરજદારનું સ્કૂલ એલ.સી.</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પિતા, કાકા, ફોઈ, મોટા ભાઈ-બહેનનું સ્કૂલ એલ.સી.</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશનકાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> અરજદારના વાલીનું આધારકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> વેરા બિલ / લાઈટ બિલ / ભાડા કરાર</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 2. મેરેજ સર્ટિફિકેટ -->
+            <div class="service-card reveal-apple" data-title="મેરેજ સર્ટિફિકેટ લગ્ન પ્રમાણપત્ર marriage certificate" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-ring service-title-icon" style="color: #ec4899;"></i> ૨. મેરેજ સર્ટિફિકેટ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ / ચૂંટણીકાર્ડ (બંનેના)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લાઈટબીલ / આધારકાર્ડ (બંનેના)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ ફોટા (બંનેના)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લગ્નનો ફોટો (4x6 સાઈઝનો)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લગ્ન કંકોત્રી</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવિંગ સર્ટી (બંનેના)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સાક્ષીના આધારકાર્ડ - ૨</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ગોરદાદાનું આધારકાર્ડ અને શૈક્ષણિક લાયકાતનો પુરાવો</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 3. નવા રેશનકાર્ડ માટે -->
+            <div class="service-card reveal-apple" data-title="નવા રેશનકાર્ડ ration card new" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-address-card service-title-icon" style="color: #0ea5e9;"></i> ૩. નવા રેશનકાર્ડ માટે</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ચૂંટણીકાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> નામ કમીનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ તથા લાઈટ બીલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુકની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> તલાટીનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ગેસ પાસબુક (જો હોય તો)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશનકાર્ડ ધરાવતા નથી તેવું સોગંદનામું</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 4. ભાડા કરાર -->
+            <div class="service-card reveal-apple" data-title="ભાડા કરાર rent agreement" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-house-lock service-title-icon" style="color: #f59e0b;"></i> ૪. ભાડા કરાર</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> બંનેના ૧-૧ ફોટા અને આધારકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> વેરાબીલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ડિપોઝીટ અને ભાડાની વિગત</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 5. ઈ-શ્રમકાર્ડ -->
+            <div class="service-card reveal-apple" data-title="ઈ શ્રમકાર્ડ e-shram card" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-users-gear service-title-icon" style="color: #64748b;"></i> ૫. ઈ-શ્રમકાર્ડ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેન્કપાસબુક</li>
+                        </ul>
+                        <div class="important-note blue-note">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>નોંધ: વિકટ તથા મહામારી જેવી પરિસ્થિતીમાં કેન્દ્ર તેમજ રાજ્ય સરકારથી મદદ મળશે.</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 6. વિધવા સહાય યોજના -->
+            <div class="service-card reveal-apple" data-title="વિધવા સહાય યોજના widow" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-person-dress service-title-icon" style="color: #d946ef;"></i> ૬. વિધવા સહાય યોજના</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ચૂંટણીકાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશનકાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ઉંમરનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સંતાનના જન્મનો દાખલો અથવા આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પુત્રની આવકનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પતિના મૃત્યુનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લાઈટ બીલ / ભાડા કરાર</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 7. E.W.S. પ્રમાણપત્ર -->
+            <div class="service-card reveal-apple" data-title="EWS પ્રમાણપત્ર economically weaker section" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-certificate service-title-icon" style="color: #0284c7;"></i> ૭. E.W.S. પ્રમાણપત્ર માટે</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઈઝ ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> અરજદારનું શાળા છોડ્યાનું પ્રમાણપત્ર</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પિતા/કાકા/ફોઈ/મોટાભાઈ-બહેનનું શાળા છોડ્યાનું પ્રમાણપત્ર</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશનકાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> અરજદારના આધારકાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> અરજદારના વાલીનું આધાર કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> વેરાબીલ / લાઈટબીલ / ભાડાકરાર</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> છેલ્લા વર્ષના ઇન્કમટેક્ષ રીટર્ન</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 8. જાતિના દાખલા -->
+            <div class="service-card reveal-apple" data-title="જાતિના દાખલા caste certificate" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-users-viewfinder service-title-icon" style="color: #8b5cf6;"></i> ૮. જાતિના દાખલા માટે</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ સાઈઝ ૨ ફોટા</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશનકાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લાઈટ બીલ / વેરા બીલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> અરજદારના આધારકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> અરજદારના વાલીનું આધારકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બોનાફાઈડ સર્ટી (ભણતર શરુ હોય તો)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ભાડા કરાર (ભાડે હોય તો)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પિતા/ભાઈ-બહેન/કાકા/દાદા/ફોઈનું L.C (01/04/1978 પહેલાનું કોઈ એક વ્યક્તિનું)</li>
+                        </ul>
+                        <div class="important-note">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <span>નોંધ: L.C 01/04/1978 પહેલાનું હોવું ફરજીયાત છે.</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 9. આવકનો દાખલો -->
+            <div class="service-card reveal-apple" data-title="આવકનો દાખલો income certificate" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-file-invoice-dollar service-title-icon" style="color: #10b981;"></i> ૯. આવકનો દાખલો</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ૨ ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડની ઝેરોક્ષ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશનકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લાઈટબીલ / વેરાબીલની ઝેરોક્ષ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ૨ સાક્ષીના પુરાવા (આધારકાર્ડ ઝેરોક્ષ - સોસાયટીમાં રહેતા હોય તે)</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 10. પાનકાર્ડ -->
+            <div class="service-card reveal-apple" data-title="પાનકાર્ડ PAN card new correction" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-regular fa-id-card service-title-icon" style="color: #3b82f6;"></i> ૧૦. પાનકાર્ડ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડની ઝેરોક્ષ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ૨ પાસપોર્ટ સાઈઝ ફોટા</li>
+                        </ul>
+                        <div class="important-note blue-note">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>નોંધ: નવુ પાનકાર્ડ તેમજ સુધારા-વધારા કરી આપીશું.</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 11. એફીડેવીટ -->
+            <div class="service-card reveal-apple" data-title="એફીડેવીટ affidavit સોગંદનામું" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-stamp service-title-icon" style="color: #78716c;"></i> ૧૧. એફીડેવીટ (સોગંદનામું)</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ ફોટો - ૧</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 12. આયુષ્માન કાર્ડ -->
+            <div class="service-card reveal-apple" data-title="આયુષ્માન કાર્ડ ayushman card health" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-house-medical service-title-icon" style="color: #ef4444;"></i> ૧૨. આયુષ્માન કાર્ડ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડની ઝેરોક્ષ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશનકાર્ડની ઝેરોક્ષ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો</li>
+                        </ul>
+                        <div class="important-note blue-note">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>રૂા. ૧૦ લાખ સુધીની સહાય મળે છે.</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 13. નોન-ક્રીમીલેયર સર્ટી -->
+            <div class="service-card reveal-apple" data-title="નોન ક્રીમીલેયર સર્ટી non creamy layer" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-file-shield service-title-icon" style="color: #a855f7;"></i> ૧૩. નોન-ક્રીમીલેયર સર્ટી</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશનકાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> જાતીનો દાખલો (બક્ષીપંચનો)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> અરજદાર તથા પિતાનું સ્કૂલ L.C</li>
+                            <li><i class="fa-solid fa-circle-check"></i> વાલીના આવકનું સોગંદનામું (રૂા. ૩૦ ના સ્ટેમ્પ પેપર પર)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રૂા. ૩ ની કોર્ટ ફિ ની ટીકીટ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બે સાક્ષીના પુરાવા (આધારકાર્ડ સાથે)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> વેરાબીલ / આધારકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> છેલ્લુ લાઈટ બીલ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 14. ઉદ્યોગ આધાર -->
+            <div class="service-card reveal-apple" data-title="ઉદ્યોગ આધાર MSME Udyog Aadhaar" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-industry service-title-icon" style="color: #14b8a6;"></i> ૧૪. ઉદ્યોગ આધાર</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ / પાનકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક / મોબાઈલ નંબર</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ધંધાની માહિતી (નામ, સરનામાના પુરાવા સહિત)</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 15. Fastag -->
+            <div class="service-card reveal-apple" data-title="Fastag ફાસ્ટેગ toll" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-road service-title-icon" style="color: #f97316;"></i> ૧૫. Fastag</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> પાનકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> RC બુક</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લાઈસન્સ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 16. RTE -->
+            <div class="service-card reveal-apple" data-title="RTE ઍડ્મિશન શાળા પ્રવેશ" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-school service-title-icon" style="color: #d946ef;"></i> ૧૬. RTE (Right To Education)</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધાર કાર્ડ (પિતા, માતા, બાળક)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશનકાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લાઈટબીલ / વેરાબીલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ભાડા કરાર</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આવકનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ બોનાફાઈડ સર્ટી</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 17. ડોમીસાઈલ સર્ટી -->
+            <div class="service-card reveal-apple" data-title="ડોમીસાઈલ સર્ટી domicile certificate" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-house-flag service-title-icon" style="color: #eab308;"></i> ૧૭. ડોમીસાઈલ સર્ટી</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશનકાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવિંગ સર્ટી</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પોલીસ સ્ટેશનનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> તલાટીનો ૧૦ વર્ષનો રહેઠાણનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રહેઠાણનું સોગંદનામું (રૂ. ૨૦ ના સ્ટેમ્પ પર)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ૨ સાક્ષીના પુરાવા (આધારકાર્ડ સાથે)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ તથા છેલ્લું લાઈટબીલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ૧૦ વર્ષની મિલકતનો પુરાવો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ધો. ૧ થી ૧૨ ની માર્કસીટ તથા બોનાફાઈડ સર્ટી</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 18. પાસપોર્ટ -->
+            <div class="service-card reveal-apple" data-title="પાસપોર્ટ passport" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-plane-departure service-title-icon" style="color: #4338ca;"></i> ૧૮. પાસપોર્ટ માટે</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> જન્મનો દાખલો / સ્કૂલ L.C.</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લાઈટબીલ / વેરાબીલ / ભાડાકરાર</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 19. ચૂંટણીકાર્ડ -->
+            <div class="service-card reveal-apple" data-title="ચૂંટણીકાર્ડ voter ID card" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-check-to-slot service-title-icon" style="color: #ec4899;"></i> ૧૯. ચૂંટણીકાર્ડ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડની ઝેરોક્ષ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ઘરના મેમ્બરના વોટરકાર્ડની ઝેરોક્ષ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 20. નવા બારકોડેડ રેશનકાર્ડ -->
+            <div class="service-card reveal-apple" data-title="નવા બારકોડેડ રેશનકાર્ડ barcoded ration card" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-barcode service-title-icon" style="color: #059669;"></i> ૨૦. નવા બારકોડેડ રેશનકાર્ડ માટે</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ચૂંટણી કાર્ડ (જે સભ્યો ધરાવતા હોય તે તમામ)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ (તમામ સભ્યોના)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લાઈટબીલ / વેરાબીલ / ભાડાકરાર</li>
+                            <li><i class="fa-solid fa-circle-check"></i> નામ કમીના દાખલા / જૂના રદ કરવામાં આવેલ રેશનકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> મુખ્ય વ્યક્તિનો ફોટો</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 21. કુંવરબાઈનું મામેરૂ -->
+            <div class="service-card reveal-apple" data-title="કુંવરબાઈનું મામેરૂ kunvarbai mameru" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-gift service-title-icon" style="color: #f43f5e;"></i> ૨૧. કુંવરબાઈનું મામેરૂ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> વર અને કન્યાના આધારકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> વર અને કન્યાનું સ્કૂલ L.C.</li>
+                            <li><i class="fa-solid fa-circle-check"></i> કન્યાની બેન્ક પાસબુક (જેમાં કન્યાના પિતાનું નામ હોય)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> મેરેજ સર્ટી અને લગ્ન કંકોત્રી</li>
+                            <li><i class="fa-solid fa-circle-check"></i> કન્યાના પિતાની આવકનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> કન્યાના પિતાનું રેશન કાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> કન્યાના પિતાના રહેઠાણનો પુરાવો (લાઈટબીલ/વેરાબીલ/ભાડા કરાર)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> કન્યાના પાસપોર્ટ સાઈઝ ફોટો અને કપલ ફોટો</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 22. RC બુક નામ ટ્રાન્સફર -->
+            <div class="service-card reveal-apple" data-title="RC બુક નામ ટ્રાન્સફર vehicle transfer" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-car service-title-icon" style="color: #0ea5e9;"></i> ૨૨. RC બુક નામ ટ્રાન્સફર</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ચૂંટણીકાર્ડ (લેનારનું)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ (વેચનારનું)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> વીમા પોલીસીની ઝેરોક્ષ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ચેસીસ નંબરની પ્રિન્ટ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 23. RTO ના કામ -->
+            <div class="service-card reveal-apple" data-title="RTO ના કામ ગાડી નંબર પ્લેટ" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-truck-moving service-title-icon" style="color: #475569;"></i> ૨૩. RTO ના કામ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> સેવાઓ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ગાડી નામે કરવી</li>
+                            <li><i class="fa-solid fa-circle-check"></i> નંબર પ્લેટ લેવી</li>
+                            <li><i class="fa-solid fa-circle-check"></i> RTO ને લગતા તમામ કામો</li>
+                        </ul>
+                        <div class="important-note blue-note">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>નોંધ: RTO ના તમામ કામ માટે સંપર્ક કરો.</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 24. આધારકાર્ડ -->
+            <div class="service-card reveal-apple" data-title="આધારકાર્ડ aadhaar card new update" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-fingerprint service-title-icon" style="color: #10b981;"></i> ૨૪. આધારકાર્ડ માટે</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ઓળખનો પુરાવો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> જન્મનો પુરાવો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રહેણાંકનો પુરાવો</li>
+                        </ul>
+                        <div class="important-note">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <span>નોંધ: ૫ વર્ષથી નાના બાળકો માટે માતા-પિતાનું આધારકાર્ડ ફરજીયાત છે.</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 25. ટુ-વ્હીલ / ફોર-વ્હીલ લાઈસન્સ -->
+            <div class="service-card reveal-apple" data-title="ટુ વ્હીલ ફોર વ્હીલ લાઈસન્સ driving licence" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-car-side service-title-icon" style="color: #f97316;"></i> ૨૫. ટુ-વ્હીલ / ફોર-વ્હીલ લાઈસન્સ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ અને સ્કૂલ L.C.</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પાનકાર્ડ અને ૨ ફોટા</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ચૂંટણીકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લાઈટબીલ (ભાડે હોય તો ભાડાકરાર)</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 26. કિસાન સમ્માનનિધિ -->
+            <div class="service-card reveal-apple" data-title="કિસાન સમ્માનનિધિ PM kisan" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-seedling service-title-icon" style="color: #22c55e;"></i> ૨૬. કિસાન સમ્માનનિધિ</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બેંક પાસબુક</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ૭/૧૨ અને ૮-અ</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 27. ગુમાસ્તાધારા પ્રમાણપત્ર -->
+            <div class="service-card reveal-apple" data-title="ગુમાસ્તાધારા પ્રમાણપત્ર વ્યવસાય વેરો shop act licence" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-store service-title-icon" style="color: #0284c7;"></i> ૨૭. ગુમાસ્તાધારા પ્રમાણપત્ર / વ્યવસાય વેરો</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> વેરાબીલ તથા વેરો ભર્યાની રસીદ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ખરીદ વેચાણના બીલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આઈ.ડી. પ્રૂફ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ભાડે હોય તો ભાડા કરાર</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ફેમિલીમેન હોય તો સંમતિપત્રક</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ભાગીદારી હોય તો ભાગીદારી દસ્તાવેજ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> જો સંસ્થા લિમિટેડ/પ્રાઈવેટ લિમીટેડ હોય તો મેમોરેન્ડમ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રબ્બર સ્ટેમ્પ</li>
+                        </ul>
+                        <div class="important-note">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <span>નોંધ: ઉપરના બધા પુરાવા ટી કોપી કરી લાવવાના રહેશે. દરેક પુરાવાના પેપર ની બે કોપી ઝેરોક્ષ લાવવી.</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 28. ગેઝેટ્સ -->
+            <div class="service-card reveal-apple" data-title="ગેઝેટ્સ gazette name change" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-newspaper service-title-icon" style="color: #d97706;"></i> ૨૮. ગેઝેટ્સ (નામ બદલવા માટે)</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પાનકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ચૂંટણીકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશનકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પાસપોર્ટ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લાઈસન્સ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ L.C</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ૨ ફોટા</li>
+                            <li><i class="fa-solid fa-circle-check"></i> લાઈટબીલ / વેરાબીલ / ભાડાકરાર</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 29. રેશનકાર્ડમાં નામ ચડાવવા -->
+            <div class="service-card reveal-apple" data-title="રેશનકાર્ડમાં નામ ચડાવવા add name ration" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-user-plus service-title-icon" style="color: #10b981;"></i> ૨૯. રેશનકાર્ડમાં નામ ચડાવવા માટે</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશનકાર્ડની ઝેરોક્ષ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ / ચૂંટણીકાર્ડ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> બાળકના નામ ઉમેરવા માટે જન્મનો દાખલો / સ્કૂલ લિવીંગ સર્ટી</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ૧૦ વર્ષથી વધુ ઉંમરવાળા બાળકો માટે સોગંદનામુ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> પુત્રવધુ તથા મોટી ઉંમરના વ્યક્તિઓનાં નામ માટે મામલતદારશ્રીના નામ કમીનો દાખલો</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 30. સીનીયર સીટીઝન સર્ટી -->
+            <div class="service-card reveal-apple" data-title="સીનીયર સીટીઝન સર્ટી senior citizen certificate" data-category="purava">
+                <details>
+                    <summary>
+                        <div class="summary-left"><i class="fa-solid fa-person-cane service-title-icon" style="color: #71717a;"></i> ૩૦. સીનીયર સીટીઝન સર્ટી</div>
+                        <div class="summary-actions">
+                            <span class="tts-btn" onclick="speakText(this)"><i class="fa-solid fa-volume-high"></i> સાંભળો</span>
+                        </div>
+                    </summary>
+                    <div class="docs-list">
+                        <strong><i class="fa-solid fa-list-check"></i> જરૂરી ડોક્યુમેન્ટ્સ:</strong>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> ફોર્મ અને ફોટો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> ચૂંટણીકાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સ્કૂલ લિવીંગ સર્ટી / જન્મનો દાખલો</li>
+                            <li><i class="fa-solid fa-circle-check"></i> આધારકાર્ડ (જન્મ તારીખ સાથે)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> સિવિલ સર્જનનું ૬૦ વર્ષની ઉંમરનું પ્રમાણ પત્ર</li>
+                            <li><i class="fa-solid fa-circle-check"></i> રેશનકાર્ડની નકલ</li>
+                            <li><i class="fa-solid fa-circle-check"></i> છેલ્લુ લાઈટબીલ</li>
+                        </ul>
+                        <div class="important-note">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <span>નોંધ: લાભ લેવાની તારીખે ૬૦ વર્ષ પુરા કરેલ હોવા જોઈએ.</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+
+            <!-- ==========================================
+                 SECTION 4: અન્ય ઓનલાઈન સુવિધાઓ 
             =========================================== -->
             <div class="section-title reveal-up"><i class="fa-solid fa-desktop"></i> અમારી અન્ય ઓનલાઈન સુવિધાઓ</div>
 
